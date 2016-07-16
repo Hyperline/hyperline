@@ -1,13 +1,13 @@
 {
-  "name": "hyperbar",
-  "version": "1.0.0",
-  "description": "Handy status bar for HyperTerm",
+  "name": "hyperline",
+  "version": "0.0.1",
+  "description": "Handy status line for HyperTerm",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nick Tikhonov",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
   }
 }

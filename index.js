@@ -54,9 +54,10 @@ exports.decorateTerm = (Term, { React, notify }) => {
       let avMem  = (this._sysData.avmem / (1024 * 1024)).toFixed(0) + "MB"
       let ttMem  = (this._sysData.ttmem / (1024 * 1024)).toFixed(0) + "MB"
       let upTime  = (this._sysData.uptime / 3600).toFixed(0) + "HRS"
+      let hostName = (this._sysData.hostname)
 
       this._fetchData()
-      this._canvasContext.fillText(avMem + "/" + ttMem + " " + upTime, 5, this._canvas.height - 5);
+      this._canvasContext.fillText(hostName + " " + avMem + "/" + ttMem + " " + upTime, 5, this._canvas.height - 5);
 
       setTimeout(() => {this._window.requestAnimationFrame(this._drawFrame)},200)
     }
@@ -65,7 +66,8 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._sysData = {
         avmem: os.freemem(),
         ttmem: os.totalmem(),
-        uptime: os.uptime()
+        uptime: os.uptime(),
+        hostname: os.hostname()
       }
     }
 

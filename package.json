@@ -2,6 +2,7 @@
   "name": "hyperline",
   "version": "0.0.1",
   "description": "Handy status line for HyperTerm",
+  "keywords": ["hyperterm"],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

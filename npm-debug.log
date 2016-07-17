@@ -1,0 +1,103 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/6.2.0/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@3.8.9
+3 info using node@v6.2.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/nick/.hyperterm_plugins/local/test',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/nick/.npm/hyperline/0.0.1/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/nick/.npm correctMkdir not in flight; initializing
+10 info lifecycle hyperline@0.0.1~prepublish: hyperline@0.0.1
+11 silly lifecycle hyperline@0.0.1~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/nick/.npm/hyperline/0.0.1/package.tgz',
+12 verbose tar pack   '/Users/nick/.hyperterm_plugins/local/test' ]
+13 verbose tarball /Users/nick/.npm/hyperline/0.0.1/package.tgz
+14 verbose folder /Users/nick/.hyperterm_plugins/local/test
+15 verbose addLocalTarball adding from inside cache /Users/nick/.npm/hyperline/0.0.1/package.tgz
+16 verbose correctMkdir /Users/nick/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd hyperline@0.0.1
+18 verbose afterAdd /Users/nick/.npm/hyperline/0.0.1/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/nick/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/nick/.npm/hyperline/0.0.1/package/package.json written
+21 silly publish { name: 'hyperline',
+21 silly publish   version: '0.0.1',
+21 silly publish   description: 'Handy status line for HyperTerm',
+21 silly publish   keywords: [ 'hyperterm' ],
+21 silly publish   main: 'index.js',
+21 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+21 silly publish   author: { name: 'Nick Tikhonov' },
+21 silly publish   license: 'MIT',
+21 silly publish   dependencies: {},
+21 silly publish   readme: 'HyperLine\n=========\n\nHyperLine is a status line plugin for [HyperTerm](https://hyperterm.org/).\n\n<img width="678" alt="screen shot 2016-07-16 at 17 57 18" src="https://cloud.githubusercontent.com/assets/6755555/16898127/f75b50a0-4b7e-11e6-88ad-687f4702a38e.png">\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: '4a12be4f91982b479cff8e3497cd69f8de3a6032',
+21 silly publish   _id: 'hyperline@0.0.1',
+21 silly publish   _shasum: '7d44c783a613eee10204566fb2eea8dab3c6d847',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name hyperline
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'hyperline',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   name: 'hyperline',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/hyperline
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/nick/.npm/hyperline/0.0.1/package.tgz
+30 verbose request uri https://registry.npmjs.org/hyperline
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 6:09:23 PM
+33 verbose request using bearer token for auth
+34 verbose request id 18dafb1d68207318
+35 http request PUT https://registry.npmjs.org/hyperline
+36 http 403 https://registry.npmjs.org/hyperline
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '95',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Sun, 17 Jul 2016 01:09:23 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-sea1921-SEA',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1468717763.296686,VS0,VE80',
+37 verbose headers   vary: 'Accept-Encoding' }
+38 verbose request invalidating /Users/nick/.npm/registry.npmjs.org/hyperline on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: "You cannot publish over the previously published version 0.0.1." : hyperline
+40 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+40 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+40 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:200:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1067:10)
+40 verbose stack     at emitOne (events.js:101:20)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:988:12)
+41 verbose statusCode 403
+42 verbose pkgid hyperline
+43 verbose cwd /Users/nick/.hyperterm_plugins/local/test
+44 error Darwin 15.0.0
+45 error argv "/usr/local/Cellar/node/6.2.0/bin/node" "/usr/local/bin/npm" "publish"
+46 error node v6.2.0
+47 error npm  v3.8.9
+48 error code E403
+49 error "You cannot publish over the previously published version 0.0.1." : hyperline
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]

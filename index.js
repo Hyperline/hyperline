@@ -7,6 +7,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._onTerminal = this._onTerminal.bind(this);
       this._drawFrame = this._drawFrame.bind(this);
       this._resizeCanvas = this._resizeCanvas.bind(this);
+      this._fixCanvasScaling = this._fixCanvasScaling.bind(this);
       this._fetchData = this._fetchData.bind(this);
       this._cpuAverage = this._cpuAverage.bind(this);
       this._canvas = null
@@ -42,50 +43,85 @@ exports.decorateTerm = (Term, { React, notify }) => {
       document.body.appendChild(this._canvas);
       this._window.requestAnimationFrame(this._drawFrame);
       this._window.addEventListener('resize', this._resizeCanvas);
+
+      this._fixCanvasScaling()
+    }
+
+    _fixCanvasScaling() {
+      var canvas = this._canvas,
+          context = this._canvasContext
+
+      var devicePixelRatio = window.devicePixelRatio || 1
+      var backingStoreRatio = context.webkitBackingStorePixelRatio ||
+                              context.mozBackingStorePixelRatio ||
+                              context.msBackingStorePixelRatio ||
+                              context.oBackingStorePixelRatio ||
+                              context.backingStorePixelRatio || 1
+
+      this._ratio = devicePixelRatio / backingStoreRatio;
+
+      if (this._ratio !== 1) {
+        var oldWidth = canvas.width;
+        var oldHeight = canvas.height;
+
+        canvas.width = oldWidth * this._ratio;
+        canvas.height = oldHeight * this._ratio;
+
+        canvas.style.width = oldWidth + 'px';
+        canvas.style.height = oldHeight + 'px';
+
+        context.scale(this._ratio, this._ratio);
+      }
     }
 
     _drawFrame() {
-      this._canvasContext.clearRect(0, 0, this._canvas.width, this._canvas.height);
+      var ctx = this._canvasContext
 
-      this._canvasContext.fillStyle="#222222"
-      this._canvasContext.fillRect(0,this._canvas.height - 18,this._canvas.width,18)
+      var canvasWidth = this._canvas.width / this._ratio
+      var canvasHeight = this._canvas.height / this._ratio
 
-      this._canvasContext.font = 'bold 0.8pc Monospace';
+      var x_start = 5
+      var y_offset = canvasHeight - 5
+
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      ctx.fillStyle="#222222"
+      ctx.fillRect(0,canvasHeight - 18,canvasWidth, 18)
+
+      ctx.font = 'bold 0.8pc Monospace';
 
       this._fetchData()
 
-      var x_start = 5
-
-      this._canvasContext.fillStyle="#00D0FF"
+      ctx.fillStyle="#00D0FF"
       let hostName = (this._sysData.hostname)
       let toPrint = hostName + " "
-      this._canvasContext.fillText(toPrint, x_start, this._canvas.height - 5);
-      x_start += this._canvasContext.measureText(toPrint).width
+      ctx.fillText(toPrint, x_start, y_offset);
+      x_start += ctx.measureText(toPrint).width
 
-      this._canvasContext.fillStyle="#FFFFFF"
+      ctx.fillStyle="#FFFFFF"
       let avMem  = (this._sysData.avmem / (1024 * 1024)).toFixed(0) + "MB"
       let ttMem  = (this._sysData.ttmem / (1024 * 1024)).toFixed(0) + "MB"
       toPrint = avMem + "/" + ttMem + " "
-      this._canvasContext.fillText(toPrint, x_start, this._canvas.height - 5);
-      x_start += this._canvasContext.measureText(toPrint).width
+      ctx.fillText(toPrint, x_start, y_offset);
+      x_start += ctx.measureText(toPrint).width
 
-      this._canvasContext.fillStyle="#FFCC00"
+      ctx.fillStyle="#FFCC00"
       let upTime  = (this._sysData.uptime / 3600).toFixed(0) + "HRS"
       toPrint = upTime + " "
-      this._canvasContext.fillText(toPrint, x_start, this._canvas.height - 5);
-      x_start += this._canvasContext.measureText(toPrint).width
+      ctx.fillText(toPrint, x_start, y_offset);
+      x_start += ctx.measureText(toPrint).width
 
       let cpuAvg = this._cpuAverage()
       if (cpuAvg < 50) {
-        this._canvasContext.fillStyle="#15FF00"
+        ctx.fillStyle="#15FF00"
       } else if (cpuAvg < 75){
-        this._canvasContext.fillStyle="#F6FF00"
+        ctx.fillStyle="#F6FF00"
       } else {
-        this._canvasContext.fillStyle="#FF0000"
+        ctx.fillStyle="#FF0000"
       }
 
       toPrint = cpuAvg + "% "
-      this._canvasContext.fillText(toPrint, x_start, this._canvas.height - 5);
+      ctx.fillText(toPrint, x_start, y_offset);
 
       setTimeout(() => {this._window.requestAnimationFrame(this._drawFrame)},200)
     }
@@ -100,7 +136,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
     }
 
     _cpuAverage() {
-      console.log("Cpuavg called")
       var totalIdle = 0, totalTick = 0;
       var cpus = os.cpus();
 
@@ -135,6 +170,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
     _resizeCanvas() {
       this._canvas.width = window.innerWidth;
       this._canvas.height = window.innerHeight;
+      this._fixCanvasScaling()
     }
 
     render () {

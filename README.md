@@ -15,6 +15,12 @@ plugins: [
 ],   
 ```
 
+## Contributing
+
+Feel free to contribute to HyperTerm by [requesting a feature](https://github.com/NickTikhonov/hyperterm-hyperline/issues/new), [submitting a bug](https://github.com/NickTikhonov/hyperterm-hyperline/issues/new) or contributing code.
+
+To set up the package for development, clone this repository into `~/.hyperterm_plugins/local/` and add the name of the directory to `localPlugins` in `.hyperterm.js`.
+
 ## License
 
 MIT

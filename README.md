@@ -14,3 +14,7 @@ plugins: [
   "hyperline",                                                                                           
 ],   
 ```
+
+## License
+
+MIT

@@ -15,6 +15,8 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._fetchData()
     }
 
+
+
     /**
      * Called when a new terminal instance is loaded
      */
@@ -33,9 +35,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._canvas.style.position = 'absolute'
       this._canvas.style.top = '0'
       this._canvas.style.pointerEvents = 'none'
-      this._canvas.width = window.innerWidth
-      this._canvas.height = window.innerHeight
-
       this._canvasContext = this._canvas.getContext('2d')
       document.body.appendChild(this._canvas)
       this._window.requestAnimationFrame(this._drawFrame)
@@ -59,19 +58,16 @@ exports.decorateTerm = (Term, { React, notify }) => {
         || 1
 
       this._ratio = devicePixelRatio / backingStoreRatio
+      console.log(this._ratio)
 
-      if (this._ratio !== 1) {
-        const oldWidth = canvas.width
-        const oldHeight = canvas.height
+      canvas.width = window.innerWidth * this._ratio
+      canvas.height = window.innerHeight * this._ratio
 
-        canvas.width = oldWidth * this._ratio
-        canvas.height = oldHeight * this._ratio
+      canvas.style.width = window.innerWidth + 'px'
+      canvas.style.height = window.innerHeight + 'px'
 
-        canvas.style.width = oldWidth + 'px'
-        canvas.style.height = oldHeight + 'px'
-
-        ctx.scale(this._ratio, this._ratio)
-      }
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.scale(this._ratio, this._ratio)
     }
 
     /**

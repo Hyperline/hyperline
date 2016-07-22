@@ -1,21 +1,34 @@
-var os = require("os")
+var withColor = require("./lib/utils").withColor
+
+const LINE_HEIGHT = 18
+const LINE_PADDING = 5
+const FONT_STYLE = "bold 0.8pc Monospace"
+const ITEM_MARGIN = 7
+
+const LINE_COLOR = "#222222"
+
+const HOSTNAME_COLOR = "#00D0FF"
+const MEMORY_INFO_COLOR = "#FFFFFF"
+const UPTIME_INFO_COLOR = "#FFCC00"
+
+var items = [
+  withColor(require("./lib/info-items/hostname"), HOSTNAME_COLOR),
+  withColor(require("./lib/info-items/memory"), MEMORY_INFO_COLOR),
+  withColor(require("./lib/info-items/uptime"), UPTIME_INFO_COLOR),
+  require("./lib/info-items/cpu"),
+]
 
 exports.decorateTerm = (Term, { React, notify }) => {
   return class extends React.Component {
     constructor (props, context) {
       super(props, context)
       this._onTerminal = this._onTerminal.bind(this)
+      this._initCanvas = this._initCanvas.bind(this)
+      this._scaleCanvas = this._scaleCanvas.bind(this)
       this._drawFrame = this._drawFrame.bind(this)
       this._resizeCanvas = this._resizeCanvas.bind(this)
-      this._scaleCanvas = this._scaleCanvas.bind(this)
-      this._fetchData = this._fetchData.bind(this)
-      this._cpuAverage = this._cpuAverage.bind(this)
       this._canvas = null
-
-      this._fetchData()
     }
-
-
 
     /**
      * Called when a new terminal instance is loaded
@@ -74,20 +87,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
      * Main render function - draws the status bar on the canvas.
      */
     _drawFrame() {
-      // Color constants
-      const LINE_HEIGHT = 18
-      const LINE_PADDING = 5
-      const FONT_STYLE = "bold 0.8pc Monospace"
-      const LINE_COLOR = "#222222"
-      const HOSTNAME_COLOR = "#00D0FF"
-      const MEMORY_INFO_COLOR = "#FFFFFF"
-      const UPTIME_INFO_COLOR = "#FFCC00"
-      const CPU_USAGE_COLORS = {
-        HIGH: "#FF0000",
-        MODERATE: "#F6FF00",
-        LOW: "#15FF00"
-      }
-
       // Prepare canvas, render line rect
       const canvas = this._canvas
       const ratio = this._ratio
@@ -106,86 +105,16 @@ exports.decorateTerm = (Term, { React, notify }) => {
 
       ctx.font = FONT_STYLE
 
-      this._fetchData()
+      items.forEach(function(each) {
+        x_start += each.render(ctx, {
+          x: x_start,
+          y: y_offset
+        })
 
-      // Hostname
-      ctx.fillStyle = HOSTNAME_COLOR
-      let hostName = (this._sysData.hostname)
-      let toPrint = hostName + " "
-      ctx.fillText(toPrint, x_start, y_offset)
-      x_start += ctx.measureText(toPrint).width
-
-      // Memory info
-      ctx.fillStyle = MEMORY_INFO_COLOR
-      let avMem  = (this._sysData.avmem / (1024 * 1024)).toFixed(0) + "MB"
-      let ttMem  = (this._sysData.ttmem / (1024 * 1024)).toFixed(0) + "MB"
-      toPrint = avMem + "/" + ttMem + " "
-      ctx.fillText(toPrint, x_start, y_offset)
-      x_start += ctx.measureText(toPrint).width
-
-      // Uptime info
-      ctx.fillStyle = UPTIME_INFO_COLOR
-      let upTime = (this._sysData.uptime / 3600).toFixed(0) + "HRS"
-      toPrint = upTime + " "
-      ctx.fillText(toPrint, x_start, y_offset)
-      x_start += ctx.measureText(toPrint).width
-
-      // CPU usage
-      const cpuAvg = this._cpuAverage()
-      if (cpuAvg < 50) {
-        ctx.fillStyle = CPU_USAGE_COLORS.LOW
-      } else if (cpuAvg < 75){
-        ctx.fillStyle = CPU_USAGE_COLORS.MODERATE
-      } else {
-        ctx.fillStyle = CPU_USAGE_COLORS.LOW
-      }
-
-      toPrint = cpuAvg + "% "
-      ctx.fillText(toPrint, x_start, y_offset)
+        x_start += ITEM_MARGIN
+      })
 
       setTimeout(() => {this._window.requestAnimationFrame(this._drawFrame)},200)
-    }
-
-    _fetchData() {
-      this._sysData = {
-        avmem: os.freemem(),
-        ttmem: os.totalmem(),
-        uptime: os.uptime(),
-        hostname: os.hostname()
-      }
-    }
-
-    _cpuAverage() {
-      var totalIdle = 0, totalTick = 0
-      var cpus = os.cpus()
-
-      for (var i = 0, len = cpus.length; i < len; i++) {
-        const cpu = cpus[i]
-
-        var type
-        for (type in cpu.times) {
-          totalTick += cpu.times[type]
-        }
-
-        totalIdle += cpu.times.idle
-      }
-
-      const idle = totalIdle / cpus.length
-      const total = totalTick / cpus.length
-
-      var rtn = ""
-      if (this._idleCpu) {
-        const idleDifference = idle - this._idleCpu
-        const totalDifference = total - this._totalCpu
-        rtn = 100 - ~~(100 * idleDifference / totalDifference)
-      } else {
-        rtn = 0
-      }
-
-      this._idleCpu = idle
-      this._totalCpu = total
-
-      return rtn
     }
 
     _resizeCanvas() {

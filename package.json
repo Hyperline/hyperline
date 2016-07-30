@@ -26,5 +26,9 @@
     "presets": [
       "es2015"
     ]
+  },
+  "scripts": {
+    "build": "NODE_ENV=production webpack",
+    "dev": "webpack --watch"
   }
 }

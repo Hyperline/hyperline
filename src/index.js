@@ -18,7 +18,7 @@ var items = [
   require("./lib/info-items/cpu"),
 ]
 
-exports.decorateTerm = (Term, { React, notify }) => {
+module.exports.decorateTerm = (Term, { React, notify }) => {
   return class extends React.Component {
     constructor (props, context) {
       super(props, context)

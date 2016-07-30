@@ -2,17 +2,29 @@
   "name": "hyperline",
   "version": "0.2.0",
   "description": "Handy status line for HyperTerm",
-  "keywords": ["hyperterm"],
-  "main": "index.js",
+  "keywords": [
+    "hyperterm"
+  ],
+  "main": "dist/hyperline.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nick Tikhonov",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/NickTikhonov/hyperterm-hyperline.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NickTikhonov/hyperterm-hyperline.git"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "webpack": "^1.13.1"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }

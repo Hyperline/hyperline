@@ -2,7 +2,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: './dist',
-    filename: 'hyperline.js'
+    filename: 'hyperline.js',
+    libraryTarget: "commonjs"
   },
   module: {
     loaders: [

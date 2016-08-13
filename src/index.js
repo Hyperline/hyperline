@@ -1,4 +1,8 @@
-var withColor = require("./lib/utils").withColor
+import utils from "./lib/utils"
+import hostname from "./lib/info-items/hostname"
+import memory from "./lib/info-items/memory"
+import uptime from "./lib/info-items/uptime"
+import cpu from "./lib/info-items/cpu"
 
 const LINE_HEIGHT = 18
 const LINE_PADDING = 5
@@ -12,10 +16,10 @@ const MEMORY_INFO_COLOR = "#FFFFFF"
 const UPTIME_INFO_COLOR = "#FFCC00"
 
 var items = [
-  withColor(require("./lib/info-items/hostname"), HOSTNAME_COLOR),
-  withColor(require("./lib/info-items/memory"), MEMORY_INFO_COLOR),
-  withColor(require("./lib/info-items/uptime"), UPTIME_INFO_COLOR),
-  require("./lib/info-items/cpu"),
+  utils.withColor(hostname, HOSTNAME_COLOR),
+  utils.withColor(memory, MEMORY_INFO_COLOR),
+  utils.withColor(uptime, UPTIME_INFO_COLOR),
+  cpu
 ]
 
 module.exports.decorateTerm = (Term, { React, notify }) => {

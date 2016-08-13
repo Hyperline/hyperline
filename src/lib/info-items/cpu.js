@@ -1,4 +1,4 @@
-var os = require("os")
+import os from "os"
 
 const CPU_USAGE_COLORS = {
   HIGH: "#FF0000",

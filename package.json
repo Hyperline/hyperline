@@ -6,9 +6,6 @@
     "hyperterm"
   ],
   "main": "dist/hyperline.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Nick Tikhonov",
   "license": "MIT",
   "repository": {

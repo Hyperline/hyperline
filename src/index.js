@@ -1,4 +1,4 @@
-import utils from "./lib/utils"
+import { withColor } from "./lib/utils"
 import hostname from "./lib/info-items/hostname"
 import memory from "./lib/info-items/memory"
 import uptime from "./lib/info-items/uptime"
@@ -16,9 +16,9 @@ const MEMORY_INFO_COLOR = "#FFFFFF"
 const UPTIME_INFO_COLOR = "#FFCC00"
 
 var items = [
-  utils.withColor(hostname, HOSTNAME_COLOR),
-  utils.withColor(memory, MEMORY_INFO_COLOR),
-  utils.withColor(uptime, UPTIME_INFO_COLOR),
+  withColor(hostname, HOSTNAME_COLOR),
+  withColor(memory, MEMORY_INFO_COLOR),
+  withColor(uptime, UPTIME_INFO_COLOR),
   cpu
 ]
 

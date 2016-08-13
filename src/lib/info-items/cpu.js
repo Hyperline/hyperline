@@ -51,7 +51,7 @@ function getCpuPercentage(child, calculate) {
   } else if (cpuAvg < 75){
     child.style.color = CPU_USAGE_COLORS.MODERATE
   } else {
-    child.style.color = CPU_USAGE_COLORS.LOW
+    child.style.color = CPU_USAGE_COLORS.HIGH
   }
 
   return cpuAvg

@@ -1,4 +1,4 @@
-var os = require("os")
+import os from 'os'
 
 const CPU_USAGE_COLORS = {
   HIGH: "#FF0000",
@@ -6,9 +6,12 @@ const CPU_USAGE_COLORS = {
   LOW: "#15FF00"
 }
 
-module.exports = {
-  calculate: function() {
-    var totalIdle = 0, totalTick = 0
+function calculateFactory () {
+  let _idleCpu;
+  let _totalCpu;
+  return function calculate () {
+    let totalIdle = 0
+    let totalTick = 0
     var cpus = os.cpus()
 
     for (var i = 0, len = cpus.length; i < len; i++) {
@@ -25,38 +28,39 @@ module.exports = {
     const idle = totalIdle / cpus.length
     const total = totalTick / cpus.length
 
-    var rtn = ""
-    if (this._idleCpu) {
-      const idleDifference = idle - this._idleCpu
-      const totalDifference = total - this._totalCpu
+    let rtn
+    if (_idleCpu) {
+      const idleDifference = idle - _idleCpu
+      const totalDifference = total - _totalCpu
       rtn = 100 - ~~(100 * idleDifference / totalDifference)
     } else {
       rtn = 0
     }
 
-    this._idleCpu = idle
-    this._totalCpu = total
+    _idleCpu = idle
+    _totalCpu = total
 
     return rtn
-  },
-
-  get: function() {
-    return this.calculate() + "%"
-  },
-
-  render: function(ctx, pos) {
-    const cpuAvg = this.calculate()
-    if (cpuAvg < 50) {
-      ctx.fillStyle = CPU_USAGE_COLORS.LOW
-    } else if (cpuAvg < 75){
-      ctx.fillStyle = CPU_USAGE_COLORS.MODERATE
-    } else {
-      ctx.fillStyle = CPU_USAGE_COLORS.LOW
-    }
-
-    const toPrint = cpuAvg + "%"
-
-    ctx.fillText(toPrint, pos.x, pos.y)
-    return ctx.measureText(toPrint).width
   }
+}
+
+function getCpuPercentage(child, calculate) {
+  const cpuAvg = calculate()
+  if (cpuAvg < 50) {
+    child.style.color = CPU_USAGE_COLORS.LOW
+  } else if (cpuAvg < 75){
+    child.style.color = CPU_USAGE_COLORS.MODERATE
+  } else {
+    child.style.color = CPU_USAGE_COLORS.LOW
+  }
+
+  return cpuAvg
+}
+
+export function render (child) {
+  const calculate = calculateFactory()
+
+  child.innerHTML = getCpuPercentage(child, calculate) + '%'
+
+  setInterval(() => child.innerHTML = getCpuPercentage(child, calculate) + '%', 200)
 }

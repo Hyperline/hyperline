@@ -1,16 +1,13 @@
-var os = require("os")
+import os from 'os'
 
-module.exports = {
-  get: function() {
-    var free  = (os.freemem() / (1024 * 1024)).toFixed(0) + "MB"
-    var total  = (os.totalmem() / (1024 * 1024)).toFixed(0) + "MB"
-    return free + "/" + total
-  },
+function getFreeMemory () {
+  return (os.freemem() / (1024 * 1024)).toFixed(0) + 'MB'
+}
 
-  render: function(ctx, pos) {
-    const toPrint = this.get()
+export function render (child) {
+  const total = (os.totalmem() / (1024 * 1024)).toFixed(0) + 'MB'
 
-    ctx.fillText(toPrint, pos.x, pos.y)
-    return ctx.measureText(toPrint).width
-  }
+  child.innerHTML = getFreeMemory() + '/' + total
+
+  setInterval(() => child.innerHTML = getFreeMemory() + '/' + total, 100)
 }

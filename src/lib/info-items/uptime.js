@@ -1,8 +1,8 @@
-var os = require("os")
+import os from "os"
 
 module.exports = {
   get: function() {
-    return os.hostname()
+    return (os.uptime() / 3600).toFixed(0) + "HRS"
   },
 
   render: function(ctx, pos) {

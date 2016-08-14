@@ -1,4 +1,4 @@
-var os = require("os")
+import os from "os"
 
 module.exports = {
   get: function() {

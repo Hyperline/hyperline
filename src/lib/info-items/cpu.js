@@ -1,6 +1,6 @@
 import os from "os"
 
-export function cpuFactory (React) {
+export function cpuFactory (React, colors) {
   return class extends React.Component {
     constructor (props) {
       super(props)
@@ -60,9 +60,9 @@ export function cpuFactory (React) {
 
     getColor (cpuAverage) {
       const CPU_USAGE_COLORS = {
-        HIGH    : "#FF0000",
-        MODERATE: "#F6FF00",
-        LOW     : "#15FF00"
+        HIGH    : colors.lightRed,
+        MODERATE: colors.lightYellow,
+        LOW     : colors.lightGreen
       }
 
       if (cpuAverage < 50) {

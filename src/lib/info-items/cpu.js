@@ -1,62 +1,91 @@
 import os from "os"
 
-const CPU_USAGE_COLORS = {
-  HIGH: "#FF0000",
-  MODERATE: "#F6FF00",
-  LOW: "#15FF00"
-}
+export function cpuFactory (React) {
+  return class extends React.Component {
+    constructor (props) {
+      super(props)
 
-module.exports = {
-  calculate: function() {
-    var totalIdle = 0, totalTick = 0
-    var cpus = os.cpus()
-
-    for (var i = 0, len = cpus.length; i < len; i++) {
-      const cpu = cpus[i]
-
-      var type
-      for (type in cpu.times) {
-        totalTick += cpu.times[type]
+      this.state = {
+        cpuAverage: this.getCpuAverage(),
+        idleCpu   : false,
+        totalCpu  : false
       }
 
-      totalIdle += cpu.times.idle
+      setInterval(() => this.getCpuAverage(), 500)
     }
 
-    const idle = totalIdle / cpus.length
-    const total = totalTick / cpus.length
+    calculate () {
+      let totalIdle = 0
+      let totalTick = 0
+      const cpus = os.cpus()
 
-    var rtn = ""
-    if (this._idleCpu) {
-      const idleDifference = idle - this._idleCpu
-      const totalDifference = total - this._totalCpu
-      rtn = 100 - ~~(100 * idleDifference / totalDifference)
-    } else {
-      rtn = 0
+      for (let i = 0, len = cpus.length; i < len; i++) {
+        const cpu = cpus[i]
+
+        for (let type in cpu.times) {
+          if (cpu.times.hasOwnProperty(type)) {
+            totalTick += cpu.times[type]
+          }
+        }
+
+        totalIdle += cpu.times.idle
+      }
+
+      const idle = totalIdle / cpus.length
+      const total = totalTick / cpus.length
+
+      let rtn
+      if (this.state && this.state.idleCpu) {
+        const idleDifference = idle - this.state.idleCpu
+        const totalDifference = total - this.state.totalCpu
+        rtn = 100 - ~~(100 * idleDifference / totalDifference)
+      } else {
+        rtn = 0
+      }
+
+      this.setState({
+        idleCpu : idle,
+        totalCpu: total
+      })
+
+      return rtn
     }
 
-    this._idleCpu = idle
-    this._totalCpu = total
+    getCpuAverage () {
+      const cpuAverage = this.calculate()
+      this.setState({ cpuAverage })
 
-    return rtn
-  },
-
-  get: function() {
-    return this.calculate() + "%"
-  },
-
-  render: function(ctx, pos) {
-    const cpuAvg = this.calculate()
-    if (cpuAvg < 50) {
-      ctx.fillStyle = CPU_USAGE_COLORS.LOW
-    } else if (cpuAvg < 75){
-      ctx.fillStyle = CPU_USAGE_COLORS.MODERATE
-    } else {
-      ctx.fillStyle = CPU_USAGE_COLORS.HIGH
+      return cpuAverage
     }
 
-    const toPrint = cpuAvg + "%"
+    getColor (cpuAverage) {
+      const CPU_USAGE_COLORS = {
+        HIGH    : "#FF0000",
+        MODERATE: "#F6FF00",
+        LOW     : "#15FF00"
+      }
 
-    ctx.fillText(toPrint, pos.x, pos.y)
-    return ctx.measureText(toPrint).width
+      if (cpuAverage < 50) {
+        return CPU_USAGE_COLORS.LOW
+      } else if (cpuAverage < 75) {
+        return CPU_USAGE_COLORS.MODERATE
+      }
+
+      return CPU_USAGE_COLORS.HIGH
+    }
+
+    getStyle () {
+      return Object.assign({}, this.props.style, {
+        color: this.getColor(this.state.cpuAverage)
+      })
+    }
+
+    render () {
+      return (
+        <div style={this.getStyle()}>
+          {this.state.cpuAverage}%
+        </div>
+      )
+    }
   }
 }

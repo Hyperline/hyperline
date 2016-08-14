@@ -1,4 +1,4 @@
-import os from 'os'
+import os from "os"
 
 export function memoryFactory (React) {
   return class extends React.Component {
@@ -13,7 +13,7 @@ export function memoryFactory (React) {
     }
 
     getMb (bytes) {
-      return (bytes / (1024 * 1024)).toFixed(0) + 'MB'
+      return (bytes / (1024 * 1024)).toFixed(0) + "MB"
     }
 
     calculateFreeMemory () {

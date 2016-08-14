@@ -1,12 +1,12 @@
-import { hostnameFactory } from './lib/info-items/hostname'
-import { memoryFactory } from './lib/info-items/memory'
-import { uptimeFactory } from './lib/info-items/uptime'
-import { cpuFactory } from './lib/info-items/cpu'
+import { hostnameFactory } from "./lib/info-items/hostname"
+import { memoryFactory } from "./lib/info-items/memory"
+import { uptimeFactory } from "./lib/info-items/uptime"
+import { cpuFactory } from "./lib/info-items/cpu"
 
 const LINE_HEIGHT = 18
 const LINE_PADDING = 10
 const FONT_STYLE = "bold 12px Monospace"
-const ITEM_MARGIN = '7px'
+const ITEM_MARGIN = "7px"
 
 const LINE_COLOR = "#222222"
 

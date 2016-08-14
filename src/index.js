@@ -15,26 +15,26 @@ const MEMORY_INFO_COLOR = "#FFFFFF"
 const UPTIME_INFO_COLOR = "#FFCC00"
 
 export function decorateHyperTerm (HyperTerm, { React }) {
-  class HyperLine extends React.Component {
-    render () {
-      return (
-        <div style={{
-          display      : 'flex',
-          alignItems   : 'center',
-          position     : 'absolute',
-          bottom       : 0,
-          width        : '100%',
-          height       : LINE_HEIGHT + 'px',
-          paddingLeft  : LINE_PADDING + 'px',
-          paddingRight : LINE_PADDING + 'px',
-          background   : LINE_COLOR,
-          font         : FONT_STYLE,
-          pointerEvents: 'none'
-        }}>
-          {this.props.children}
-        </div>
-      )
-    }
+  const HyperLine = ({
+    children
+  }) => {
+    return (
+      <div style={{
+        display      : "flex",
+        alignItems   : "center",
+        position     : "absolute",
+        bottom       : 0,
+        width        : "100%",
+        height       : LINE_HEIGHT + "px",
+        paddingLeft  : LINE_PADDING + "px",
+        paddingRight : LINE_PADDING + "px",
+        background   : LINE_COLOR,
+        font         : FONT_STYLE,
+        pointerEvents: "none"
+      }}>
+        {children}
+      </div>
+    )
   }
 
   return class extends React.Component {
@@ -55,7 +55,7 @@ export function decorateHyperTerm (HyperTerm, { React }) {
         },
         {
           componentFactory: cpuFactory,
-          color           : 'transparent'
+          color           : "transparent"
         }
       ]
     }

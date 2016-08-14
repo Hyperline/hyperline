@@ -1,5 +1,9 @@
 import os from 'os'
 
-export function render (child) {
-  child.innerHTML = os.hostname()
+export function hostnameFactory (React) {
+  return class extends React.Component {
+    render () {
+      return <div style={this.props.style}>{os.hostname()}</div>
+    }
+  }
 }

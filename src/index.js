@@ -15,36 +15,36 @@ const LINE_HEIGHT = '18px',
   MEMORY_INFO_COLOR = '#FFFFFF',
   UPTIME_INFO_COLOR = '#FFCC00'
 
-export function mapHyperTermState (state, map) {
-  return Object.assign({}, map, {
-    colors    : state.ui.colors,
+export function mapHyperTermState( state, map ) {
+  return Object.assign( {}, map, {
+    colors: state.ui.colors,
     fontFamily: state.ui.fontFamily
-  })
+  } )
 }
 
-export function decorateHyperTerm (HyperTerm, { React }) {
-  const HyperLine = ({ style, colors, plugins }) => {
+export function decorateHyperTerm( HyperTerm, { React } ) {
+  const HyperLine = ( { style, colors, plugins } ) => {
     return (
-      <div style={Object.assign({}, {
-        display      : "flex",
-        alignItems   : "center",
-        position     : "absolute",
-        bottom       : 0,
-        width        : "100%",
-        height       : LINE_HEIGHT,
-        paddingLeft  : LINE_PADDING,
-        paddingRight : LINE_PADDING,
-        font         : FONT_STYLE,
-        pointerEvents: "none"
-      }, style)}>
+      <div style={Object.assign( {}, {
+        display: 'flex',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        height: LINE_HEIGHT,
+        paddingLeft: LINE_PADDING,
+        paddingRight: LINE_PADDING,
+        font: FONT_STYLE,
+        pointerEvents: 'none'
+      }, style )}>
         {
-          plugins.map((item) => {
-            const Component = item.componentFactory(React, colors)
+          plugins.map( ( item ) => {
+            const Component = item.componentFactory( React, colors )
             return <Component style={{
               marginRight: ITEM_MARGIN,
-              color      : item.color
+              color: item.color
             }} />
-          })
+          } )
         }
       </div>
     )
@@ -79,8 +79,8 @@ export function decorateHyperTerm (HyperTerm, { React }) {
       return <HyperTerm {...this.props} customChildren={(
         <HyperLine
           style={{
-          fontFamily: this.props.fontFamily,
-          background: Color(this.colors.black).darken(0.2).hslString()
+            fontFamily: this.props.fontFamily,
+            background: Color( this.colors.black ).darken( 0.2 ).hslString()
           }}
           colors={this.colors}
           plugins={this.plugins}

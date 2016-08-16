@@ -1,5 +1,11 @@
 {
-  "extends": "idiomatic",
+  "plugins": [
+    "react"
+  ],
+  "extends": [
+    "idiomatic",
+    "plugin:react/recommended"
+  ],
   "parserOptions": {
       "sourceType": "module",
       "ecmaFeatures": {

@@ -1,8 +1,8 @@
-import os from "os"
+import os from 'os'
 
-export function hostnameFactory (React) {
+export function hostnameFactory( React ) {
   return class extends React.Component {
-    render () {
+    render() {
       return <div style={this.props.style}>{os.hostname()}</div>
     }
   }

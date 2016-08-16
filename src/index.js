@@ -1,15 +1,19 @@
 import Color from 'color'
 
 import { getColorList } from './lib/utils/colors'
-import { hostnameFactory } from "./lib/info-items/hostname"
-import { memoryFactory } from "./lib/info-items/memory"
-import { uptimeFactory } from "./lib/info-items/uptime"
-import { cpuFactory } from "./lib/info-items/cpu"
+import { hostnameFactory } from './lib/info-items/hostname'
+import { memoryFactory } from './lib/info-items/memory'
+import { uptimeFactory } from './lib/info-items/uptime'
+import { cpuFactory } from './lib/info-items/cpu'
 
-const LINE_HEIGHT = "18px"
-const LINE_PADDING = "10px"
-const FONT_STYLE = "bold 12px Monospace"
-const ITEM_MARGIN = "7px"
+const LINE_HEIGHT = '18px',
+  LINE_PADDING = '10px',
+  FONT_STYLE = 'bold 12px Monospace',
+  ITEM_MARGIN = '7px',
+  LINE_COLOR = '#222222',
+  HOSTNAME_COLOR = '#00D0FF',
+  MEMORY_INFO_COLOR = '#FFFFFF',
+  UPTIME_INFO_COLOR = '#FFCC00'
 
 export function mapHyperTermState (state, map) {
   return Object.assign({}, map, {
@@ -47,31 +51,31 @@ export function decorateHyperTerm (HyperTerm, { React }) {
   }
 
   return class extends React.Component {
-    constructor (props, context) {
-      super(props, context)
+    constructor( props, context ) {
+      super( props, context )
 
-      this.colors = getColorList(this.props.colors)
+      this.colors = getColorList( this.props.colors )
       this.plugins = [
         {
           componentFactory: hostnameFactory,
-          color           : this.colors.blue
+          color: this.colors.blue
         },
         {
           componentFactory: memoryFactory,
-          color           : this.colors.white
+          color: this.colors.white
         },
         {
           componentFactory: uptimeFactory,
-          color           : this.colors.yellow
+          color: this.colors.yellow
         },
         {
           componentFactory: cpuFactory,
-          color           : "transparent"
+          color: 'transparent'
         }
       ]
     }
 
-    render () {
+    render() {
       return <HyperTerm {...this.props} customChildren={(
         <HyperLine
           style={{

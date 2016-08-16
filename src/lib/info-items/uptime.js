@@ -2,6 +2,16 @@ import os from 'os'
 
 export function uptimeFactory( React ) {
   return class extends React.Component {
+    static displayName() {
+      return 'Uptime plugin'
+    }
+
+    static propTypes() {
+      return {
+        style: React.PropTypes.object
+      }
+    }
+
     constructor( props ) {
       super( props )
       this.state = {

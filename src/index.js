@@ -9,11 +9,7 @@ import { cpuFactory } from './lib/info-items/cpu'
 const LINE_HEIGHT = '18px',
   LINE_PADDING = '10px',
   FONT_STYLE = 'bold 12px Monospace',
-  ITEM_MARGIN = '7px',
-  LINE_COLOR = '#222222',
-  HOSTNAME_COLOR = '#00D0FF',
-  MEMORY_INFO_COLOR = '#FFFFFF',
-  UPTIME_INFO_COLOR = '#FFCC00'
+  ITEM_MARGIN = '7px'
 
 export function mapHyperTermState( state, map ) {
   return Object.assign( {}, map, {

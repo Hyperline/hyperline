@@ -46,7 +46,24 @@ export function decorateHyperTerm( HyperTerm, { React } ) {
     )
   }
 
+  HyperLine.propTypes = {
+    colors: React.PropTypes.object,
+    style: React.PropTypes.object,
+    plugins: React.PropTypes.array
+  }
+
   return class extends React.Component {
+    static propTypes() {
+      return {
+        colors: React.PropTypes.oneOfType( [
+          React.PropTypes.object,
+          React.PropTypes.array
+        ] ),
+        fontFamily: React.PropTypes.string,
+        style: React.PropTypes.object
+      }
+    }
+
     constructor( props, context ) {
       super( props, context )
 

@@ -2,6 +2,16 @@ import os from 'os'
 
 export function cpuFactory( React, colors ) {
   return class extends React.Component {
+    static displayName() {
+      return 'CPU plugin'
+    }
+
+    static propTypes() {
+      return {
+        style: React.PropTypes.object
+      }
+    }
+
     constructor( props ) {
       super( props )
 

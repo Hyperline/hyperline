@@ -2,6 +2,16 @@ import os from 'os'
 
 export function memoryFactory( React ) {
   return class extends React.Component {
+    static displayName() {
+      return 'Memory plugin'
+    }
+
+    static propTypes() {
+      return {
+        style: React.PropTypes.object
+      }
+    }
+
     constructor( props ) {
       super( props )
       this.state = {

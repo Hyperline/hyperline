@@ -13,7 +13,7 @@ export function cpuFactory( React, colors ) {
     }
 
     constructor( props ) {
-      super( props )
+      super(props )
 
       this.state = {
         cpuAverage: this.calculateCpuUsage(),
@@ -21,11 +21,11 @@ export function cpuFactory( React, colors ) {
         totalCpu: false
       }
 
-      setInterval( () => {
-        this.setState( {
+      setInterval(() => {
+        this.setState({
           cpuAverage: this.calculateCpuUsage()
-        } )
-      }, 500 )
+        })
+      }, 500)
     }
 
     calculateCpuUsage() {

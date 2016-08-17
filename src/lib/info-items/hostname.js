@@ -1,6 +1,6 @@
 import os from 'os'
 
-export function hostnameFactory( React ) {
+export function hostnameFactory(React) {
   return class extends React.Component {
     static displayName() {
       return 'Hostname plugin'
@@ -13,7 +13,11 @@ export function hostnameFactory( React ) {
     }
 
     render() {
-      return <div style={this.props.style}>{os.hostname()}</div>
+      return (
+        <div style={this.props.style}>
+          {os.hostname()}
+        </div>
+      )
     }
   }
 }

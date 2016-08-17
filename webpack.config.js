@@ -4,13 +4,22 @@ module.exports = {
   output: {
     path: './dist',
     filename: 'hyperline.js',
-    libraryTarget: "commonjs"
+    libraryTarget: 'commonjs'
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      }
+    ],
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: [
+          'babel'
+        ],
         exclude: /node_modules/,
         query: {
           presets: [
@@ -20,5 +29,8 @@ module.exports = {
         }
       }
     ]
+  },
+  eslint: {
+    configFile: '.eslintrc'
   }
 };

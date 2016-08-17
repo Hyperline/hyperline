@@ -1,86 +1,96 @@
-import os from "os"
+import os from 'os'
 
-export function cpuFactory (React, colors) {
+export function cpuFactory( React, colors ) {
   return class extends React.Component {
-    constructor (props) {
-      super(props)
-
-      this.state = {
-        cpuAverage: this.getCpuAverage(),
-        idleCpu   : false,
-        totalCpu  : false
-      }
-
-      setInterval(() => this.getCpuAverage(), 500)
+    static displayName() {
+      return 'CPU plugin'
     }
 
-    calculate () {
-      let totalIdle = 0
-      let totalTick = 0
+    static propTypes() {
+      return {
+        style: React.PropTypes.object
+      }
+    }
+
+    constructor( props ) {
+      super(props )
+
+      this.state = {
+        cpuAverage: this.calculateCpuUsage(),
+        idleCpu: false,
+        totalCpu: false
+      }
+
+      setInterval(() => {
+        this.setState({
+          cpuAverage: this.calculateCpuUsage()
+        })
+      }, 500)
+    }
+
+    calculateCpuUsage() {
+      let totalIdle = 0,
+        totalTick = 0,
+        idle,
+        total,
+        averageCpuUsage
+
       const cpus = os.cpus()
 
-      for (let i = 0, len = cpus.length; i < len; i++) {
-        const cpu = cpus[i]
+      for ( let i = 0, len = cpus.length; i < len; i++ ) {
+        const cpu = cpus[ i ]
 
-        for (let type in cpu.times) {
-          if (cpu.times.hasOwnProperty(type)) {
-            totalTick += cpu.times[type]
+        for ( let type in cpu.times ) {
+          if ( cpu.times.hasOwnProperty( type ) ) {
+            totalTick += cpu.times[ type ]
           }
         }
 
         totalIdle += cpu.times.idle
       }
 
-      const idle = totalIdle / cpus.length
-      const total = totalTick / cpus.length
+      idle = totalIdle / cpus.length
+      total = totalTick / cpus.length
 
-      let rtn
-      if (this.state && this.state.idleCpu) {
-        const idleDifference = idle - this.state.idleCpu
-        const totalDifference = total - this.state.totalCpu
-        rtn = 100 - ~~(100 * idleDifference / totalDifference)
+      if ( this.state && this.state.idleCpu ) {
+        const idleDifference = idle - this.state.idleCpu,
+          totalDifference = total - this.state.totalCpu
+        averageCpuUsage = 100 - ~~( 100 * idleDifference / totalDifference )
       } else {
-        rtn = 0
+        averageCpuUsage = 0
       }
 
-      this.setState({
-        idleCpu : idle,
+      this.setState( {
+        idleCpu: idle,
         totalCpu: total
-      })
+      } )
 
-      return rtn
+      return averageCpuUsage
     }
 
-    getCpuAverage () {
-      const cpuAverage = this.calculate()
-      this.setState({ cpuAverage })
-
-      return cpuAverage
-    }
-
-    getColor (cpuAverage) {
+    getColor( cpuAverage ) {
       const CPU_USAGE_COLORS = {
-        HIGH    : colors.lightRed,
+        HIGH: colors.lightRed,
         MODERATE: colors.lightYellow,
-        LOW     : colors.lightGreen
+        LOW: colors.lightGreen
       }
 
-      if (cpuAverage < 50) {
+      if ( cpuAverage < 50 ) {
         return CPU_USAGE_COLORS.LOW
-      } else if (cpuAverage < 75) {
+      } else if ( cpuAverage < 75 ) {
         return CPU_USAGE_COLORS.MODERATE
       }
 
       return CPU_USAGE_COLORS.HIGH
     }
 
-    getStyle () {
-      return Object.assign({}, this.props.style, {
-        color: this.getColor(this.state.cpuAverage)
-      })
+    getStyle() {
+      return Object.assign( {}, this.props.style, {
+        color: this.getColor( this.state.cpuAverage )
+      } )
     }
 
-    render () {
+    render() {
       return (
         <div style={this.getStyle()}>
           {this.state.cpuAverage}%

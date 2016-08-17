@@ -1,10 +1,10 @@
 import Color from 'color'
 
 import {getColorList} from './lib/utils/colors'
-import {hostnameFactory} from './lib/info-items/hostname'
-import {memoryFactory} from './lib/info-items/memory'
-import {uptimeFactory} from './lib/info-items/uptime'
-import {cpuFactory} from './lib/info-items/cpu'
+import {hostnameFactory} from './lib/plugins/hostname'
+import {memoryFactory} from './lib/plugins/memory'
+import {uptimeFactory} from './lib/plugins/uptime'
+import {cpuFactory} from './lib/plugins/cpu'
 
 const LINE_HEIGHT = '18px',
   LINE_PADDING = '10px',

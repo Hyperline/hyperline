@@ -1,29 +1,35 @@
-import {
-  LINE_HEIGHT,
-  LINE_PADDING,
-  FONT_STYLE,
-  ITEM_MARGIN
-} from './constants'
+import Color from 'color'
+
+const style = {
+  display: 'flex',
+  alignItems: 'center',
+  position: 'absolute',
+  bottom: 0,
+  width: '100%',
+  height: '18px',
+  paddingLeft: '10px',
+  paddingRight: '10px',
+  font: 'bold 12px Monospace',
+  pointerEvents: 'none'
+}
 
 export const hyperlineFactory = (React) => {
-  const HyperLine = ({style, colors, plugins}) => {
+  const HyperLine = ({
+    fontFamily,
+    colors,
+    plugins
+  }) => {
     return (
-      <div style={Object.assign({}, {
-        display: 'flex',
-        alignItems: 'center',
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        height: LINE_HEIGHT,
-        paddingLeft: LINE_PADDING,
-        paddingRight: LINE_PADDING,
-        font: FONT_STYLE,
-        pointerEvents: 'none'
-      }, style)}>
+      <div
+        style={Object.assign(style, {
+          fontFamily,
+          background: Color(colors.black).darken(0.2).hslString()
+        })}
+      >
         {plugins.map((item) => {
-          const Component = item.componentFactory(React, colors)
-          return <Component style={{
-            marginRight: ITEM_MARGIN,
+          const Plugin = item.componentFactory(React, colors)
+          return <Plugin style={{
+            marginRight: '7px',
             color: item.color
           }} />
         })}
@@ -32,9 +38,9 @@ export const hyperlineFactory = (React) => {
   }
 
   HyperLine.propTypes = {
-    colors: React.PropTypes.object,
-    style: React.PropTypes.object,
-    plugins: React.PropTypes.array
+    fontFamily: React.PropTypes.string.isRequired,
+    colors: React.PropTypes.object.isRequired,
+    plugins: React.PropTypes.array.isRequired
   }
 
   return HyperLine

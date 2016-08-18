@@ -1,5 +1,3 @@
-import Color from 'color'
-
 import {hyperlineFactory} from './lib/core/hyperline'
 import {getColorList} from './lib/utils/colors'
 import {hostnameFactory} from './lib/plugins/hostname'
@@ -56,10 +54,7 @@ export function decorateHyperTerm(HyperTerm, {React}) {
     render() {
       return <HyperTerm {...this.props} customChildren={(
         <HyperLine
-          style={{
-            fontFamily: this.props.fontFamily,
-            background: Color(this.colors.black).darken(0.2).hslString()
-          }}
+          fontFamily={this.props.fontFamily}
           colors={this.colors}
           plugins={this.plugins}
         />

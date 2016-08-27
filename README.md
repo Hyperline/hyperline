@@ -23,7 +23,7 @@ To set up the project for development:
 
 1. Clone this repository into `~/.hyperterm_plugins/local/`
 2. Run `npm install` within the project directory
-3. Run `npm run build` to build the plugin OR `npm run dev` to build the plugin and watch for file changes.
+3. Run `npm run build` to build the plugin **OR** `npm run dev` to build the plugin and watch for file changes.
 4. Add the name of the directory to `localPlugins` in `~/.hyperterm.js`.
 5. Reload terminal window
 

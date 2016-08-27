@@ -4,6 +4,7 @@ import {hostnameFactory} from './lib/plugins/hostname'
 import {memoryFactory} from './lib/plugins/memory'
 import {uptimeFactory} from './lib/plugins/uptime'
 import {cpuFactory} from './lib/plugins/cpu'
+import {batteryFactory} from './lib/plugins/battery'
 
 export function mapHyperTermState(state, map) {
   return Object.assign({}, map, {
@@ -47,6 +48,10 @@ export function decorateHyperTerm(HyperTerm, {React}) {
         {
           componentFactory: cpuFactory,
           color: 'transparent'
+        },
+        {
+          componentFactory: batteryFactory,
+          color: this.colors.blue
         }
       ]
     }

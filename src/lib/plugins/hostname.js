@@ -1,4 +1,5 @@
 import os from 'os'
+import { drawIcon } from '../utils/icons'
 
 export function hostnameFactory(React) {
   return class extends React.Component {
@@ -15,7 +16,7 @@ export function hostnameFactory(React) {
     render() {
       return (
         <div style={this.props.style}>
-          {os.hostname()}
+          {drawIcon(React, 'hostname', this.props.style.color)} {os.hostname()}
         </div>
       )
     }

@@ -1,4 +1,5 @@
 import os from 'os'
+import { drawIcon } from '../utils/icons'
 
 export function cpuFactory( React, colors ) {
   return class extends React.Component {
@@ -93,7 +94,7 @@ export function cpuFactory( React, colors ) {
     render() {
       return (
         <div style={this.getStyle()}>
-          {this.state.cpuAverage}%
+          {drawIcon(React, 'cpu', this.getStyle().color)} {this.state.cpuAverage}%
         </div>
       )
     }

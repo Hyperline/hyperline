@@ -1,4 +1,5 @@
 import os from 'os'
+import { drawIcon } from '../utils/icons'
 
 export function memoryFactory(React) {
   return class extends React.Component {
@@ -35,7 +36,7 @@ export function memoryFactory(React) {
     render() {
       return (
         <div style={this.props.style}>
-          {this.state.freeMemory} / {this.state.totalMemory}
+          {drawIcon(React, 'memory', this.props.style.color)} {this.state.freeMemory} / {this.state.totalMemory}
         </div>
       )
     }

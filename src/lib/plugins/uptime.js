@@ -1,4 +1,5 @@
 import os from 'os'
+import { drawIcon } from '../utils/icons'
 
 export function uptimeFactory(React) {
   return class extends React.Component {
@@ -32,7 +33,7 @@ export function uptimeFactory(React) {
     render() {
       return (
         <div style={this.props.style}>
-          {this.state.uptime}HRS
+          {drawIcon(React, 'uptime', this.props.style.color)} {this.state.uptime}HRS
         </div>
       )
     }

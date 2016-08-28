@@ -29,13 +29,15 @@ export const hyperlineFactory = (React) => {
           return <Plugin style={{
             display: 'flex',
             alignItems: 'center',
+            color: item.color,
             paddingLeft: '7px',
             paddingRight: '7px',
-            borderColor: 'rgba(255, 255, 255, .2)',
-            borderWidth: '0',
             borderLeft: '1px',
+            borderTop: '0px',
+            borderRight: '0px',
+            borderBottom: '0px',
             borderStyle: 'solid',
-            color: item.color,
+            borderColor: 'rgba(255, 255, 255, .2)',
           }} />
         })}
       </div>

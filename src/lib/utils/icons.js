@@ -1,5 +1,4 @@
 const styles = {
-  marginRight: '7px'
 }
 
 export const drawIcon = (React, icon, fill) => {
@@ -46,7 +45,7 @@ export const drawIcon = (React, icon, fill) => {
     cpu: (<svg style={styles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" fillRule="evenodd">
         <g fill={fill} transform="translate(1.000000, 1.000000)">
-          <g transform="translate(1.000000, 1.000000)">
+          <g>
             <path d="M3,3 L11,3 L11,11 L3,11 L3,3 Z M4,4 L10,4 L10,10 L4,10 L4,4 Z"></path>
             <rect x="5" y="5" width="4" height="4"></rect>
             <rect x="4" y="0" width="1" height="2"></rect>

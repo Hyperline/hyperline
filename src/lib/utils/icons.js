@@ -1,4 +1,5 @@
 const styles = {
+  marginRight: '7px'
 }
 
 export const drawIcon = (React, icon, fill) => {

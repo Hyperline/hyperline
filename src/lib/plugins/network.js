@@ -1,4 +1,4 @@
-import {networkStats} from './system-info'
+import {networkStats} from '../utils/system-info'
 
 export function networkSpeedFactory(React) {
   return class extends React.Component {

@@ -1,7 +1,8 @@
 import child_process from 'child_process'
 
-// global values
-let cmdBattery = '' // system command for battery level
+// global system command for battery
+// is defined for each operating system.
+let cmdBattery = ''
 
 export function batteryFactory(React) {
   return class extends React.Component {
@@ -52,6 +53,13 @@ export function batteryFactory(React) {
       } else if (process.platform === 'win32') {
         // terminal command for windows
         // cmdBattery = 'add windows command'
+        let batteryLevel = '🔋 😔'
+
+        this.setState({batteryLevel})
+
+        return batteryLevel
+      } else {
+        // unsupported OS
         let batteryLevel = '🔋 😔'
 
         this.setState({batteryLevel})

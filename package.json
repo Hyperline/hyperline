@@ -33,6 +33,7 @@
     "dev": "webpack --watch"
   },
   "dependencies": {
-    "color": "^0.11.3"
+    "color": "^0.11.3",
+    "webpack-node-externals": "^1.3.3"
   }
 }

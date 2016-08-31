@@ -1,4 +1,4 @@
-import {networkStats} from '../utils/system-info'
+import { networkStats } from 'systeminformation'
 
 export function networkSpeedFactory(React) {
   return class extends React.Component {
@@ -14,37 +14,31 @@ export function networkSpeedFactory(React) {
 
     constructor(props) {
       super(props)
-      this.state = {}
+      this.state = {
+        download: 0,
+        upload: 0
+      }
 
-      networkStats()
-        .then(data => {
-          this.setState(this.buildStateObject(data))
-        })
+      this.getSpeed()
 
-      setInterval(() => {
-        networkStats()
-          .then(data => this.setState(this.buildStateObject(data)))
-      }, 1000);
+      setInterval(() => this.getSpeed(), 500);
+    }
+
+    getSpeed() {
+      networkStats().then(data => this.setState(this.buildStateObject(data)))
     }
 
     buildStateObject(data) {
-      return Object.assign({},
-        {
-          iface: data.iface,
-          ms: data.ms,
-          operstate: data.operstate,
-          rx: data.rx.toFixed(),
-          rx_sec: (data.rx_sec / 1024).toFixed(),
-          tx: data.tx.toFixed(),
-          tx_sec: (data.tx_sec / 1024).toFixed()
-        }
-      )
+      return Object.assign({}, {
+        download: (data.rx_sec / 1024).toFixed(),
+        upload: (data.tx_sec / 1024).toFixed()
+      })
     }
 
     render() {
       return (
         <div style={this.props.style}>
-          {this.state.rx_sec}kB/s {this.state.tx_sec}kB/s
+          {this.state.download}kB/s {this.state.upload}kB/s
         </div>
       )
     }

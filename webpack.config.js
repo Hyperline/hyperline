@@ -1,6 +1,10 @@
+const webpack = require('webpack')
+const nodeExternals = require('webpack-node-externals')
+
 module.exports = {
   entry: './src/index.js',
   target: 'node',
+  externals: [nodeExternals()],
   output: {
     path: './dist',
     filename: 'hyperline.js',
@@ -16,6 +20,10 @@ module.exports = {
     ],
     loaders: [
       {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
         test: /\.js$/,
         loader: [
           'babel'
@@ -30,7 +38,10 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin({ 'global.GENTLY': false })
+  ],
   eslint: {
     configFile: '.eslintrc'
   }
-};
+}

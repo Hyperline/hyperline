@@ -7,8 +7,6 @@ const style = {
   bottom: 0,
   width: '100%',
   height: '18px',
-  paddingLeft: '10px',
-  paddingRight: '10px',
   font: 'bold 12px Monospace',
   pointerEvents: 'none'
 }
@@ -28,8 +26,17 @@ export const hyperlineFactory = (React) => {
       {plugins.map((item) => {
         const Plugin = item.componentFactory(React, colors)
         return <Plugin style={{
-          marginRight: '7px',
-          color: item.color
+          display: 'flex',
+          alignItems: 'center',
+          color: item.color,
+          paddingLeft: '7px',
+          paddingRight: '7px',
+          borderLeft: '1px',
+          borderTop: '0px',
+          borderRight: '0px',
+          borderBottom: '0px',
+          borderStyle: 'solid',
+          borderColor: 'rgba(255, 255, 255, .2)',
         }} />
       })}
     </div>

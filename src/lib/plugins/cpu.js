@@ -120,9 +120,10 @@ export function cpuFactory( React, colors ) {
     }
 
     render() {
+      const avg = this.state.cpuAverage
       return (
         <div style={this.getStyle()}>
-          {pluginIcon(React, this.getStyle().color)} {this.state.cpuAverage}%
+          {pluginIcon(React, this.getStyle().color)} {(avg < 10) && '0'} {avg}%
         </div>
       )
     }

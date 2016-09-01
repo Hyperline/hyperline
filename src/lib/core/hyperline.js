@@ -18,24 +18,22 @@ export const hyperlineFactory = (React) => {
     fontFamily,
     colors,
     plugins
-  }) => {
-    return (
-      <div
-        style={Object.assign(style, {
-          fontFamily,
-          background: Color(colors.black).darken(0.2).hslString()
-        })}
-      >
-        {plugins.map((item) => {
-          const Plugin = item.componentFactory(React, colors)
-          return <Plugin style={{
-            marginRight: '7px',
-            color: item.color
-          }} />
-        })}
-      </div>
-    )
-  }
+  }) => (
+    <div
+      style={Object.assign(style, {
+        fontFamily,
+        background: Color(colors.black).darken(0.2).hslString()
+      })}
+    >
+      {plugins.map((item) => {
+        const Plugin = item.componentFactory(React, colors)
+        return <Plugin style={{
+          marginRight: '7px',
+          color: item.color
+        }} />
+      })}
+    </div>
+  )
 
   HyperLine.propTypes = {
     fontFamily: React.PropTypes.string.isRequired,

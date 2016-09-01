@@ -54,7 +54,11 @@ export function decorateHyperTerm(HyperTerm, {React}) {
         {
           componentFactory: cpuFactory,
           options: {
-            color: 'transparent'
+            colors: {
+              high: 'lightRed',
+              moderate: 'lightYellow',
+              low: 'lightGreen'
+            }
           }
         },
         {

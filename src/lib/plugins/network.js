@@ -44,9 +44,19 @@ export function networkSpeedFactory(React) {
     }
 
     buildStateObject(data) {
+      let rawDownload = data.rx_sec / 1024
+      if (rawDownload < 0) {
+        rawDownload = 0
+      }
+
+      let rawUpload = data.tx_sec / 1024
+      if (rawUpload < 0) {
+        rawUpload = 0
+      }
+
       return Object.assign({}, {
-        download: (data.rx_sec / 1024).toFixed(),
-        upload: (data.tx_sec / 1024).toFixed()
+        download: rawDownload.toFixed(),
+        upload: rawUpload.toFixed()
       })
     }
 

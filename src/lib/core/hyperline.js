@@ -26,12 +26,7 @@ export const hyperlineFactory = (React) => {
       >
         {plugins.map((item) => {
           const Plugin = item.componentFactory(React, colors)
-
-          const pluginOptions = {
-            color: item.color
-          }
-
-          return <Plugin options={pluginOptions} />
+          return <Plugin options={item.options} />
         })}
       </div>
     )

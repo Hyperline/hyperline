@@ -1,6 +1,6 @@
 {
   "name": "hyperline",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Handy status line for HyperTerm",
   "keywords": [
     "hyperterm"

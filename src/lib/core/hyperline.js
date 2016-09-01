@@ -11,6 +11,7 @@ export const hyperlineFactory = (React) => {
       display: 'flex',
       alignItems: 'center',
       position: 'absolute',
+      overflow: 'hidden',
       bottom: 0,
       width: '100%',
       height: '18px',

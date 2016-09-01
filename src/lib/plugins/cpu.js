@@ -1,6 +1,6 @@
 import os from 'os'
-import { iconStyles } from '../utils/icons'
-import pluginStyle from '../utils/pluginStyle'
+import {iconStyles} from '../utils/icons'
+import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
@@ -110,24 +110,18 @@ export function cpuFactory( React, colors ) {
       }
     }
 
-    getStyle() {
-      return Object.assign({}, pluginStyle, {
-        color: colors[this.getColor(this.state.cpuAverage)]
-      })
-    }
-
     render() {
       const avg = this.state.cpuAverage
-
+      const PluginWrapper = pluginWrapperFactory(React)
       const fillColor = colors[this.getColor(this.state.cpuAverage)]
 
-      const style = Object.assign(pluginStyle, {
-        color: fillColor
-      })
-
       return (
-        <div style={style}>
-          {pluginIcon(React, fillColor)} {(avg < 10) && '0'} {avg}%
+        <div style={{
+          color: fillColor
+        }}>
+          <PluginWrapper>
+            {pluginIcon(React, fillColor)} {(avg < 10) && '0'} {avg}%
+          </PluginWrapper>
         </div>
       )
     }

@@ -35,23 +35,37 @@ export function decorateHyperTerm(HyperTerm, {React}) {
       this.plugins = [
         {
           componentFactory: hostnameFactory,
-          color: this.colors.lightBlue
+          options: {
+            color: 'lightBlue'
+          }
         },
         {
           componentFactory: memoryFactory,
-          color: this.colors.white
+          options: {
+            color: 'white'
+          }
         },
         {
           componentFactory: uptimeFactory,
-          color: this.colors.lightYellow
+          options: {
+            color: 'lightYellow'
+          }
         },
         {
           componentFactory: cpuFactory,
-          color: 'transparent'
+          options: {
+            colors: {
+              high: 'lightRed',
+              moderate: 'lightYellow',
+              low: 'lightGreen'
+            }
+          }
         },
         {
           componentFactory: networkSpeedFactory,
-          color: this.colors.lightCyan
+          options: {
+            color: 'lightCyan'
+          }
         }
       ]
     }

@@ -1,5 +1,6 @@
 import os from 'os'
 import { iconStyles } from '../utils/icons'
+import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
@@ -11,7 +12,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function hostnameFactory(React) {
+export function hostnameFactory(React, colors) {
   return class extends React.Component {
     static displayName() {
       return 'Hostname plugin'
@@ -19,15 +20,18 @@ export function hostnameFactory(React) {
 
     static propTypes() {
       return {
-        style: React.PropTypes.object
+        options: React.PropTypes.object
       }
     }
 
     render() {
+      const PluginWrapper = pluginWrapperFactory(React)
+      const fillColor = colors[this.props.options.color]
+
       return (
-        <div style={this.props.style}>
-          {pluginIcon(React, this.props.style.color)} {os.hostname()}
-        </div>
+        <PluginWrapper color={fillColor}>
+          {pluginIcon(React, fillColor)} {os.hostname()}
+        </PluginWrapper>
       )
     }
   }

@@ -1,5 +1,6 @@
 import os from 'os'
 import { iconStyles } from '../utils/icons'
+import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
@@ -26,7 +27,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function memoryFactory(React) {
+export function memoryFactory(React, colors) {
   return class extends React.Component {
     static displayName() {
       return 'Memory plugin'
@@ -34,7 +35,7 @@ export function memoryFactory(React) {
 
     static propTypes() {
       return {
-        style: React.PropTypes.object
+        options: React.PropTypes.object
       }
     }
 
@@ -59,10 +60,13 @@ export function memoryFactory(React) {
     }
 
     render() {
+      const PluginWrapper = pluginWrapperFactory(React)
+      const fillColor = colors[this.props.options.color]
+
       return (
-        <div style={this.props.style}>
-          {pluginIcon(React, this.props.style.color)} {this.state.freeMemory} / {this.state.totalMemory}
-        </div>
+        <PluginWrapper color={fillColor}>
+          {pluginIcon(React, fillColor)} {this.state.freeMemory} / {this.state.totalMemory}
+        </PluginWrapper>
       )
     }
   }

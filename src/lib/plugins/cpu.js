@@ -1,5 +1,6 @@
 import os from 'os'
-import { iconStyles } from '../utils/icons'
+import {iconStyles} from '../utils/icons'
+import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
@@ -37,12 +38,12 @@ export function cpuFactory( React, colors ) {
 
     static propTypes() {
       return {
-        style: React.PropTypes.object
+        options: React.PropTypes.object
       }
     }
 
-    constructor( props ) {
-      super(props )
+    constructor(props) {
+      super(props)
 
       this.state = {
         cpuAverage: this.calculateCpuUsage(),
@@ -97,33 +98,30 @@ export function cpuFactory( React, colors ) {
       return averageCpuUsage
     }
 
-    getColor( cpuAverage ) {
-      const CPU_USAGE_COLORS = {
-        HIGH: colors.lightRed,
-        MODERATE: colors.lightYellow,
-        LOW: colors.lightGreen
-      }
+    getColor(cpuAverage) {
+      const colors = this.props.options.colors
 
       if ( cpuAverage < 50 ) {
-        return CPU_USAGE_COLORS.LOW
+        return colors.low
       } else if ( cpuAverage < 75 ) {
-        return CPU_USAGE_COLORS.MODERATE
+        return colors.moderate
+      } else {
+        return colors.high
       }
-
-      return CPU_USAGE_COLORS.HIGH
-    }
-
-    getStyle() {
-      return Object.assign( {}, this.props.style, {
-        color: this.getColor( this.state.cpuAverage )
-      } )
     }
 
     render() {
       const avg = this.state.cpuAverage
+      const PluginWrapper = pluginWrapperFactory(React)
+      const fillColor = colors[this.getColor(this.state.cpuAverage)]
+
       return (
-        <div style={this.getStyle()}>
-          {pluginIcon(React, this.getStyle().color)} {(avg < 10) && '0'} {avg}%
+        <div style={{
+          color: fillColor
+        }}>
+          <PluginWrapper>
+            {pluginIcon(React, fillColor)} {(avg < 10) && '0'} {avg}%
+          </PluginWrapper>
         </div>
       )
     }

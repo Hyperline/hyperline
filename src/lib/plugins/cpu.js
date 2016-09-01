@@ -3,7 +3,7 @@ import {iconStyles} from '../utils/icons'
 import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, fillColor) => (
-  <svg style={iconStyles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
+  <svg style={iconStyles} xmlns="http://www.w3.org/2000/svg">
     <g fill="none" fillRule="evenodd">
       <g fill={fillColor} transform="translate(1.000000, 1.000000)">
         <g>

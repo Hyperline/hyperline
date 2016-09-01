@@ -3,7 +3,6 @@ HyperLine
 
 **HyperLine is a status line plugin for [HyperTerm](https://hyperterm.org/)**. It shows you useful system information such as free memory, uptime and CPU usage. It's designed to be unobtrusive and will match the look of the theme you're currently running.
 
-![GIF Demo](https://cloud.githubusercontent.com/assets/6755555/17756124/db619850-6492-11e6-92c0-477e00025b70.gif)
 ![GIF Demo](https://cloud.githubusercontent.com/assets/6755555/18163640/b1d6e130-7044-11e6-909e-11fbf757e674.gif)
 
 ## Install

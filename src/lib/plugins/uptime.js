@@ -1,5 +1,6 @@
 import os from 'os'
 import { iconStyles } from '../utils/icons'
+import pluginStyle from '../utils/pluginStyle'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +15,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function uptimeFactory(React) {
+export function uptimeFactory(React, colors) {
   return class extends React.Component {
     static displayName() {
       return 'Uptime plugin'
@@ -22,7 +23,7 @@ export function uptimeFactory(React) {
 
     static propTypes() {
       return {
-        style: React.PropTypes.object
+        options: React.PropTypes.object
       }
     }
 
@@ -44,9 +45,15 @@ export function uptimeFactory(React) {
     }
 
     render() {
+      const fillColor = colors[this.props.options.color]
+
+      const style = Object.assign(pluginStyle, {
+        color: fillColor
+      })
+
       return (
-        <div style={this.props.style}>
-          {pluginIcon(React, this.props.style.color)} {this.state.uptime}HRS
+        <div style={style}>
+          {pluginIcon(React, fillColor)} {this.state.uptime}HRS
         </div>
       )
     }

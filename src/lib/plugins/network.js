@@ -1,6 +1,6 @@
 import { networkStats } from 'systeminformation'
 import { iconStyles } from '../utils/icons'
-
+import pluginStyle from '../utils/pluginStyle'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
@@ -15,7 +15,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function networkSpeedFactory(React) {
+export function networkSpeedFactory(React, colors) {
   return class extends React.Component {
     static displayName() {
       return 'Network Speed plugin'
@@ -23,7 +23,7 @@ export function networkSpeedFactory(React) {
 
     static propTypes() {
       return {
-        style: React.PropTypes.object
+        options: React.PropTypes.object
       }
     }
 
@@ -61,9 +61,15 @@ export function networkSpeedFactory(React) {
     }
 
     render() {
+      const fillColor = colors[this.props.options.color]
+
+      const style = Object.assign(pluginStyle, {
+        color: fillColor
+      })
+
       return (
-        <div style={this.props.style}>
-          {pluginIcon(React, this.props.style.color)} {this.state.download}kB/s {this.state.upload}kB/s
+        <div style={style}>
+          {pluginIcon(React, fillColor)} {this.state.download}kB/s {this.state.upload}kB/s
         </div>
       )
     }

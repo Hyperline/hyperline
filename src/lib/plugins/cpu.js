@@ -1,5 +1,6 @@
 import os from 'os'
 import { iconStyles } from '../utils/icons'
+import pluginStyle from '../utils/pluginStyle'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} width="16px" height="16px" xmlns="http://www.w3.org/2000/svg">
@@ -37,12 +38,12 @@ export function cpuFactory( React, colors ) {
 
     static propTypes() {
       return {
-        style: React.PropTypes.object
+        options: React.PropTypes.object
       }
     }
 
-    constructor( props ) {
-      super(props )
+    constructor(props) {
+      super(props)
 
       this.state = {
         cpuAverage: this.calculateCpuUsage(),
@@ -114,9 +115,9 @@ export function cpuFactory( React, colors ) {
     }
 
     getStyle() {
-      return Object.assign( {}, this.props.style, {
+      return Object.assign({}, pluginStyle, {
         color: this.getColor( this.state.cpuAverage )
-      } )
+      })
     }
 
     render() {

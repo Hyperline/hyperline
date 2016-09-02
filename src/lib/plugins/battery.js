@@ -1,4 +1,3 @@
-import {battery} from 'systeminformation'
 import {iconStyles} from '../utils/icons'
 import pluginWrapperFactory from '../core/PluginWrapper'
 
@@ -62,20 +61,26 @@ export function batteryFactory(React, colors ) {
         percent: '--'
       }
 
-      this.getBatteryState()
-
-      setInterval(() => this.getBatteryState(), 1000)
+      this.getBattery()
     }
 
-    getBatteryState() {
-      battery().then(data => this.setState(this.buildStateObject(data)))
-    }
+    getBattery() {
+      navigator.getBattery().then(battery => {
+        this.setBatteryStatus(battery)
 
-    buildStateObject(data) {
-      return Object.assign({}, {
-        ischarging: data.ischarging,
-        percent: data.percent.toFixed()
+        const batteryStatus = this.setBatteryStatus.bind(this);
+        const events = [ 'chargingchange', 'chargingtimechange', 'dischargingtimechange', 'levelchange' ]
+        events.forEach(event => {
+          battery.addEventListener(event, event => batteryStatus(event.target), false)
+        })
       })
+    }
+
+    setBatteryStatus(battery) {
+      this.setState(Object.assign({}, {
+        ischarging: battery.charging,
+        percent: Math.floor(battery.level * 100)
+      }))
     }
 
     getColor( batteryState ) {

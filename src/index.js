@@ -1,11 +1,7 @@
 import {hyperlineFactory} from './lib/core/hyperline'
 import {getColorList} from './lib/utils/colors'
-import {hostnameFactory} from './lib/plugins/hostname'
-import {memoryFactory} from './lib/plugins/memory'
-import {uptimeFactory} from './lib/plugins/uptime'
-import {cpuFactory} from './lib/plugins/cpu'
-import {networkSpeedFactory} from './lib/plugins/network'
-import {batteryFactory} from './lib/plugins/battery'
+
+import factories from './lib/plugins'
 
 export function mapHyperTermState(state, map) {
   return Object.assign({}, map, {
@@ -35,25 +31,25 @@ export function decorateHyperTerm(HyperTerm, {React}) {
       this.colors = getColorList(this.props.colors)
       this.plugins = [
         {
-          componentFactory: hostnameFactory,
+          componentFactory: factories.hostname,
           options: {
             color: 'lightBlue'
           }
         },
         {
-          componentFactory: memoryFactory,
+          componentFactory: factories.memory,
           options: {
             color: 'white'
           }
         },
         {
-          componentFactory: uptimeFactory,
+          componentFactory: factories.uptime,
           options: {
             color: 'lightYellow'
           }
         },
         {
-          componentFactory: cpuFactory,
+          componentFactory: factories.cpu,
           options: {
             colors: {
               high: 'lightRed',
@@ -63,13 +59,13 @@ export function decorateHyperTerm(HyperTerm, {React}) {
           }
         },
         {
-          componentFactory: networkSpeedFactory,
+          componentFactory: factories.network,
           options: {
             color: 'lightCyan'
           }
         },
         {
-          componentFactory: batteryFactory,
+          componentFactory: factories.battery,
           options: {
             colors: {
               fine: 'lightGreen',

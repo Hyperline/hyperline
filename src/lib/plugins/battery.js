@@ -98,13 +98,9 @@ export function batteryFactory(React, colors ) {
       const fillColor = colors[this.getColor(this.state)]
 
       return (
-        <div style={{
-          color: fillColor
-        }}>
-          <PluginWrapper>
+          <PluginWrapper color={fillColor}>
             {pluginIcon(React, this.state, fillColor)} {this.state.percent}%
           </PluginWrapper>
-        </div>
       )
     }
   }

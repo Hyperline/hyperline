@@ -1,8 +1,7 @@
-import {hyperlineFactory} from './lib/core/hyperline'
-import {getColorList} from './lib/utils/colors'
-
-import factories from './lib/plugins'
+import { hyperlineFactory } from './lib/core/hyperline'
+import { getColorList } from './lib/utils/colors'
 import defaultConfig from './lib/utils/defaultConfig'
+import factories from './lib/plugins'
 
 export function mapHyperTermState(state, map) {
   return Object.assign({}, map, {
@@ -42,9 +41,10 @@ export function decorateHyperTerm(HyperTerm, {React}) {
 
     constructor(props, context) {
       super(props, context)
-
       this.colors = getColorList(this.props.colors)
-      this.plugins = mapConfigToPluginProp(defaultConfig)
+
+      const config = window.config.getConfig().hyperline
+      this.plugins = mapConfigToPluginProp(config ? config : defaultConfig)
     }
 
     render() {

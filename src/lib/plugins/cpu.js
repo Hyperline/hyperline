@@ -116,13 +116,9 @@ export function cpuFactory( React, colors ) {
       const fillColor = colors[this.getColor(this.state.cpuAverage)]
 
       return (
-        <div style={{
-          color: fillColor
-        }}>
-          <PluginWrapper>
-            {pluginIcon(React, fillColor)} {(avg < 10) && '0'} {avg}%
-          </PluginWrapper>
-        </div>
+        <PluginWrapper color={fillColor}>
+          {pluginIcon(React, fillColor)} {(avg < 10) && '0'} {avg}%
+        </PluginWrapper>
       )
     }
   }

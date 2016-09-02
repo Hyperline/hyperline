@@ -2,6 +2,7 @@ import {hyperlineFactory} from './lib/core/hyperline'
 import {getColorList} from './lib/utils/colors'
 
 import factories from './lib/plugins'
+import defaultConfig from './lib/utils/defaultConfig'
 
 export function mapHyperTermState(state, map) {
   return Object.assign({}, map, {
@@ -10,10 +11,24 @@ export function mapHyperTermState(state, map) {
   })
 }
 
+function mapConfigToPluginProp(config) {
+  const { plugins } = config
+  return plugins.map((each) => {
+    return {
+      componentFactory: factories[each.name],
+      options: each.options
+    }
+  })
+}
+
 export function decorateHyperTerm(HyperTerm, {React}) {
   const HyperLine = hyperlineFactory(React)
 
   return class extends React.Component {
+    static displayName() {
+      return 'HyperTerm'
+    }
+
     static propTypes() {
       return {
         colors: React.PropTypes.oneOfType([
@@ -29,51 +44,7 @@ export function decorateHyperTerm(HyperTerm, {React}) {
       super(props, context)
 
       this.colors = getColorList(this.props.colors)
-      this.plugins = [
-        {
-          componentFactory: factories.hostname,
-          options: {
-            color: 'lightBlue'
-          }
-        },
-        {
-          componentFactory: factories.memory,
-          options: {
-            color: 'white'
-          }
-        },
-        {
-          componentFactory: factories.uptime,
-          options: {
-            color: 'lightYellow'
-          }
-        },
-        {
-          componentFactory: factories.cpu,
-          options: {
-            colors: {
-              high: 'lightRed',
-              moderate: 'lightYellow',
-              low: 'lightGreen'
-            }
-          }
-        },
-        {
-          componentFactory: factories.network,
-          options: {
-            color: 'lightCyan'
-          }
-        },
-        {
-          componentFactory: factories.battery,
-          options: {
-            colors: {
-              fine: 'lightGreen',
-              critical: 'lightRed'
-            }
-          }
-        }
-      ]
+      this.plugins = mapConfigToPluginProp(defaultConfig)
     }
 
     render() {

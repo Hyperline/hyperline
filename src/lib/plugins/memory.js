@@ -27,7 +27,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function memoryFactory(React, colors) {
+export function componentFactory(React, colors) {
   return class extends React.Component {
     static displayName() {
       return 'Memory plugin'

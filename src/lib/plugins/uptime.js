@@ -15,7 +15,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function uptimeFactory(React, colors) {
+export function componentFactory(React, colors) {
   return class extends React.Component {
     static displayName() {
       return 'Uptime plugin'

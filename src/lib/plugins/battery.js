@@ -41,7 +41,7 @@ const pluginIcon = (React, state, fillColor) => {
   return states.CHARGING
 }
 
-export function batteryFactory(React, colors ) {
+export function componentFactory(React, colors ) {
   return class extends React.Component {
     static displayName() {
       return 'Battery plugin'

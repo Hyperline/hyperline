@@ -30,7 +30,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function cpuFactory( React, colors ) {
+export function componentFactory( React, colors ) {
   return class extends React.Component {
     static displayName() {
       return 'CPU plugin'

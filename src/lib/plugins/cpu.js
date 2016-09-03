@@ -47,16 +47,14 @@ export function componentFactory( React, colors ) {
       super(props)
 
       this.state = {
-        cpuAverage: this.calculateCpuUsage(),
-        idleCpu: false,
-        totalCpu: false
+        cpuAverage: this.calculateCpuUsage()
       }
 
-      setInterval(() => {
-        this.setState({
-          cpuAverage: this.calculateCpuUsage()
-        })
-      }, 500)
+      this.cpuInfo = {}
+    }
+
+    componentDidMount() {
+      setInterval(() => this.setState({ cpuAverage: this.calculateCpuUsage() }), 500)
     }
 
     calculateCpuUsage() {
@@ -83,18 +81,18 @@ export function componentFactory( React, colors ) {
       idle = totalIdle / cpus.length
       total = totalTick / cpus.length
 
-      if ( this.state && this.state.idleCpu ) {
-        const idleDifference = idle - this.state.idleCpu,
-          totalDifference = total - this.state.totalCpu
+      if ( this.cpuInfo && this.cpuInfo.idleCpu ) {
+        const idleDifference = idle - this.cpuInfo.idleCpu,
+          totalDifference = total - this.cpuInfo.totalCpu
         averageCpuUsage = 100 - ~~( 100 * idleDifference / totalDifference )
       } else {
         averageCpuUsage = 0
       }
 
-      this.setState( {
+      this.cpuInfo = {
         idleCpu: idle,
         totalCpu: total
-      } )
+      }
 
       return averageCpuUsage
     }

@@ -33,15 +33,14 @@ export function componentFactory(React, colors) {
       this.state = {
         uptime: this.getUptime()
       }
+    }
 
-      // Recheck every 5 minutes
-      setInterval(() => this.getUptime(), 60000 * 5)
+    componentDidMount() {
+      setInterval(() => this.setState({uptime: this.getUptime()}), 60000 * 5)
     }
 
     getUptime() {
       const uptime = (os.uptime()/3600).toFixed(0)
-      this.setState({uptime})
-
       return uptime
     }
 

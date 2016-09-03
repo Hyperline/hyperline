@@ -25,9 +25,9 @@ export const hyperlineFactory = (React) => {
       <div
         style={lineStyle}
       >
-        {plugins.map((item) => {
+        {plugins.map((item, index) => {
           const Plugin = item.componentFactory(React, colors)
-          return <Plugin options={item.options} />
+          return <Plugin key={index} options={item.options} />
         })}
       </div>
     )

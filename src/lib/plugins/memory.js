@@ -46,8 +46,10 @@ export function componentFactory(React, colors) {
         freeMemory: this.calculateFreeMemory(),
         totalMemory: this.getMb(os.totalmem())
       }
+    }
 
-      setInterval(() => this.calculateFreeMemory(), 100)
+    componentDidMount() {
+      setInterval(() => this.setState({freeMemory: this.calculateFreeMemory()}), 100)
     }
 
     getMb(bytes) {
@@ -56,7 +58,6 @@ export function componentFactory(React, colors) {
 
     calculateFreeMemory() {
       const freeMemory = this.getMb(os.freemem())
-      this.setState({freeMemory})
       return freeMemory
     }
 

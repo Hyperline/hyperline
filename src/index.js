@@ -58,18 +58,23 @@ function mergePluginConfigs(defaultPlugins, userPlugins, notify) {
   const finalOptions = []
 
   userPlugins.forEach(eachPlugin => {
+    if (typeof eachPlugin !== 'object') {
+      notify('HyperLine', '\'plugins\' array members in \'.hyperterm.js\' must be objects.')
+      return
+    }
+
     const defaultPlugin
       = getPluginFromListByName(defaultPlugins, eachPlugin.name)
 
     if (!defaultPlugin) {
       notify('HyperLine', `Plugin with name "${eachPlugin.name}" does not exist.`)
     } else {
-      if (!eachPlugin.options) {
+      if (eachPlugin.options === undefined) {
         eachPlugin.options = defaultPlugin.options
       }
 
       const validator = plugins[eachPlugin.name].validateOptions
-      if (validator) {
+      if (validator !== undefined) {
         const errors = validator(eachPlugin.options)
         if (errors) {
           errors.forEach(each => notify(`HyperLine '${eachPlugin.name}' plugin`, each))

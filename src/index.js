@@ -31,14 +31,14 @@ function getUserConfig() {
   return window.config.getConfig().hyperline
 }
 
-function mergeConfigs(defaultConfig, userConfig) {
+function mergeConfigs(defaultConfig, userConfig, notify) {
   if (userConfig === undefined) {
     return defaultConfig
   }
 
   return {
     color: mergeColorConfigs(defaultConfig.color, userConfig.color),
-    plugins: mergePluginConfigs(defaultConfig.plugins, userConfig.plugins)
+    plugins: mergePluginConfigs(defaultConfig.plugins, userConfig.plugins, notify)
   }
 }
 
@@ -50,7 +50,7 @@ function mergeColorConfigs(defaultColor, userColor) {
   }
 }
 
-function mergePluginConfigs(defaultPlugins, userPlugins) {
+function mergePluginConfigs(defaultPlugins, userPlugins, notify) {
   if (!userPlugins) {
     return defaultPlugins
   }
@@ -62,7 +62,7 @@ function mergePluginConfigs(defaultPlugins, userPlugins) {
       = getPluginFromListByName(defaultPlugins, eachPlugin.name)
 
     if (!defaultPlugin) {
-      console.log(`Plugin with name "${eachPlugin.name}" does not exist.`)
+      notify('HyperLine', `Plugin with name "${eachPlugin.name}" does not exist.`)
     } else {
       if (!eachPlugin.options) {
         eachPlugin.options = defaultPlugin.options
@@ -72,7 +72,7 @@ function mergePluginConfigs(defaultPlugins, userPlugins) {
       if (validator) {
         const errors = validator(eachPlugin.options)
         if (errors) {
-          errors.forEach(each => console.log(each))
+          errors.forEach(each => notify(`HyperLine '${eachPlugin.name}' plugin`, each))
           eachPlugin.options = defaultPlugin.options
         }
       }
@@ -101,7 +101,7 @@ function mapConfigToPluginProp(config) {
   })
 }
 
-export function decorateHyperTerm(HyperTerm, {React}) {
+export function decorateHyperTerm(HyperTerm, {React, notify}) {
   const HyperLine = hyperlineFactory(React)
 
   return class extends React.Component {
@@ -126,7 +126,7 @@ export function decorateHyperTerm(HyperTerm, {React}) {
 
       const defaultConfig = getDefaultConfig(plugins)
       const userConfig = getUserConfig()
-      const mergedConfig = mergeConfigs(defaultConfig, userConfig)
+      const mergedConfig = mergeConfigs(defaultConfig, userConfig, notify)
 
       this.plugins = mapConfigToPluginProp(mergedConfig)
     }

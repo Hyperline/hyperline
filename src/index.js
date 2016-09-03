@@ -76,7 +76,7 @@ function mergePluginConfigs(defaultPlugins, userPlugins, notify) {
       const validator = plugins[eachPlugin.name].validateOptions
       if (validator !== undefined) {
         const errors = validator(eachPlugin.options)
-        if (errors) {
+        if (errors.length > 0) {
           errors.forEach(each => notify(`HyperLine '${eachPlugin.name}' plugin`, each))
           eachPlugin.options = defaultPlugin.options
         }

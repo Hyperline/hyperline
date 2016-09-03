@@ -10,9 +10,9 @@ HyperLine
 To install, edit `~/.hyperterm.js` and add `"hyperline"` to `plugins`:
 
 ```
-plugins: [                                                                                               
-  "hyperline",                                                                                           
-],   
+plugins: [
+  "hyperline",
+],
 ```
 
 ## Configuration

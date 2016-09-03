@@ -36,3 +36,7 @@ export function componentFactory(React, colors) {
     }
   }
 }
+
+export const defaultOptions = {
+  color: 'lightBlue'
+}

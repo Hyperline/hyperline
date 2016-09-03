@@ -1,13 +1,32 @@
 import { hyperlineFactory } from './lib/core/hyperline'
 import { getColorList } from './lib/utils/colors'
-import defaultConfig from './lib/utils/defaultConfig'
 import plugins from './lib/plugins'
+
+let defaultConfig = buildDefaultConfig(plugins)
 
 export function mapHyperTermState(state, map) {
   return Object.assign({}, map, {
     colors: state.ui.colors,
     fontFamily: state.ui.fontFamily
   })
+}
+
+function buildDefaultConfig(plugins) {
+  let config = {
+    color: 'black',
+    plugins: []
+  }
+
+  Object.keys(plugins).forEach((pluginName) => {
+    const pluginExports = plugins[pluginName]
+
+    config.plugins.push({
+      name: pluginName,
+      options: pluginExports.defaultOptions
+    })
+  })
+
+  return config
 }
 
 function mapConfigToPluginProp(config) {

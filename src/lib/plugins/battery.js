@@ -105,3 +105,10 @@ export function componentFactory(React, colors ) {
     }
   }
 }
+
+export const defaultOptions = {
+  colors: {
+    fine: 'lightGreen',
+    critical: 'lightRed'
+  }
+}

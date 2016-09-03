@@ -123,3 +123,11 @@ export function componentFactory( React, colors ) {
     }
   }
 }
+
+export const defaultOptions = {
+  colors: {
+    high: 'lightRed',
+    moderate: 'lightYellow',
+    low: 'lightGreen'
+  }
+}

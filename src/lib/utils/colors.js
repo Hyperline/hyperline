@@ -21,7 +21,7 @@ const colorList = [
   'grayscale'
 ];
 
-export function getColorList( colors ) {
+export function getColorList(colors) {
   // For forwards compatibility, return early if it's already an object
   if (!Array.isArray(colors)) {
     return colors;
@@ -34,4 +34,8 @@ export function getColorList( colors ) {
   });
 
   return colorsList;
+}
+
+export function colorExists(name) {
+  return colorList.indexOf(name) !== -1
 }

@@ -1,8 +1,6 @@
 import { hyperlineFactory } from './lib/core/hyperline'
-import { getColorList } from './lib/utils/colors'
+import { getColorList, colorExists } from './lib/utils/colors'
 import plugins from './lib/plugins'
-
-let defaultConfig = buildDefaultConfig(plugins)
 
 export function mapHyperTermState(state, map) {
   return Object.assign({}, map, {
@@ -11,7 +9,7 @@ export function mapHyperTermState(state, map) {
   })
 }
 
-function buildDefaultConfig(plugins) {
+function getDefaultConfig(plugins) {
   let config = {
     color: 'black',
     plugins: []
@@ -27,6 +25,55 @@ function buildDefaultConfig(plugins) {
   })
 
   return config
+}
+
+function getUserConfig() {
+  return window.config.getConfig().hyperline
+}
+
+function mergeConfigs(defaultConfig, userConfig) {
+  if (userConfig === undefined) {
+    return defaultConfig
+  }
+
+  return {
+    color: mergeColorConfigs(defaultConfig.color, userConfig.color),
+    plugins: mergePluginConfigs(defaultConfig.plugins, userConfig.plugins)
+  }
+}
+
+function mergeColorConfigs(defaultColor, userColor) {
+  if (!userColor || !colorExists(userColor)) {
+    return defaultColor
+  } else {
+    return userColor
+  }
+}
+
+function mergePluginConfigs(defaultPlugins, userPlugins) {
+  if (!userPlugins) {
+    return defaultPlugins
+  }
+
+  const plugins = []
+
+  userPlugins.forEach(eachPlugin => {
+    const defaultPlugin
+      = getPluginFromListByName(defaultPlugins, eachPlugin.name)
+
+    // name doesn't exist
+    if (!defaultPlugin) {
+      console.log(`Plugin with name "${eachPlugin.name}" does not exist.`)
+    } else {
+      plugins.push(eachPlugin)
+    }
+  })
+
+  return plugins
+}
+
+function getPluginFromListByName(pluginList, name) {
+  return pluginList.find(each => each.name === name)
 }
 
 function mapConfigToPluginProp(config) {
@@ -61,8 +108,11 @@ export function decorateHyperTerm(HyperTerm, {React}) {
       super(props, context)
       this.colors = getColorList(this.props.colors)
 
-      const config = window.config.getConfig().hyperline
-      this.plugins = mapConfigToPluginProp(config ? config : defaultConfig)
+      const defaultConfig = getDefaultConfig(plugins)
+      const userConfig = getUserConfig()
+      const mergedConfig = mergeConfigs(defaultConfig, userConfig)
+
+      this.plugins = mapConfigToPluginProp(mergedConfig)
     }
 
     render() {

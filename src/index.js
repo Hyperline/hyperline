@@ -55,24 +55,40 @@ function mergePluginConfigs(defaultPlugins, userPlugins) {
     return defaultPlugins
   }
 
-  const plugins = []
+  const finalOptions = []
 
   userPlugins.forEach(eachPlugin => {
     const defaultPlugin
       = getPluginFromListByName(defaultPlugins, eachPlugin.name)
 
-    // name doesn't exist
     if (!defaultPlugin) {
       console.log(`Plugin with name "${eachPlugin.name}" does not exist.`)
     } else {
-      plugins.push(eachPlugin)
+      if (!eachPlugin.options) {
+        eachPlugin.options = defaultPlugin.options
+      }
+
+      const validator = plugins[eachPlugin.name].validateOptions
+      if (validator) {
+        const errors = validator(eachPlugin.options)
+        if (errors) {
+          errors.forEach(each => console.log(each))
+          eachPlugin.options = defaultPlugin.options
+        }
+      }
+
+      finalOptions.push(eachPlugin)
     }
   })
 
-  return plugins
+  return finalOptions
 }
 
 function getPluginFromListByName(pluginList, name) {
+  if (!name) {
+    return undefined
+  }
+
   return pluginList.find(each => each.name === name)
 }
 

@@ -1,7 +1,7 @@
 import { hyperlineFactory } from './lib/core/hyperline'
 import { getColorList } from './lib/utils/colors'
 import defaultConfig from './lib/utils/defaultConfig'
-import factories from './lib/plugins'
+import plugins from './lib/plugins'
 
 export function mapHyperTermState(state, map) {
   return Object.assign({}, map, {
@@ -11,10 +11,9 @@ export function mapHyperTermState(state, map) {
 }
 
 function mapConfigToPluginProp(config) {
-  const { plugins } = config
-  return plugins.map((each) => {
+  return config.plugins.map((each) => {
     return {
-      componentFactory: factories[each.name],
+      componentFactory: plugins[each.name].componentFactory,
       options: each.options
     }
   })

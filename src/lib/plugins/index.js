@@ -1,9 +1,9 @@
-import { componentFactory as hostname } from './hostname'
-import { componentFactory as memory } from './memory'
-import { componentFactory as uptime } from './uptime'
-import { componentFactory as cpu } from './cpu'
-import { componentFactory as network } from './network'
-import { componentFactory as battery } from './battery'
+import * as hostname from './hostname'
+import * as memory from './memory'
+import * as uptime from './uptime'
+import * as cpu from './cpu'
+import * as network from './network'
+import * as battery from './battery'
 
 /**
  * Exports a mapping from plugin name to associated component factory.

@@ -1,5 +1,6 @@
 import os from 'os'
 import { iconStyles } from '../utils/icons'
+import { colorExists } from '../utils/colors'
 import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, fillColor) => (
@@ -27,7 +28,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function memoryFactory(React, colors) {
+export function componentFactory(React, colors) {
   return class extends React.Component {
     static displayName() {
       return 'Memory plugin'
@@ -70,4 +71,20 @@ export function memoryFactory(React, colors) {
       )
     }
   }
+}
+
+export const validateOptions = (options) => {
+  const errors = []
+
+  if (!options.color) {
+    errors.push('\'color\' color string is required but missing.')
+  } else if (!colorExists(options.color)) {
+    errors.push(`invalid color '${options.color}'`)
+  }
+
+  return errors
+}
+
+export const defaultOptions = {
+  color: 'white'
 }

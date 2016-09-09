@@ -1,11 +1,6 @@
-import {hyperlineFactory} from './lib/core/hyperline'
-import {getColorList} from './lib/utils/colors'
-import {hostnameFactory} from './lib/plugins/hostname'
-import {memoryFactory} from './lib/plugins/memory'
-import {uptimeFactory} from './lib/plugins/uptime'
-import {cpuFactory} from './lib/plugins/cpu'
-import {networkSpeedFactory} from './lib/plugins/network'
-import {batteryFactory} from './lib/plugins/battery'
+import { hyperlineFactory } from './lib/core/hyperline'
+import { getColorList, colorExists } from './lib/utils/colors'
+import plugins from './lib/plugins'
 
 export function mapHyperTermState(state, map) {
   return Object.assign({}, map, {
@@ -14,10 +9,111 @@ export function mapHyperTermState(state, map) {
   })
 }
 
-export function decorateHyperTerm(HyperTerm, {React}) {
+function getDefaultConfig(plugins) {
+  let config = {
+    color: 'black',
+    plugins: []
+  }
+
+  Object.keys(plugins).forEach((pluginName) => {
+    const pluginExports = plugins[pluginName]
+
+    config.plugins.push({
+      name: pluginName,
+      options: pluginExports.defaultOptions
+    })
+  })
+
+  return config
+}
+
+function getUserConfig() {
+  return window.config.getConfig().hyperline
+}
+
+function mergeConfigs(defaultConfig, userConfig, notify) {
+  if (userConfig === undefined) {
+    return defaultConfig
+  }
+
+  return {
+    color: mergeColorConfigs(defaultConfig.color, userConfig.color),
+    plugins: mergePluginConfigs(defaultConfig.plugins, userConfig.plugins, notify)
+  }
+}
+
+function mergeColorConfigs(defaultColor, userColor) {
+  if (!userColor || !colorExists(userColor)) {
+    return defaultColor
+  } else {
+    return userColor
+  }
+}
+
+function mergePluginConfigs(defaultPlugins, userPlugins, notify) {
+  if (!userPlugins) {
+    return defaultPlugins
+  }
+
+  const finalOptions = []
+
+  userPlugins.forEach(eachPlugin => {
+    if (typeof eachPlugin !== 'object') {
+      notify('HyperLine', '\'plugins\' array members in \'.hyperterm.js\' must be objects.')
+      return
+    }
+
+    const defaultPlugin
+      = getPluginFromListByName(defaultPlugins, eachPlugin.name)
+
+    if (!defaultPlugin) {
+      notify('HyperLine', `Plugin with name "${eachPlugin.name}" does not exist.`)
+    } else {
+      if (eachPlugin.options === undefined) {
+        eachPlugin.options = defaultPlugin.options
+      }
+
+      const validator = plugins[eachPlugin.name].validateOptions
+      if (validator !== undefined) {
+        const errors = validator(eachPlugin.options)
+        if (errors.length > 0) {
+          errors.forEach(each => notify(`HyperLine '${eachPlugin.name}' plugin`, each))
+          eachPlugin.options = defaultPlugin.options
+        }
+      }
+
+      finalOptions.push(eachPlugin)
+    }
+  })
+
+  return finalOptions
+}
+
+function getPluginFromListByName(pluginList, name) {
+  if (!name) {
+    return undefined
+  }
+
+  return pluginList.find(each => each.name === name)
+}
+
+function mapConfigToPluginProp(config) {
+  return config.plugins.map((each) => {
+    return {
+      componentFactory: plugins[each.name].componentFactory,
+      options: each.options
+    }
+  })
+}
+
+export function decorateHyperTerm(HyperTerm, {React, notify}) {
   const HyperLine = hyperlineFactory(React)
 
   return class extends React.Component {
+    static displayName() {
+      return 'HyperTerm'
+    }
+
     static propTypes() {
       return {
         colors: React.PropTypes.oneOfType([
@@ -31,53 +127,13 @@ export function decorateHyperTerm(HyperTerm, {React}) {
 
     constructor(props, context) {
       super(props, context)
-
       this.colors = getColorList(this.props.colors)
-      this.plugins = [
-        {
-          componentFactory: hostnameFactory,
-          options: {
-            color: 'lightBlue'
-          }
-        },
-        {
-          componentFactory: memoryFactory,
-          options: {
-            color: 'white'
-          }
-        },
-        {
-          componentFactory: uptimeFactory,
-          options: {
-            color: 'lightYellow'
-          }
-        },
-        {
-          componentFactory: cpuFactory,
-          options: {
-            colors: {
-              high: 'lightRed',
-              moderate: 'lightYellow',
-              low: 'lightGreen'
-            }
-          }
-        },
-        {
-          componentFactory: networkSpeedFactory,
-          options: {
-            color: 'lightCyan'
-          }
-        },
-        {
-          componentFactory: batteryFactory,
-          options: {
-            colors: {
-              fine: 'lightGreen',
-              critical: 'lightRed'
-            }
-          }
-        }
-      ]
+
+      const defaultConfig = getDefaultConfig(plugins)
+      const userConfig = getUserConfig()
+      const mergedConfig = mergeConfigs(defaultConfig, userConfig, notify)
+
+      this.plugins = mapConfigToPluginProp(mergedConfig)
     }
 
     render() {

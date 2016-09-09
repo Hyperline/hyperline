@@ -1,5 +1,7 @@
-import {iconStyles} from '../utils/icons'
+import { iconStyles } from '../utils/icons'
+import { colorExists } from '../utils/colors'
 import pluginWrapperFactory from '../core/PluginWrapper'
+
 
 const pluginIcon = (React, state, fillColor) => {
   const states = {
@@ -41,7 +43,7 @@ const pluginIcon = (React, state, fillColor) => {
   return states.CHARGING
 }
 
-export function batteryFactory(React, colors ) {
+export function componentFactory(React, colors ) {
   return class extends React.Component {
     static displayName() {
       return 'Battery plugin'
@@ -103,5 +105,34 @@ export function batteryFactory(React, colors ) {
           </PluginWrapper>
       )
     }
+  }
+}
+
+export const validateOptions = (options) => {
+  const errors = []
+
+  if (!options.colors) {
+    errors.push('\'colors\' object is required but missing.')
+  } else {
+    if (!options.colors.fine) {
+      errors.push('\'colors.fine\' color string is required but missing.')
+    } else if (!colorExists(options.colors.fine)) {
+      errors.push(`invalid color '${options.colors.fine}'`)
+    }
+
+    if (!options.colors.critical) {
+      errors.push('\'colors.critical\' color string is required but missing.')
+    } else if (!colorExists(options.colors.critical)) {
+      errors.push(`invalid color '${options.colors.critical}'`)
+    }
+  }
+
+  return errors
+}
+
+export const defaultOptions = {
+  colors: {
+    fine: 'lightGreen',
+    critical: 'lightRed'
   }
 }

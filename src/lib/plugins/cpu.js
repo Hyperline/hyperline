@@ -1,5 +1,6 @@
 import os from 'os'
 import {iconStyles} from '../utils/icons'
+import {colorExists} from '../utils/colors'
 import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, fillColor) => (
@@ -30,7 +31,7 @@ const pluginIcon = (React, fillColor) => (
   </svg>
 )
 
-export function cpuFactory( React, colors ) {
+export function componentFactory( React, colors ) {
   return class extends React.Component {
     static displayName() {
       return 'CPU plugin'
@@ -121,5 +122,41 @@ export function cpuFactory( React, colors ) {
         </PluginWrapper>
       )
     }
+  }
+}
+
+export const validateOptions = (options) => {
+  const errors = []
+
+  if (!options.colors) {
+    errors.push('\'colors\' object is required but missing.')
+  } else {
+    if (!options.colors.high) {
+      errors.push('\'colors.high\' color string is required but missing.')
+    } else if (!colorExists(options.colors.high)) {
+      errors.push(`invalid color '${options.colors.high}'`)
+    }
+
+    if (!options.colors.moderate) {
+      errors.push('\'colors.moderate\' color string is required but missing.')
+    } else if (!colorExists(options.colors.moderate)) {
+      errors.push(`invalid color '${options.colors.moderate}'`)
+    }
+
+    if (!options.colors.low) {
+      errors.push('\'colors.low\' color string is required but missing.')
+    } else if (!colorExists(options.colors.low)) {
+      errors.push(`invalid color '${options.colors.low}'`)
+    }
+  }
+
+  return errors
+}
+
+export const defaultOptions = {
+  colors: {
+    high: 'lightRed',
+    moderate: 'lightYellow',
+    low: 'lightGreen'
   }
 }

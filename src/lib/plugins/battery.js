@@ -2,6 +2,14 @@ import {iconStyles} from '../utils/icons'
 import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, state, fillColor) => {
+  const calcCharge = percent => {
+    const base = 3.5,
+      val = Math.round((100 - percent) / 4.5),
+      point = base + (val / 2)
+
+    return val > 0 ? `M5,3 L11,3 L11,${point} L5,${point} L5,3 Z` : ''
+  }
+
   const states = {
     CHARGING: (
       <svg style={iconStyles} xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +24,7 @@ const pluginIcon = (React, state, fillColor) => {
       <svg style={iconStyles} xmlns="http://www.w3.org/2000/svg">
         <g fillRule="evenodd">
           <g fill={fillColor}>
-            <path d="M7,1 L9,1 L9,2 L7,2 L7,1 Z M4,2 L12,2 L12,15 L4,15 L4,2 Z M5,3 L11,3 L11,7 L5,7 L5,3 Z"></path>
+            <path d={`M7,1 L9,1 L9,2 L7,2 L7,1 Z M4,2 L12,2 L12,15 L4,15 L4,2 Z ${calcCharge(state.percent)}`}></path>
           </g>
         </g>
       </svg>

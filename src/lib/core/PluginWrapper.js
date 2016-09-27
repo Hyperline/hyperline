@@ -5,6 +5,7 @@ export default (React) => {
   }) => {
     let style = {
       display: 'flex',
+      flexShrink: '0',
       alignItems: 'center',
       paddingLeft: '7px',
       paddingRight: '7px',

@@ -46,12 +46,12 @@ export function componentFactory(React, colors) {
 
     buildStateObject(data) {
       let rawDownload = data.rx_sec / 1024
-      if (rawDownload < 0) {
+      if (rawDownload < 0 || isNaN(rawDownload)) {
         rawDownload = 0
       }
 
       let rawUpload = data.tx_sec / 1024
-      if (rawUpload < 0) {
+      if (rawUpload < 0 || isNaN(rawUpload)) {
         rawUpload = 0
       }
 

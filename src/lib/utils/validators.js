@@ -1,3 +1,5 @@
+import { colorExists } from './colors'
+
 export const validateUpdateIntervalMs = (options) => {
   const errors = []
 
@@ -16,8 +18,26 @@ export const validateUpdateIntervalMs = (options) => {
   return errors
 }
 
-export const validateOptionsWith = (options, validators) => {
-  return validators
-    .map((validator) => validator(options))
-    .reduce((e1, e2) => e1.concat(e2), [])
+export const validateColor = (options) => {
+  let error
+
+  if (!options.color) {
+    error = '\'color\' color string is required but missing.'
+  } else if (!colorExists(options.color)) {
+    error = `invalid color '${options.color}'`
+  }
+
+  if (error === undefined) {
+    return []
+  } else {
+    return [ error ]
+  }
+}
+
+export const combineValidators = (validators) => {
+  return (options) => {
+    return validators
+      .map((validator) => validator(options))
+      .reduce((e1, e2) => e1.concat(e2), [])
+  }
 }

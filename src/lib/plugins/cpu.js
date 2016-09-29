@@ -1,8 +1,8 @@
 import os from 'os'
 import { iconStyles } from '../utils/icons'
 import { colorExists } from '../utils/colors'
+import { combineValidators, validateUpdateIntervalMs } from '../utils/validators'
 import pluginWrapperFactory from '../core/PluginWrapper'
-import { validateOptionsWith, validateUpdateIntervalMs } from '../utils/validators'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} xmlns="http://www.w3.org/2000/svg">
@@ -126,40 +126,40 @@ export function componentFactory( React, colors ) {
   }
 }
 
-export const validateOptions = (options) => {
-  return validateOptionsWith(options,
-    [
-      validateUpdateIntervalMs,
-      (options) => {
-        const errors = []
+const validateColors = (options) => {
+  const errors = []
 
-        if (typeof options.colors === 'undefined') {
-          errors.push('\'colors\' object is required but missing.')
-        } else {
-          if (!options.colors.high) {
-            errors.push('\'colors.high\' color string is required but missing.')
-          } else if (!colorExists(options.colors.high)) {
-            errors.push(`invalid color '${options.colors.high}'`)
-          }
+  if (typeof options.colors === 'undefined') {
+    errors.push('\'colors\' object is required but missing.')
+  } else {
+    if (!options.colors.high) {
+      errors.push('\'colors.high\' color string is required but missing.')
+    } else if (!colorExists(options.colors.high)) {
+      errors.push(`invalid color '${options.colors.high}'`)
+    }
 
-          if (!options.colors.moderate) {
-            errors.push('\'colors.moderate\' color string is required but missing.')
-          } else if (!colorExists(options.colors.moderate)) {
-            errors.push(`invalid color '${options.colors.moderate}'`)
-          }
+    if (!options.colors.moderate) {
+      errors.push('\'colors.moderate\' color string is required but missing.')
+    } else if (!colorExists(options.colors.moderate)) {
+      errors.push(`invalid color '${options.colors.moderate}'`)
+    }
 
-          if (!options.colors.low) {
-            errors.push('\'colors.low\' color string is required but missing.')
-          } else if (!colorExists(options.colors.low)) {
-            errors.push(`invalid color '${options.colors.low}'`)
-          }
-        }
+    if (!options.colors.low) {
+      errors.push('\'colors.low\' color string is required but missing.')
+    } else if (!colorExists(options.colors.low)) {
+      errors.push(`invalid color '${options.colors.low}'`)
+    }
+  }
 
-        return errors
-      }
-    ]
-  )
+  return errors
 }
+
+export const validateOptions = combineValidators(
+  [
+    validateUpdateIntervalMs,
+    validateColors
+  ]
+)
 
 export const defaultOptions = {
   updateIntervalMs: 500,

@@ -1,7 +1,7 @@
 import os from 'os'
-import { iconStyles } from '../utils/icons'
-import { colorExists } from '../utils/colors'
 import pluginWrapperFactory from '../core/PluginWrapper'
+import { iconStyles } from '../utils/icons'
+import { validateColor } from '../utils/validators'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} xmlns="http://www.w3.org/2000/svg">
@@ -38,17 +38,7 @@ export function componentFactory(React, colors) {
   }
 }
 
-export const validateOptions = (options) => {
-  const errors = []
-
-  if (!options.color) {
-    errors.push('\'color\' color string is required but missing.')
-  } else if (!colorExists(options.color)) {
-    errors.push(`invalid color '${options.color}'`)
-  }
-
-  return errors
-}
+export const validateOptions = validateColor
 
 export const defaultOptions = {
   color: 'lightBlue'

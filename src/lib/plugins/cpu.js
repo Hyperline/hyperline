@@ -56,7 +56,7 @@ export function componentFactory( React, colors ) {
         this.setState({
           cpuAverage: this.calculateCpuUsage()
         })
-      }, 500)
+      }, props.options.updateIntervalMs)
     }
 
     calculateCpuUsage() {
@@ -128,7 +128,7 @@ export function componentFactory( React, colors ) {
 export const validateOptions = (options) => {
   const errors = []
 
-  if (!options.colors) {
+  if (typeof options.colors === 'undefined') {
     errors.push('\'colors\' object is required but missing.')
   } else {
     if (!options.colors.high) {
@@ -150,10 +150,23 @@ export const validateOptions = (options) => {
     }
   }
 
+  if (typeof options.updateIntervalMs === 'undefined') {
+    errors.push('\'updateIntervalMs\' is required but missing.')
+  } else {
+    if (typeof options.updateIntervalMs !== 'number') {
+      errors.push('update interval must be defined as a number.');
+    } else {
+      if (options.updateIntervalMs < 1) {
+        errors.push('update interval must be at least 1ms.');
+      }
+    }
+  }
+
   return errors
 }
 
 export const defaultOptions = {
+  updateIntervalMs: 500,
   colors: {
     high: 'lightRed',
     moderate: 'lightYellow',

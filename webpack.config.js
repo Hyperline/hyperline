@@ -2,20 +2,20 @@ const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  entry: './src/index.js',
   target: 'node',
-  externals: [nodeExternals()],
+  entry: './src/index.js',
   output: {
     path: './dist',
     filename: 'hyperline.js',
     libraryTarget: 'commonjs'
   },
+  plugins: [ new webpack.DefinePlugin({ 'global.GENTLY': false }) ],
+  externals: [ nodeExternals() ],
   module: {
     preLoaders: [
       {
         test: /\.js$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/
+        loader: 'eslint-loader'
       }
     ],
     loaders: [
@@ -25,23 +25,9 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: [
-          'babel'
-        ],
-        exclude: /node_modules/,
-        query: {
-          presets: [
-            'es2015',
-            'react'
-          ]
-        }
+        loader: 'babel',
+        exclude: /node_modules/
       }
     ]
-  },
-  plugins: [
-    new webpack.DefinePlugin({ 'global.GENTLY': false })
-  ],
-  eslint: {
-    configFile: '.eslintrc'
   }
 }

@@ -1,7 +1,6 @@
 import { iconStyles } from '../utils/icons'
-import { colorExists } from '../utils/colors'
 import pluginWrapperFactory from '../core/PluginWrapper'
-
+import { colorExists } from '../utils/colors'
 
 const pluginIcon = (React, state, fillColor) => {
   const calcCharge = percent => {

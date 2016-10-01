@@ -1,6 +1,7 @@
 import os from 'os'
-import {iconStyles} from '../utils/icons'
-import {colorExists} from '../utils/colors'
+import { iconStyles } from '../utils/icons'
+import { colorExists } from '../utils/colors'
+import { combineValidators, validateUpdateIntervalMs } from '../utils/validators'
 import pluginWrapperFactory from '../core/PluginWrapper'
 
 const pluginIcon = (React, fillColor) => (
@@ -56,7 +57,7 @@ export function componentFactory( React, colors ) {
         this.setState({
           cpuAverage: this.calculateCpuUsage()
         })
-      }, 500)
+      }, props.options.updateIntervalMs)
     }
 
     calculateCpuUsage() {
@@ -125,10 +126,10 @@ export function componentFactory( React, colors ) {
   }
 }
 
-export const validateOptions = (options) => {
+const validateColors = (options) => {
   const errors = []
 
-  if (!options.colors) {
+  if (typeof options.colors === 'undefined') {
     errors.push('\'colors\' object is required but missing.')
   } else {
     if (!options.colors.high) {
@@ -153,7 +154,15 @@ export const validateOptions = (options) => {
   return errors
 }
 
+export const validateOptions = combineValidators(
+  [
+    validateUpdateIntervalMs,
+    validateColors
+  ]
+)
+
 export const defaultOptions = {
+  updateIntervalMs: 500,
   colors: {
     high: 'lightRed',
     moderate: 'lightYellow',

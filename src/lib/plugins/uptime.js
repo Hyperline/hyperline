@@ -1,7 +1,11 @@
 import os from 'os'
-import { iconStyles } from '../utils/icons'
 import pluginWrapperFactory from '../core/PluginWrapper'
-import { colorExists } from '../utils/colors'
+import { iconStyles } from '../utils/icons'
+import {
+  combineValidators,
+  validateUpdateIntervalMs,
+  validateColor
+} from '../utils/validators'
 
 const pluginIcon = (React, fillColor) => (
   <svg style={iconStyles} xmlns="http://www.w3.org/2000/svg">
@@ -34,8 +38,7 @@ export function componentFactory(React, colors) {
         uptime: this.getUptime()
       }
 
-      // Recheck every 5 minutes
-      setInterval(() => this.getUptime(), 60000 * 5)
+      setInterval(() => this.getUptime(), this.props.options.updateIntervalMs)
     }
 
     getUptime() {
@@ -58,18 +61,12 @@ export function componentFactory(React, colors) {
   }
 }
 
-export const validateOptions = (options) => {
-  const errors = []
-
-  if (!options.color) {
-    errors.push('\'color\' color string is required but missing.')
-  } else if (!colorExists(options.color)) {
-    errors.push(`invalid color '${options.color}'`)
-  }
-
-  return errors
-}
+export const validateOptions = combineValidators([
+  validateUpdateIntervalMs,
+  validateColor
+])
 
 export const defaultOptions = {
+  updateIntervalMs: 60000,
   color: 'lightYellow'
 }

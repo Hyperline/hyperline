@@ -24,8 +24,10 @@ out with the default config (below), and customize Hyperline to your liking.
 
 * The `color` string is used to specify the color of the line itself.
 * The `plugins` array determines which plugins are rendered, and in which order.
-  * Each plugin configuration has an `options` object. This can be used to change
-  the color of the each plugin. Some plugins allow you to choose multiple colors.
+  * Each plugin configuration has an `options` object.
+    * This can be used to change the color of the each plugin.
+    * Some plugins allow you to choose multiple colors.
+    * Some plugins allow you to change the update interval, where relevant. 
   * You can omit the options object to stick with the default options for each plugin.
 * Check out the list of available colors in the [HyperTerm source code](https://github.com/zeit/hyperterm/blob/master/lib/utils/colors.js).
 
@@ -46,13 +48,15 @@ module.exports = {
         {
           name: 'memory',
           options: {
-            color: 'white'
+            color: 'white',
+            updateIntervalMs: 1000
           }
         },
         {
           name: 'uptime',
           options: {
-            color: 'lightYellow'
+            color: 'lightYellow',
+            updateIntervalMs: 60000
           }
         },
         {
@@ -62,14 +66,16 @@ module.exports = {
               high: 'lightRed',
               moderate: 'lightYellow',
               low: 'lightGreen'
-            }
+            },
+            updateIntervalMs: 500
           }
         },
         {
           name: 'network',
           options: {
-            color: 'lightCyan'
-          }
+            color: 'lightCyan',
+            updateIntervalMs: 1000
+          },
         },
         {
           name: 'battery',

@@ -57,7 +57,7 @@ export function decorateHyperTerm(HyperTerm, {React, notify}) {
       this.colors = getColorList(props.colors)
 
       const defaultConfig = getDefaultConfig(plugins)
-      const mergedConfig = mergeConfigs(defaultConfig, this.props.hyperline, notify)
+      const mergedConfig = mergeConfigs(defaultConfig, props.hyperline, notify)
 
       this.plugins = mapConfigToPluginProp(mergedConfig)
     }

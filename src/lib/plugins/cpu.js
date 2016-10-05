@@ -125,7 +125,7 @@ export function componentFactory( React, colors ) {
   }
 }
 
-export const validateOptions = (options) => {
+export const validateOptions = options => {
   const errors = []
 
   if (!options.colors) {

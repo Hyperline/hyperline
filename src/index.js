@@ -1,101 +1,7 @@
 import { hyperlineFactory } from './lib/core/hyperline'
-import { getColorList, colorExists } from './lib/utils/colors'
+import { getColorList } from './lib/utils/colors'
+import { getDefaultConfig, mergeConfigs } from './lib/utils/config'
 import plugins from './lib/plugins'
-
-export function mapHyperTermState(state, map) {
-  return Object.assign({}, map, {
-    colors: state.ui.colors,
-    fontFamily: state.ui.fontFamily
-  })
-}
-
-function getDefaultConfig(plugins) {
-  let config = {
-    color: 'black',
-    plugins: []
-  }
-
-  Object.keys(plugins).forEach((pluginName) => {
-    const pluginExports = plugins[pluginName]
-
-    config.plugins.push({
-      name: pluginName,
-      options: pluginExports.defaultOptions
-    })
-  })
-
-  return config
-}
-
-function getUserConfig() {
-  return window.config.getConfig().hyperline
-}
-
-function mergeConfigs(defaultConfig, userConfig, notify) {
-  if (userConfig === undefined) {
-    return defaultConfig
-  }
-
-  return {
-    color: mergeColorConfigs(defaultConfig.color, userConfig.color),
-    plugins: mergePluginConfigs(defaultConfig.plugins, userConfig.plugins, notify)
-  }
-}
-
-function mergeColorConfigs(defaultColor, userColor) {
-  if (!userColor || !colorExists(userColor)) {
-    return defaultColor
-  } else {
-    return userColor
-  }
-}
-
-function mergePluginConfigs(defaultPlugins, userPlugins, notify) {
-  if (!userPlugins) {
-    return defaultPlugins
-  }
-
-  const finalOptions = []
-
-  userPlugins.forEach(eachPlugin => {
-    if (typeof eachPlugin !== 'object') {
-      notify('HyperLine', '\'plugins\' array members in \'.hyperterm.js\' must be objects.')
-      return
-    }
-
-    const defaultPlugin
-      = getPluginFromListByName(defaultPlugins, eachPlugin.name)
-
-    if (!defaultPlugin) {
-      notify('HyperLine', `Plugin with name "${eachPlugin.name}" does not exist.`)
-    } else {
-      if (eachPlugin.options === undefined) {
-        eachPlugin.options = defaultPlugin.options
-      }
-
-      const validator = plugins[eachPlugin.name].validateOptions
-      if (validator !== undefined) {
-        const errors = validator(eachPlugin.options)
-        if (errors.length > 0) {
-          errors.forEach(each => notify(`HyperLine '${eachPlugin.name}' plugin`, each))
-          eachPlugin.options = defaultPlugin.options
-        }
-      }
-
-      finalOptions.push(eachPlugin)
-    }
-  })
-
-  return finalOptions
-}
-
-function getPluginFromListByName(pluginList, name) {
-  if (!name) {
-    return undefined
-  }
-
-  return pluginList.find(each => each.name === name)
-}
 
 function mapConfigToPluginProp(config) {
   return config.plugins.map((each) => {
@@ -106,32 +12,52 @@ function mapConfigToPluginProp(config) {
   })
 }
 
+export function reduceUI(state, action) {
+  switch (action.type) {
+  case 'CONFIG_LOAD':
+  case 'CONFIG_RELOAD': {
+    return state.set('hyperline', action.config.hyperline);
+  }
+  }
+
+  return state;
+}
+
+export function mapHyperTermState(state, map) {
+  return Object.assign({}, map, {
+    colors: state.ui.colors,
+    fontFamily: state.ui.fontFamily,
+    hyperline: state.ui.hyperline
+  })
+}
+
 export function decorateHyperTerm(HyperTerm, {React, notify}) {
+  const { Component, PropTypes } = React
   const HyperLine = hyperlineFactory(React)
 
-  return class extends React.Component {
+  return class extends Component {
     static displayName() {
       return 'HyperTerm'
     }
 
     static propTypes() {
       return {
-        colors: React.PropTypes.oneOfType([
-          React.PropTypes.object,
-          React.PropTypes.array
+        colors: PropTypes.oneOfType([
+          PropTypes.object,
+          PropTypes.array
         ]),
-        fontFamily: React.PropTypes.string,
-        style: React.PropTypes.object
+        fontFamily: PropTypes.string,
+        style: PropTypes.object,
+        hyperline: PropTypes.object
       }
     }
 
     constructor(props, context) {
       super(props, context)
-      this.colors = getColorList(this.props.colors)
+      this.colors = getColorList(props.colors)
 
       const defaultConfig = getDefaultConfig(plugins)
-      const userConfig = getUserConfig()
-      const mergedConfig = mergeConfigs(defaultConfig, userConfig, notify)
+      const mergedConfig = mergeConfigs(defaultConfig, props.hyperline, notify)
 
       this.plugins = mapConfigToPluginProp(mergedConfig)
     }

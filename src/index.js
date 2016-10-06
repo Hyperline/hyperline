@@ -4,34 +4,32 @@ import { getDefaultConfig, mergeConfigs } from './lib/utils/config'
 import plugins from './lib/plugins'
 
 function mapConfigToPluginProp(config) {
-  return config.plugins.map((each) => {
-    return {
-      componentFactory: plugins[each.name].componentFactory,
-      options: each.options
-    }
-  })
+  return config.plugins.map(({name, options}) => ({
+    componentFactory: plugins[name].componentFactory,
+    options: options
+  }))
 }
 
-export function reduceUI(state, action) {
-  switch (action.type) {
+export function reduceUI(state, {type, config}) {
+  switch (type) {
   case 'CONFIG_LOAD':
   case 'CONFIG_RELOAD': {
-    return state.set('hyperline', action.config.hyperline);
+    return state.set('hyperline', config.hyperline);
   }
   }
 
   return state;
 }
 
-export function mapHyperTermState(state, map) {
+export function mapHyperTermState({ui: { colors, fontFamily, hyperline }}, map) {
   return Object.assign({}, map, {
-    colors: state.ui.colors,
-    fontFamily: state.ui.fontFamily,
-    hyperline: state.ui.hyperline
+    colors,
+    fontFamily,
+    hyperline
   })
 }
 
-export function decorateHyperTerm(HyperTerm, {React, notify}) {
+export function decorateHyperTerm(HyperTerm, { React, notify }) {
   const { Component, PropTypes } = React
   const HyperLine = hyperlineFactory(React)
 

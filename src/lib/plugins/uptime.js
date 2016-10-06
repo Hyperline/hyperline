@@ -17,14 +17,15 @@ const pluginIcon = (React, fillColor) => (
 )
 
 export function componentFactory(React, colors) {
-  return class extends React.Component {
+  const {Component, PropTypes} = React
+  return class extends Component {
     static displayName() {
       return 'Uptime plugin'
     }
 
     static propTypes() {
       return {
-        options: React.PropTypes.object
+        options: PropTypes.object
       }
     }
 
@@ -33,16 +34,17 @@ export function componentFactory(React, colors) {
       this.state = {
         uptime: this.getUptime()
       }
+    }
 
+    componentDidMount() {
       // Recheck every 5 minutes
-      setInterval(() => this.getUptime(), 60000 * 5)
+      setInterval(() => ({
+        uptime: this.setState(this.getUptime())
+      }), 60000 * 5)
     }
 
     getUptime() {
-      const uptime = (os.uptime()/3600).toFixed(0)
-      this.setState({uptime})
-
-      return uptime
+      return (os.uptime()/3600).toFixed(0)
     }
 
     render() {

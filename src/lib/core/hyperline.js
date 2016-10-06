@@ -1,12 +1,7 @@
 import Color from 'color'
 
 export const hyperlineFactory = (React) => {
-  const HyperLine = ({
-    fontFamily,
-    colors,
-    plugins
-  }) => {
-
+  const HyperLine = ({ fontFamily, colors, plugins }) => {
     const lineStyle = {
       display: 'flex',
       alignItems: 'center',
@@ -22,12 +17,10 @@ export const hyperlineFactory = (React) => {
     }
 
     return (
-      <div
-        style={lineStyle}
-      >
-        {plugins.map((item) => {
+      <div style={lineStyle}>
+        {plugins.map((item, index) => {
           const Plugin = item.componentFactory(React, colors)
-          return <Plugin options={item.options} />
+          return <Plugin key={index} options={item.options} />
         })}
       </div>
     )

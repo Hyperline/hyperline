@@ -1,5 +1,5 @@
-// Taken from https://github.com/zeit/hyperterm/blob/master/lib/utils/colors.js
-// Effect of this script is the reverse of colors.js in hyperterm
+// Taken from https://github.com/zeit/hyper/blob/master/lib/utils/colors.js
+// Effect of this script is the reverse of colors.js in hyper.app
 const colorList = [
   'black',
   'red',

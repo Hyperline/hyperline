@@ -23,7 +23,7 @@ function mergePluginConfigs(defaultPlugins, userPlugins, notify) {
     const { name, options = false } = plugin
 
     if (typeof plugin !== 'object' || Array.isArray(plugin)) {
-      notify('HyperLine', '\'plugins\' array members in \'.hyperterm.js\' must be objects.')
+      notify('HyperLine', '\'plugins\' array members in \'.hyper.js\' must be objects.')
       return newPlugins
     }
 

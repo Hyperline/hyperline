@@ -68,23 +68,33 @@ export function componentFactory(React, colors ) {
       super(props )
 
       this.state = {
-        ischargin: false,
+        ischarging: false,
         percent: '--'
       }
 
-      this.getBattery()
+      this.batteryEvents = [ 'chargingchange', 'chargingtimechange', 'dischargingtimechange', 'levelchange' ]
     }
 
-    getBattery() {
+    componentDidMount() {
       navigator.getBattery().then(battery => {
         this.setBatteryStatus(battery)
 
-        const batteryStatus = this.setBatteryStatus.bind(this);
-        const events = [ 'chargingchange', 'chargingtimechange', 'dischargingtimechange', 'levelchange' ]
-        events.forEach(event => {
-          battery.addEventListener(event, event => batteryStatus(event.target), false)
+        this.batteryEvents.forEach(event => {
+          battery.addEventListener(event, this.handleEvent, false)
         })
       })
+    }
+
+    componentWillUnmount() {
+      navigator.getBattery().then(battery => {
+        this.batteryEvents.forEach(event => {
+          battery.removeEventListener(event, this.handleEvent)
+        })
+      })
+    }
+
+    handleEvent(event) {
+      this.setBatteryStatus(event.target)
     }
 
     setBatteryStatus(battery) {

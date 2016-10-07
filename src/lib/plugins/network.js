@@ -40,6 +40,8 @@ export function componentFactory(React, colors) {
         download: 0,
         upload: 0
       }
+
+      this.networkPromises = []
     }
 
     componentDidMount() {
@@ -49,10 +51,18 @@ export function componentFactory(React, colors) {
 
     componentWillUnmount() {
       clearInterval(this.interval)
+      this.networkPromises.reduce((items, item) => {
+        if (typeof item.cancel !== 'undefined') {
+          item.cancel()
+        }
+        return [ ...items, item ]
+      }, [])
     }
 
     getSpeed() {
-      networkStats().then(data => this.setState(this.buildStateObject(data)))
+      this.networkPromises.push(
+        networkStats().then(data => this.setState(this.buildStateObject(data)))
+      )
     }
 
     buildStateObject(data) {

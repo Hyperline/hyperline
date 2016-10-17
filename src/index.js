@@ -21,7 +21,7 @@ export function reduceUI(state, {type, config}) {
   return state;
 }
 
-export function mapHyperTermState({ui: { colors, fontFamily, hyperline }}, map) {
+export function mapHyperState({ui: { colors, fontFamily, hyperline }}, map) {
   return Object.assign({}, map, {
     colors,
     fontFamily,
@@ -29,13 +29,13 @@ export function mapHyperTermState({ui: { colors, fontFamily, hyperline }}, map) 
   })
 }
 
-export function decorateHyperTerm(HyperTerm, { React, notify }) {
+export function decorateHyper(Hyper, { React, notify }) {
   const { Component, PropTypes } = React
   const HyperLine = hyperlineFactory(React)
 
   return class extends Component {
     static displayName() {
-      return 'HyperTerm'
+      return 'Hyper'
     }
 
     static propTypes() {
@@ -61,7 +61,7 @@ export function decorateHyperTerm(HyperTerm, { React, notify }) {
     }
 
     render() {
-      return <HyperTerm {...this.props} customChildren={(
+      return <Hyper {...this.props} customChildren={(
         <HyperLine
           fontFamily={this.props.fontFamily}
           colors={this.colors}

@@ -13,7 +13,7 @@ export const hyperlineFactory = (React) => {
       font: 'bold 12px Monospace',
       pointerEvents: 'none',
       fontFamily,
-      background: Color(colors.black).darken(0.2).hslString()
+      background: Color(colors.black).darken(0.1).hslString()
     }
 
     return (

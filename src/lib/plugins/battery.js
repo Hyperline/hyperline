@@ -73,6 +73,7 @@ export function componentFactory(React, colors ) {
       }
 
       this.batteryEvents = [ 'chargingchange', 'chargingtimechange', 'dischargingtimechange', 'levelchange' ]
+      this.handleEvent = this.handleEvent.bind(this)
     }
 
     componentDidMount() {

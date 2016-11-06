@@ -32,10 +32,12 @@ export function componentFactory(React, colors) {
     render() {
       const PluginWrapper = pluginWrapperFactory(React)
       const fillColor = colors[this.props.options.color]
+      const hostname = os.hostname()
+      const username = this.props.options.username ? os.userInfo().username + '@' : ''
 
       return (
         <PluginWrapper color={fillColor}>
-          <PluginIcon fillColor={fillColor} /> {os.hostname()}
+          <PluginIcon fillColor={fillColor} /> {username + hostname}
         </PluginWrapper>
       )
     }
@@ -55,5 +57,6 @@ export const validateOptions = options => {
 }
 
 export const defaultOptions = {
-  color: 'lightBlue'
+  color: 'lightBlue',
+  username: false
 }

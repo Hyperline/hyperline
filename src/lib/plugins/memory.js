@@ -1,4 +1,4 @@
-import os from 'os'
+import { mem } from 'systeminformation'
 import { iconStyles } from '../utils/icons'
 import { colorExists } from '../utils/colors'
 import pluginWrapperFactory from '../core/PluginWrapper'
@@ -48,16 +48,27 @@ export function componentFactory(React, colors) {
 
     constructor(props) {
       super(props)
+
       this.state = {
-        freeMemory: this.calculateFreeMemory(),
-        totalMemory: this.getMb(os.totalmem())
+        activeMemory: 0,
+        totalMemory: 0
       }
+
+      mem().then( m => {
+        this.state = {
+          activeMemory: this.getMb(m.active),
+          totalMemory: this.getMb(m.total)
+        }
+      })
+
     }
 
     componentDidMount() {
       this.interval = setInterval(() => (
-        this.setState({freeMemory: this.calculateFreeMemory()})
-      ), 100)
+        mem().then(m => {
+          this.setState({activeMemory: this.getMb(m.active)})
+        })
+      ), 1000)
     }
 
     componentWillUnmount() {
@@ -68,17 +79,13 @@ export function componentFactory(React, colors) {
       return (bytes / (1024 * 1024)).toFixed(0) + 'MB'
     }
 
-    calculateFreeMemory() {
-      return this.getMb(os.freemem())
-    }
-
     render() {
       const PluginWrapper = pluginWrapperFactory(React)
       const fillColor = colors[this.props.options.color]
 
       return (
         <PluginWrapper color={fillColor}>
-          <PluginIcon fillColor={fillColor} /> {this.state.freeMemory} / {this.state.totalMemory}
+          <PluginIcon fillColor={fillColor} /> {this.state.activeMemory} / {this.state.totalMemory}
         </PluginWrapper>
       )
     }

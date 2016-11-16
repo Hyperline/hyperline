@@ -66,6 +66,7 @@ export function decorateHyper(Hyper, { React, notify }) {
           fontFamily={this.props.fontFamily}
           colors={this.colors}
           plugins={this.plugins}
+          background={this.props.hyperline.background}
         />
       )} />
     }

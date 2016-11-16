@@ -35,6 +35,7 @@ module.exports = {
   config: {
     ...
     hyperline: {
+      background: 'transparent',
       color: 'black',
       plugins: [
         {

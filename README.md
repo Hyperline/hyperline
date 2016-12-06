@@ -45,6 +45,12 @@ module.exports = {
           }
         },
         {
+          name: 'ip',
+          options: {
+            color: 'magenta'
+          }
+        },
+        {
           name: 'memory',
           options: {
             color: 'white'

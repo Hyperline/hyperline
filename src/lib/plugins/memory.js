@@ -1,15 +1,23 @@
-import { mem } from 'systeminformation'
-import { iconStyles } from '../utils/icons'
-import { colorExists } from '../utils/colors'
-import pluginWrapperFactory from '../core/PluginWrapper'
+import React from 'react'
+import Component from 'hyper/component'
+import { mem as memoryData } from 'systeminformation'
+import SvgIcon from '../utils/SvgIcon'
+import leftPad from 'left-pad'
 
-export function componentFactory(React, colors) {
-  const {Component, PropTypes} = React
+class PluginIcon extends Component {
+  styles() {
+    return {
+      'memory-icon': {
+        fill: '#fff'
+      }
+    }
+  }
 
-  const PluginIcon = ({ fillColor }) => (
-    <svg style={iconStyles} xmlns="http://www.w3.org/2000/svg">
+  template(css) {
+    return (
+      <SvgIcon>
       <g fill="none" fillRule="evenodd">
-        <g fill={fillColor}>
+        <g className={css('memory-icon')}>
           <g id="memory" transform="translate(1.000000, 1.000000)">
             <path d="M3,0 L11,0 L11,14 L3,14 L3,0 Z M4,1 L10,1 L10,13 L4,13 L4,1 Z"></path>
             <rect x="5" y="2" width="4" height="10"></rect>
@@ -28,82 +36,73 @@ export function componentFactory(React, colors) {
           </g>
         </g>
       </g>
-    </svg>
-  )
+      </SvgIcon>
+    )
+  }
+}
 
-  PluginIcon.propTypes = {
-    fillColor: PropTypes.string
+export default class Memory extends Component {
+  static displayName() {
+    return 'Memory plugin'
   }
 
-  return class extends Component {
-    static displayName() {
-      return 'Memory plugin'
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      activeMemory: 0,
+      totalMemory: 0
     }
 
-    static propTypes() {
+    this.getMemory = this.getMemory.bind(this)
+    this.setMemory = this.setMemory.bind(this)
+  }
+
+  componentDidMount() {
+    this.setMemory()
+    this.interval = setInterval(() => this.setMemory(), 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
+  getMemory() {
+    return memoryData().then(memory => {
+      const totalMemory = this.getMb(memory.total)
+      const activeMemory = this.getMb(memory.active)
+      const totalWidth = (totalMemory).toString().length
+
       return {
-        options: PropTypes.object
+        activeMemory: leftPad(activeMemory, totalWidth, 0),
+        totalMemory
       }
-    }
-
-    constructor(props) {
-      super(props)
-
-      this.state = {
-        activeMemory: 0,
-        totalMemory: 0
-      }
-
-      mem().then( m => {
-        this.state = {
-          activeMemory: this.getMb(m.active),
-          totalMemory: this.getMb(m.total)
-        }
-      })
-
-    }
-
-    componentDidMount() {
-      this.interval = setInterval(() => (
-        mem().then(m => {
-          this.setState({activeMemory: this.getMb(m.active)})
-        })
-      ), 1000)
-    }
-
-    componentWillUnmount() {
-      clearInterval(this.interval)
-    }
-
-    getMb(bytes) {
-      return (bytes / (1024 * 1024)).toFixed(0) + 'MB'
-    }
-
-    render() {
-      const PluginWrapper = pluginWrapperFactory(React)
-      const fillColor = colors[this.props.options.color]
-
-      return (
-        <PluginWrapper color={fillColor}>
-          <PluginIcon fillColor={fillColor} /> {this.state.activeMemory} / {this.state.totalMemory}
-        </PluginWrapper>
-      )
-    }
-  }
-}
-
-export const validateOptions = (options) => {
-  const errors = []
-
-  if (!options.color) {
-    errors.push('\'color\' color string is required but missing.')
-  } else if (!colorExists(options.color)) {
-    errors.push(`invalid color '${options.color}'`)
+    })
   }
 
-  return errors
-}
+  setMemory() {
+    return this.getMemory().then(data => this.setState(data))
+  }
 
-export const defaultOptions = {
-  color: 'white'
+  getMb(bytes) {
+    // 1024 * 1024 = 1048576
+    return (bytes / 1048576).toFixed(0)
+  }
+
+  styles() {
+    return {
+      wrapper: {
+        display: 'flex',
+        alignItems: 'center'
+      }
+    }
+  }
+
+  template(css) {
+    return (
+      <div className={css('wrapper')}>
+        <PluginIcon /> {this.state.activeMemory}MB / {this.state.totalMemory}MB
+      </div>
+    )
+  }
 }

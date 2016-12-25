@@ -10,22 +10,21 @@ module.exports = {
     libraryTarget: 'commonjs'
   },
   plugins: [ new webpack.DefinePlugin({ 'global.GENTLY': false }) ],
-  externals: [ nodeExternals() ],
+  externals: [ nodeExternals(), 'hyper/component', 'hyper/notify', 'hyper/decorate', 'react' ],
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        loader: 'eslint-loader'
-      }
-    ],
-    loaders: [
+    rules: [
       {
         test: /\.json$/,
         loader: 'json-loader'
       },
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'eslint-loader',
+        enforce: 'pre'
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
         exclude: /node_modules/
       }
     ]

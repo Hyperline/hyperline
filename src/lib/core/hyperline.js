@@ -1,37 +1,56 @@
-import Color from 'color'
+import React from 'react'
+import Component from 'hyper/component'
+import decorate from 'hyper/decorate'
 
-export const hyperlineFactory = (React) => {
-  const HyperLine = ({ fontFamily, colors, plugins, background}) => {
-    const lineStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      position: 'absolute',
-      overflow: 'hidden',
-      bottom: 0,
-      width: '100%',
-      height: '18px',
-      font: 'bold 12px Monospace',
-      pointerEvents: 'none',
-      fontFamily,
-      background: background || Color(colors.black).darken(0.1).hslString()
+class HyperLine extends Component {
+  static propTypes() {
+    return {
+      plugins: React.PropTypes.array.isRequired
     }
+  }
+
+  styles() {
+    return {
+      line: {
+        display: 'flex',
+        alignItems: 'center',
+        position: 'absolute',
+        overflow: 'hidden',
+        bottom: 0,
+        width: '100%',
+        height: '18px',
+        font: 'bold 12px Monospace',
+        pointerEvents: 'none',
+        background: 'rgba(0, 0, 0, 0.2)'
+      },
+      wrapper: {
+        display: 'flex',
+        flexShrink: '0',
+        alignItems: 'center',
+        paddingLeft: '7px',
+        paddingRight: '7px',
+        borderLeft: '1px',
+        borderTop: '0px',
+        borderRight: '0px',
+        borderBottom: '0px',
+        borderStyle: 'solid',
+        borderColor: 'rgba(255, 255, 255, .2)'
+      }
+    }
+  }
+  template(css) {
+    const { plugins } = this.props
 
     return (
-      <div style={lineStyle}>
-        {plugins.map((item, index) => {
-          const Plugin = item.componentFactory(React, colors)
-          return <Plugin key={index} options={item.options} />
-        })}
+      <div className={css('line')} {...this.props}>
+        {plugins.map((Component, index) => (
+          <div key={index} className={css('wrapper')}>
+            <Component />
+          </div>
+        ))}
       </div>
     )
   }
-
-  HyperLine.propTypes = {
-    fontFamily: React.PropTypes.string.isRequired,
-    colors: React.PropTypes.object.isRequired,
-    plugins: React.PropTypes.array.isRequired,
-    background: React.PropTypes.string
-  }
-
-  return HyperLine
 }
+
+export default decorate(HyperLine, 'HyperLine')

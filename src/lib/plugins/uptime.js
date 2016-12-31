@@ -38,9 +38,13 @@ export function componentFactory(React, colors) {
 
     componentDidMount() {
       // Recheck every 5 minutes
-      setInterval(() => ({
+      this.interval = setInterval(() => ({
         uptime: this.setState(this.getUptime())
       }), 60000 * 5)
+    }
+
+    componentWillUnmount() {
+      clearInterval(this.interval)
     }
 
     getUptime() {

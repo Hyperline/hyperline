@@ -19,22 +19,17 @@ class HyperLine extends Component {
         bottom: 0,
         width: '100%',
         height: '18px',
-        font: 'bold 12px Monospace',
+        font: 'bold 10px Monospace',
         pointerEvents: 'none',
-        background: 'rgba(0, 0, 0, 0.2)'
+        background: 'rgba(0, 0, 0, 0.08)',
+        padding: '15px'
       },
       wrapper: {
         display: 'flex',
         flexShrink: '0',
         alignItems: 'center',
-        paddingLeft: '7px',
-        paddingRight: '7px',
-        borderLeft: '1px',
-        borderTop: '0px',
-        borderRight: '0px',
-        borderBottom: '0px',
-        borderStyle: 'solid',
-        borderColor: 'rgba(255, 255, 255, .2)'
+        paddingLeft: '10px',
+        paddingRight: '10px'
       }
     }
   }

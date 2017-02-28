@@ -15,6 +15,11 @@ plugins: [
 ],
 ```
 
+## Styling the line
+
+We implemented the same mechanism for styling/creating css classes that Hyper uses.
+This will allow you to create custom HyperLine themes the same way you would create a Hyper css theme.
+
 ## Contributing
 
 Feel free to contribute to HyperLine by [requesting a feature](https://github.com/hyperline/hyperline/issues/new), [submitting a bug](https://github.com/hyperline/hyperline/issues/new) or contributing code.
@@ -26,3 +31,10 @@ To set up the project for development:
 3. Run `npm run build` to build the plugin **OR** `npm run dev` to build the plugin and watch for file changes.
 4. Add the name of the directory to `localPlugins` in `~/.hyper.js`.
 5. Reload terminal window
+
+## Authors
+
+- Nick Tikhonov [@nicktikhonov](https://github.com/nicktikhonov)
+- Tim Neutkens [@timneutkens](https://github.com/timneutkens)
+- Stefan Ivic [@stefanivic](https://github.com/stefanivic)
+- Henrik Dahlheim [@henrikdahl](https://github.com/henrikdahl)

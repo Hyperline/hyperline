@@ -40,6 +40,7 @@
   },
   "scripts": {
     "build": "NODE_ENV=production webpack",
-    "dev": "webpack --watch"
+    "dev": "webpack --watch",
+    "prepublish": "npm run build"
   }
 }

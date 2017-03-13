@@ -61,12 +61,13 @@ export function decorateHyper(Hyper, { React, notify }) {
     }
 
     render() {
+      const { fontFamily, hyperline } = this.props;
       return <Hyper {...this.props} customChildren={(
         <HyperLine
-          fontFamily={this.props.fontFamily}
+          fontFamily={fontFamily}
           colors={this.colors}
           plugins={this.plugins}
-          background={this.props.hyperline.background}
+          background={hyperline && hyperline.background}
         />
       )} />
     }

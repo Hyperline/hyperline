@@ -1,7 +1,7 @@
 import Color from 'color'
 
 export const hyperlineFactory = (React) => {
-  const HyperLine = ({ fontFamily, colors, plugins, background}) => {
+  const HyperLine = ({ fontFamily, colors, plugins, background, hyperBackground}) => {
     const lineStyle = {
       display: 'flex',
       alignItems: 'center',
@@ -13,7 +13,7 @@ export const hyperlineFactory = (React) => {
       font: 'bold 12px Monospace',
       pointerEvents: 'none',
       fontFamily,
-      background: background || Color(colors.black).darken(0.1).hslString()
+      background: background || Color(hyperBackground || colors.black).alpha(0.2).rgbaString(),
     }
 
     return (
@@ -30,7 +30,8 @@ export const hyperlineFactory = (React) => {
     fontFamily: React.PropTypes.string.isRequired,
     colors: React.PropTypes.object.isRequired,
     plugins: React.PropTypes.array.isRequired,
-    background: React.PropTypes.string
+    background: React.PropTypes.string,
+    hyperBackground: React.PropTypes.string,
   }
 
   return HyperLine

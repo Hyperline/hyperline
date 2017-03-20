@@ -46,7 +46,8 @@ export function decorateHyper(Hyper, { React, notify }) {
         ]),
         fontFamily: PropTypes.string,
         style: PropTypes.object,
-        hyperline: PropTypes.object
+        hyperline: PropTypes.object,
+        backgroundColor: PropTypes.object,
       }
     }
 
@@ -61,14 +62,20 @@ export function decorateHyper(Hyper, { React, notify }) {
     }
 
     render() {
-      return <Hyper {...this.props} customChildren={(
-        <HyperLine
-          fontFamily={this.props.fontFamily}
-          colors={this.colors}
-          plugins={this.plugins}
-          background={this.props.hyperline.background}
+      return (
+        <Hyper
+          {...this.props}
+          customChildren={(
+            <HyperLine
+              fontFamily={this.props.fontFamily}
+              colors={this.colors}
+              plugins={this.plugins}
+              background={this.props.hyperline && this.props.hyperline.background}
+              hyperBackground={this.props.backgroundColor}
+            />
+          )}
         />
-      )} />
+      );
     }
   }
 }

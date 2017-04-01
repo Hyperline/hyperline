@@ -1,5 +1,5 @@
 import os from 'os'
-import moment from 'moment'
+import { formatUptime } from '../utils/time'
 import { iconStyles } from '../utils/icons'
 import pluginWrapperFactory from '../core/PluginWrapper'
 import { colorExists } from '../utils/colors'
@@ -49,14 +49,7 @@ export function componentFactory(React, colors) {
     }
 
     getUptime() {
-      const uptime = moment.duration(os.uptime(), 'seconds')
-      const days = uptime.days()
-      const hours = uptime.hours()
-      const daysFormatted = days ? days + 'd' : ''
-      const hoursFormatted = hours ? hours + 'h' : ''
-      const divider = (days && hours) ? ' ' : ''
-
-      return daysFormatted + divider + hoursFormatted
+      return formatUptime(os.uptime())
     }
 
     render() {

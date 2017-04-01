@@ -1,4 +1,5 @@
 import os from 'os'
+import moment from 'moment'
 import { iconStyles } from '../utils/icons'
 import pluginWrapperFactory from '../core/PluginWrapper'
 import { colorExists } from '../utils/colors'
@@ -48,7 +49,14 @@ export function componentFactory(React, colors) {
     }
 
     getUptime() {
-      return (os.uptime()/3600).toFixed(0)
+      const uptime = moment.duration(os.uptime(), 'seconds')
+      const days = uptime.days()
+      const hours = uptime.hours()
+      const daysFormatted = days ? days + 'd' : ''
+      const hoursFormatted = hours ? hours + 'h' : ''
+      const divider = (days && hours) ? ' ' : ''
+
+      return daysFormatted + divider + hoursFormatted
     }
 
     render() {
@@ -57,7 +65,7 @@ export function componentFactory(React, colors) {
 
       return (
         <PluginWrapper color={fillColor}>
-          {pluginIcon(React, fillColor)} {this.state.uptime}HRS
+          {pluginIcon(React, fillColor)} {this.state.uptime}
         </PluginWrapper>
       )
     }

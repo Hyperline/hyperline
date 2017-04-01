@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`time formatUptime 1 day 4 hours 1`] = `"1d 4h"`;
+
+exports[`time formatUptime 3 days 1`] = `"3d"`;
+
+exports[`time formatUptime 3 days 8 minutes 1`] = `"3d"`;
+
+exports[`time formatUptime 3 hours 48 minutes 1`] = `"4h"`;
+
+exports[`time formatUptime 3 seconds 1`] = `"0h"`;
+
+exports[`time formatUptime 4 hours 1`] = `"4h"`;
+
+exports[`time formatUptime 23 hours 1`] = `"23h"`;
+
+exports[`time formatUptime 23 hours 17 minutes 1`] = `"23h"`;
+
+exports[`time formatUptime 23 hours 49 minutes 1`] = `"1d"`;
+
+exports[`time formatUptime 23 minutes 1`] = `"0h"`;
+
+exports[`time formatUptime 29 minutes 1`] = `"0h"`;
+
+exports[`time formatUptime 30 minutes 1`] = `"1h"`;
+
+exports[`time formatUptime 31 minutes 1`] = `"1h"`;
+
+exports[`time formatUptime is a function 1`] = `[Function]`;

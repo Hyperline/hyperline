@@ -1,4 +1,5 @@
 import os from 'os'
+import { formatUptime } from '../utils/time'
 import { iconStyles } from '../utils/icons'
 import pluginWrapperFactory from '../core/PluginWrapper'
 import { colorExists } from '../utils/colors'
@@ -48,7 +49,7 @@ export function componentFactory(React, colors) {
     }
 
     getUptime() {
-      return (os.uptime()/3600).toFixed(0)
+      return formatUptime(os.uptime())
     }
 
     render() {
@@ -57,7 +58,7 @@ export function componentFactory(React, colors) {
 
       return (
         <PluginWrapper color={fillColor}>
-          {pluginIcon(React, fillColor)} {this.state.uptime}HRS
+          {pluginIcon(React, fillColor)} {this.state.uptime}
         </PluginWrapper>
       )
     }

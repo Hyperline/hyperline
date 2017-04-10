@@ -7,6 +7,8 @@ HyperLine
 
 ## Install
 
+* **NOTE:** HyperLine is not currently supported when using Microsoft Windows. See [this issue](https://github.com/Hyperline/hyperline/issues/57) for additional information.
+
 To install, edit `~/.hyper.js` and add `"hyperline"` to `plugins`:
 
 ```

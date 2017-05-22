@@ -1,4 +1,5 @@
 import publicIp from 'public-ip'
+import { networkInterfaces } from 'os'
 import { iconStyles } from '../utils/icons'
 import { colorExists } from '../utils/colors'
 import pluginWrapperFactory from '../core/PluginWrapper'
@@ -32,22 +33,43 @@ export function componentFactory(React, colors) {
     constructor(props) {
       super(props)
 
-      this.state = {ip: '?.?.?.?'}
-      publicIp.v4().then(ip => {
-        this.setState({ip: ip})
+      this.state = { ip: '?.?.?.?' }
+      if (this.props.options.type === 'local') {
+        this.state = { ip: this.getLocalIP() }
+      } else if (this.props.options.type === 'remote') {
+        publicIp.v4().then(ip => {
+          this.setState({ ip: ip })
+        })
+      }
+    }
+
+    getLocalIP() {
+      var ifaces = networkInterfaces();
+      var addresses = []
+      Object.keys(ifaces).forEach(ifname => {
+        ifaces[ifname].forEach(iface => {
+          if (iface.family === 'IPv4' && !iface.internal) {
+            addresses.push(iface.address)
+          }
+        })
       })
+      return addresses.length ? addresses[0] : 'Not Connected'
     }
 
     componentDidMount() {
-      this.interval = setInterval(() => (
-        publicIp.v4()
-        .then(ip => {
-          this.setState({ip: ip})
-        })
-        .catch(() => {
-          this.setState({ip: '?.?.?.?'})
-        })
-      ), 60000 * 5)
+      this.interval = setInterval(() => {
+        if (this.props.options.type === 'local') {
+          this.setState({ ip: this.getLocalIP() })
+        } else if (this.props.options.type === 'remote') {
+          publicIp.v4()
+            .then(ip => {
+              this.setState({ ip: ip })
+            })
+            .catch(() => {
+              this.setState({ ip: '?.?.?.?' })
+            })
+        }
+      }, 60000 * 5)
     }
 
     componentWillUnmount() {
@@ -75,10 +97,16 @@ export const validateOptions = options => {
   } else if (!colorExists(options.color)) {
     errors.push(`invalid color '${options.color}'`)
   }
+  if (!options.type) {
+    errors.push('\'type\' string is required but missing.')
+  } else if (options.type !== 'remote' && options.type !== 'local') {
+    errors.push('\'type\' must be \'remote\' or \'local\'.')
+  }
 
   return errors
 }
 
 export const defaultOptions = {
-  color: 'magenta'
+  color: 'magenta',
+  type: 'remote'
 }

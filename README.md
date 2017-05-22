@@ -49,7 +49,8 @@ module.exports = {
         {
           name: 'ip',
           options: {
-            color: 'magenta'
+            color: 'magenta',
+            type: 'remote'
           }
         },
         {

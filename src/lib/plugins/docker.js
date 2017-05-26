@@ -54,7 +54,8 @@ export default class Docker extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(() => (this.setVersion()), 60000*5)
+    this.setVersion()
+    this.interval = setInterval(() => (this.setVersion()), 15000)
   }
 
   componentWillUnmount() {

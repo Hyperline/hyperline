@@ -11,8 +11,7 @@
   "contributors": [
     {"name": "Tim Neutkens"},
     {"name": "Stefan Ivic"},
-    {"name": "Henrik Dahlheim"},
-    {"name": "Bob Nisco"}
+    {"name": "Henrik Dahlheim"}
   ],
   "license": "MIT",
   "repository": "hyperline/hyperline",

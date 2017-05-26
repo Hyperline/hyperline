@@ -6,5 +6,6 @@ import Cpu from './cpu'
 import Network from './network'
 import Battery from './battery'
 import Time from './time'
+import Spotify from './spotify'
 
-export default [ Hostname, Ip, Memory, Uptime, Battery, Cpu, Network, Time ]
+export default [ Hostname, Ip, Memory, Uptime, Battery, Cpu, Network, Time, Spotify ]

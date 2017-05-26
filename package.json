@@ -9,10 +9,18 @@
   ],
   "author": "Nick Tikhonov",
   "contributors": [
-    {"name": "Tim Neutkens"},
-    {"name": "Stefan Ivic"},
-    {"name": "Henrik Dahlheim"},
-    {"name": "Bob Nisco"}
+    {
+      "name": "Tim Neutkens"
+    },
+    {
+      "name": "Stefan Ivic"
+    },
+    {
+      "name": "Henrik Dahlheim"
+    },
+    {
+      "name": "Bob Nisco"
+    }
   ],
   "license": "MIT",
   "repository": "hyperline/hyperline",
@@ -26,6 +34,7 @@
     "left-pad": "^1.1.3",
     "moment": "^2.18.1",
     "public-ip": "^2.0.1",
+    "spotify-node-applescript": "^1.1.0",
     "systeminformation": "^3.4.1"
   },
   "devDependencies": {

@@ -46,8 +46,8 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack --watch",
-    "tdd": "jest --watch -c jest.config.json",
-    "test": "jest -c jest.config.json",
+    "tdd": "jest --watch",
+    "test": "jest",
     "prepublish": "npm run build"
   }
 }

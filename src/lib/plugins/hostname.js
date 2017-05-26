@@ -1,62 +1,52 @@
+import React from 'react'
+import Component from 'hyper/component'
+import SvgIcon from '../utils/SvgIcon'
 import os from 'os'
-import { iconStyles } from '../utils/icons'
-import { colorExists } from '../utils/colors'
-import pluginWrapperFactory from '../core/PluginWrapper'
 
-export function componentFactory(React, colors) {
-  const PluginIcon = ({ fillColor }) => (
-    <svg style={iconStyles} xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" fillRule="evenodd">
-        <g fill={fillColor} transform="translate(1.000000, 1.000000)">
-          <path d="M2,0 L12,0 L12,8 L2,8 L2,0 Z M4,2 L10,2 L10,6 L4,6 L4,2 Z M5.5,11 L8.5,11 L8.5,14 L5.5,14 L5.5,11 Z M11,11 L14,11 L14,14 L11,14 L11,11 Z M0,11 L3,11 L3,14 L0,14 L0,11 Z M6.5,10 L7.5,10 L7.5,11 L6.5,11 L6.5,10 Z M12,10 L13,10 L13,11 L12,11 L12,10 Z M1,10 L2,10 L2,11 L1,11 L1,10 Z M1,9 L13,9 L13,10 L1,10 L1,9 Z M6.5,8 L7.5,8 L7.5,9 L6.5,9 L6.5,8 Z"></path>
-        </g>
-      </g>
-    </svg>
-  )
-
-  PluginIcon.propTypes = {
-    fillColor: React.PropTypes.string
-  }
-
-  return class extends React.Component {
-    static displayName() {
-      return 'Hostname plugin'
-    }
-
-    static propTypes() {
-      return {
-        options: React.PropTypes.object
+class PluginIcon extends Component {
+  styles() {
+    return {
+      'hostname-icon': {
+        fill: '#fff'
       }
     }
+  }
 
-    render() {
-      const PluginWrapper = pluginWrapperFactory(React)
-      const fillColor = colors[this.props.options.color]
-      const hostname = os.hostname()
-      const username = this.props.options.username ? os.userInfo().username + '@' : ''
+  template(css) {
+    return (
+      <SvgIcon>
+        <g fill="none" fillRule="evenodd">
+          <g className={css('hostname-icon')} transform="translate(1.000000, 1.000000)">
+            <path d="M2,0 L12,0 L12,8 L2,8 L2,0 Z M4,2 L10,2 L10,6 L4,6 L4,2 Z M5.5,11 L8.5,11 L8.5,14 L5.5,14 L5.5,11 Z M11,11 L14,11 L14,14 L11,14 L11,11 Z M0,11 L3,11 L3,14 L0,14 L0,11 Z M6.5,10 L7.5,10 L7.5,11 L6.5,11 L6.5,10 Z M12,10 L13,10 L13,11 L12,11 L12,10 Z M1,10 L2,10 L2,11 L1,11 L1,10 Z M1,9 L13,9 L13,10 L1,10 L1,9 Z M6.5,8 L7.5,8 L7.5,9 L6.5,9 L6.5,8 Z"></path>
+          </g>
+        </g>
+      </SvgIcon>
+    )
+  }
+}
 
-      return (
-        <PluginWrapper color={fillColor}>
-          <PluginIcon fillColor={fillColor} /> {username + hostname}
-        </PluginWrapper>
-      )
+export default class HostName extends Component {
+  static displayName() {
+    return 'Hostname plugin'
+  }
+
+  styles() {
+    return {
+      wrapper: {
+        display: 'flex',
+        alignItems: 'center'
+      }
     }
   }
-}
 
-export const validateOptions = options => {
-  const errors = []
+  template(css) {
+    const hostname = os.hostname()
+    const username = process.env.USER
 
-  if (!options.color) {
-    errors.push('\'color\' color string is required but missing.')
-  } else if (!colorExists(options.color)) {
-    errors.push(`invalid color '${options.color}'`)
+    return (
+      <div className={css('wrapper')}>
+        <PluginIcon /> <span className={css('username')}>{username}@</span>{hostname}
+      </div>
+    )
   }
-
-  return errors
-}
-
-export const defaultOptions = {
-  color: 'lightBlue',
-  username: false
 }

@@ -1,14 +1,7 @@
-import { hyperlineFactory } from './lib/core/hyperline'
+import React, { Component, PropTypes } from 'react'
+import HyperLine from './lib/core/hyperline'
 import { getColorList } from './lib/utils/colors'
-import { getDefaultConfig, mergeConfigs } from './lib/utils/config'
-import plugins from './lib/plugins'
-
-function mapConfigToPluginProp(config) {
-  return config.plugins.map(({name, options}) => ({
-    componentFactory: plugins[name].componentFactory,
-    options: options
-  }))
-}
+import hyperlinePlugins from './lib/plugins'
 
 export function reduceUI(state, {type, config}) {
   switch (type) {
@@ -23,16 +16,38 @@ export function reduceUI(state, {type, config}) {
 
 export function mapHyperState({ui: { colors, fontFamily, hyperline }}, map) {
   return Object.assign({}, map, {
-    colors,
-    fontFamily,
-    hyperline
+    colors: getColorList(colors),
+    fontFamily
   })
 }
 
-export function decorateHyper(Hyper, { React, notify }) {
-  const { Component, PropTypes } = React
-  const HyperLine = hyperlineFactory(React)
+export function decorateHyperLine(HyperLine) {
+  return class extends Component {
+    static displayName() {
+      return 'HyperLine'
+    }
 
+    static propTypes() {
+      return {
+        plugins: PropTypes.array.isRequired
+      }
+    }
+
+    static get defaultProps() {
+      return {
+        plugins: []
+      }
+    }
+
+    render() {
+      const plugins = [ ...this.props.plugins, ...hyperlinePlugins ]
+
+      return <HyperLine {...this.props} plugins={plugins} />
+    }
+  }
+}
+
+export function decorateHyper(Hyper) {
   return class extends Component {
     static displayName() {
       return 'Hyper'
@@ -45,37 +60,19 @@ export function decorateHyper(Hyper, { React, notify }) {
           PropTypes.array
         ]),
         fontFamily: PropTypes.string,
-        style: PropTypes.object,
-        hyperline: PropTypes.object,
-        backgroundColor: PropTypes.object,
+        customChildren: PropTypes.element.isRequired
       }
     }
 
-    constructor(props, context) {
-      super(props, context)
-      this.colors = getColorList(props.colors)
-
-      const defaultConfig = getDefaultConfig(plugins)
-      const mergedConfig = mergeConfigs(defaultConfig, props.hyperline, notify)
-
-      this.plugins = mapConfigToPluginProp(mergedConfig)
-    }
-
     render() {
-      return (
-        <Hyper
-          {...this.props}
-          customChildren={(
-            <HyperLine
-              fontFamily={this.props.fontFamily}
-              colors={this.colors}
-              plugins={this.plugins}
-              background={this.props.hyperline && this.props.hyperline.background}
-              hyperBackground={this.props.backgroundColor}
-            />
-          )}
-        />
-      );
+      const customChildren = (
+        <div>
+          {this.props.customChildren}
+          <HyperLine style={{fontFamily: this.props.fontFamily }} />
+        </div>
+      )
+
+      return <Hyper {...this.props} customChildren={customChildren} />
     }
   }
 }

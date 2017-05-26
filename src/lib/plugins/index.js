@@ -6,5 +6,6 @@ import Cpu from './cpu'
 import Network from './network'
 import Battery from './battery'
 import Time from './time'
+import Docker from './docker'
 
-export default [ Hostname, Ip, Memory, Uptime, Battery, Cpu, Network, Time ]
+export default [ Hostname, Ip, Memory, Uptime, Battery, Cpu, Network, Time, Docker ]

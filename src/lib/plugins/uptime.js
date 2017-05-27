@@ -1,5 +1,6 @@
 import React from 'react'
 import Component from 'hyper/component'
+import { formatUptime } from '../utils/time'
 import SvgIcon from '../utils/SvgIcon'
 import os from 'os'
 
@@ -48,7 +49,7 @@ export default class Uptime extends Component {
   }
 
   getUptime() {
-    return (os.uptime() / 3600).toFixed(0)
+    return formatUptime(os.uptime())
   }
 
   styles() {
@@ -63,7 +64,7 @@ export default class Uptime extends Component {
   template(css) {
     return (
       <div className={css('wrapper')}>
-        <PluginIcon /> {this.state.uptime}HRS
+        <PluginIcon /> {this.state.uptime}
       </div>
     )
   }

@@ -48,7 +48,7 @@ export default class Docker extends Component {
       .then( version => {
         this.setState({version: version})
       })
-      .catch( err => {
+      .catch(() => {
         this.setState({version: 'Not running'})
       })
   }
@@ -67,7 +67,7 @@ export default class Docker extends Component {
       wrapper: {
         display: 'flex',
         alignItems: 'center',
-        color: '#73abff' 
+        color: '#73abff'
       }
     }
   }

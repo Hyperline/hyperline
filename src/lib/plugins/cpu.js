@@ -59,7 +59,7 @@ export default class Cpu extends Component {
 
   getCpuLoad() {
     cpuLoad().then(({ currentload }) => this.setState({
-      cpuLoad: leftPad(currentload.toFixed(), 3, 0)
+      cpuLoad: leftPad(currentload.toFixed(2), 2, 0)
     }))
   }
 
@@ -84,7 +84,7 @@ export default class Cpu extends Component {
   template(css) {
     return (
       <div className={css('wrapper')}>
-        <PluginIcon /> {this.state.cpuLoad}%
+        <PluginIcon /> {this.state.cpuLoad}
       </div>
     )
   }

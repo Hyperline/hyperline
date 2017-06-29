@@ -2,6 +2,7 @@ import React from 'react'
 import Component from 'hyper/component'
 import SvgIcon from '../utils/SvgIcon'
 var spotify = require('spotify-node-applescript');
+var cp = require('child_process');
 
 
 class PluginIcon extends Component {
@@ -58,6 +59,20 @@ export default class Spotify extends Component {
     })
   }
 
+  /**
+    TODO: Make this work on linux and Win 32/64
+
+    Currently uses a very hacky way of opening spotify.
+    Need to find a better method of launching the process.
+   */
+  handleSpotifyExecClick() {
+    spotify.isRunning((err, isRunning) => {
+      if (!isRunning) {
+        cp.exec('open -a spotify')
+      }
+    })
+  }
+
   componentDidMount() {
     this.setStatus()
     this.interval = setInterval(() => (this.setStatus()), 1000)
@@ -80,9 +95,8 @@ export default class Spotify extends Component {
   template(css) {
     return (
       <div className={css('wrapper')}>
-        <PluginIcon /> {this.state.state}
+        <PluginIcon onClick={handleSpotifyExecClick} /> {this.state.state}
       </div>
     )
   }
 }
-

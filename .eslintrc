@@ -18,7 +18,8 @@
     "object-curly-spacing": 0,
     "computed-property-spacing": 0,
     "space-infix-ops": 0,
-    "one-var": 0
+    "one-var": 0,
+    "no-console": 0,
   },
   "env": {
     "node": true,

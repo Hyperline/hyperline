@@ -2,7 +2,6 @@ import React from 'react'
 import Component from 'hyper/component'
 import SvgIcon from '../utils/SvgIcon'
 var spotify = require('spotify-node-applescript');
-var cp = require('child_process');
 
 
 class PluginIcon extends Component {
@@ -42,6 +41,8 @@ export default class Spotify extends Component {
 
     this.state = {version: 'Not running'}
     this.setStatus = this.setStatus.bind(this)
+
+    this.handleSpotifyExecClick = this.handleSpotifyExecClick.bind(this)
   }
 
   setStatus() {
@@ -66,9 +67,10 @@ export default class Spotify extends Component {
     Need to find a better method of launching the process.
    */
   handleSpotifyExecClick() {
+    console.log('HANDLE CLICKED FOR SPOTIFY')
     spotify.isRunning((err, isRunning) => {
       if (!isRunning) {
-        cp.exec('open -a spotify')
+        spotify.initSpotify()
       }
     })
   }
@@ -94,8 +96,8 @@ export default class Spotify extends Component {
 
   template(css) {
     return (
-      <div className={css('wrapper')}>
-        <PluginIcon onClick={handleSpotifyExecClick} /> {this.state.state}
+      <div className={css('wrapper')} onClick={this.handleSpotifyExecClick} >
+        <PluginIcon /> {this.state.state}
       </div>
     )
   }

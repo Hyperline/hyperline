@@ -45,7 +45,7 @@ export default class Network extends Component {
 
   componentDidMount() {
     this.getSpeed()
-    this.interval = setInterval(() => this.getSpeed(), 500);
+    this.interval = setInterval(() => this.getSpeed(), 1500);
   }
 
   componentWillUnmount() {

@@ -9,9 +9,15 @@
   ],
   "author": "Nick Tikhonov",
   "contributors": [
-    {"name": "Tim Neutkens"},
-    {"name": "Stefan Ivic"},
-    {"name": "Henrik Dahlheim"}
+    {
+      "name": "Tim Neutkens"
+    },
+    {
+      "name": "Stefan Ivic"
+    },
+    {
+      "name": "Henrik Dahlheim"
+    }
   ],
   "license": "MIT",
   "repository": "hyperline/hyperline",

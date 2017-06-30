@@ -41,6 +41,8 @@ export default class Spotify extends Component {
 
     this.state = {version: 'Not running'}
     this.setStatus = this.setStatus.bind(this)
+
+    this.handleSpotifyExecClick = this.handleSpotifyExecClick.bind(this)
   }
 
   setStatus() {
@@ -55,6 +57,21 @@ export default class Spotify extends Component {
           this.setState({ state: s + ' ' + track.artist + ' - ' + track.name})
         })
       })
+    })
+  }
+
+  /**
+    TODO: Make this work on linux and Win 32/64
+
+    Currently uses a very hacky way of opening spotify.
+    Need to find a better method of launching the process.
+   */
+  handleSpotifyExecClick() {
+    console.log('HANDLE CLICKED FOR SPOTIFY')
+    spotify.isRunning((err, isRunning) => {
+      if (!isRunning) {
+        spotify.initSpotify()
+      }
     })
   }
 
@@ -79,10 +96,9 @@ export default class Spotify extends Component {
 
   template(css) {
     return (
-      <div className={css('wrapper')}>
+      <div className={css('wrapper')} onClick={this.handleSpotifyExecClick} >
         <PluginIcon /> {this.state.state}
       </div>
     )
   }
 }
-

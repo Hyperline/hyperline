@@ -60,7 +60,7 @@ export default class Memory extends Component {
 
   componentDidMount() {
     this.setMemory()
-    this.interval = setInterval(() => this.setMemory(), 1000)
+    this.interval = setInterval(() => this.setMemory(), 2500)
   }
 
   componentWillUnmount() {

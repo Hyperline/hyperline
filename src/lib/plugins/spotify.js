@@ -54,8 +54,7 @@ export default class Spotify extends Component {
       }
       spotify.getState((err, st) => {
         spotify.getTrack((err, track) => {
-          st.state == 'playing' ? '▶' : '❚❚'
-          this.setState({ state: `${st.state} ${track.artist} - ${track.name}`})
+          this.setState({ state: `${st.state == 'playing' ? '▶' : '❚❚'} ${track.artist} - ${track.name}`})
         })
       })
     })

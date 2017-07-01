@@ -1,7 +1,7 @@
 import React from 'react'
 import Component from 'hyper/component'
 import SvgIcon from '../utils/SvgIcon'
-var spotify = require('spotify-node-applescript');
+import spotify from 'spotify-node-applescript'
 
 
 class PluginIcon extends Component {
@@ -43,6 +43,7 @@ export default class Spotify extends Component {
     this.setStatus = this.setStatus.bind(this)
 
     this.handleSpotifyActivation = this.handleSpotifyActivation.bind(this)
+    this.printdbg = this.printdbg.bind(this)
   }
 
   setStatus() {
@@ -53,8 +54,7 @@ export default class Spotify extends Component {
       }
       spotify.getState((err, st) => {
         spotify.getTrack((err, track) => {
-          var s = st.state == 'playing' ? '▶' : '❚❚'
-          this.setState({ state: s + ' ' + track.artist + ' - ' + track.name})
+          this.setState({ state: `${st.state == 'playing' ? '▶' : '❚❚'} ${track.artist} - ${track.name}`})
         })
       })
     })
@@ -63,13 +63,18 @@ export default class Spotify extends Component {
   /**
     TODO: Make this work on Linux and Win 32/64
    */
-  handleSpotifyActivation() {
+  handleSpotifyActivation(e) {
+    e.preventDefault()
     console.log('HANDLE CLICKED FOR SPOTIFY')
     spotify.isRunning((err, isRunning) => {
       if (!isRunning) {
         spotify.openSpotify()
       }
     })
+  }
+
+  printdbg() {
+    console.log('Spotify button CLICKED')
   }
 
   componentDidMount() {
@@ -93,7 +98,7 @@ export default class Spotify extends Component {
 
   template(css) {
     return (
-      <div className={css('wrapper')} onClick={this.handleSpotifyActivation} >
+      <div className={css('wrapper')} onClick={this.printdbg.bind(this)}>
         <PluginIcon /> {this.state.state}
       </div>
     )

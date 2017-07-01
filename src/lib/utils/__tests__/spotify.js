@@ -1,8 +1,8 @@
 /*eslint-env jest*/
-var spotify = require('spotify-node-applescript')
+import spotify from 'spotify-node-applescript'
 
 describe('spotify', () => {
   it('should open spotify', () => {
-    expect(spotify.openSpotify()).not.toBeTruthy()
+    expect(spotify.openSpotify()).toBeUndefined()
   })
 });

@@ -22,7 +22,7 @@ class HyperLine extends Component {
         font: 'bold 10px Monospace',
         pointerEvents: 'none',
         background: 'rgba(0, 0, 0, 0.08)',
-        padding: '15px'
+        margin: '10px'
       },
       wrapper: {
         display: 'flex',

@@ -9,9 +9,15 @@
   ],
   "author": "Nick Tikhonov",
   "contributors": [
-    {"name": "Tim Neutkens"},
-    {"name": "Stefan Ivic"},
-    {"name": "Henrik Dahlheim"}
+    {
+      "name": "Tim Neutkens"
+    },
+    {
+      "name": "Stefan Ivic"
+    },
+    {
+      "name": "Henrik Dahlheim"
+    }
   ],
   "license": "MIT",
   "repository": "hyperline/hyperline",
@@ -21,6 +27,7 @@
   ],
   "dependencies": {
     "color": "^0.11.3",
+    "git-state": "^4.0.0",
     "json-loader": "^0.5.4",
     "left-pad": "^1.1.3",
     "moment": "^2.18.1",
@@ -35,19 +42,45 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "cross-env": "^3.1.4",
-    "eslint": "^3.3.0",
-    "eslint-config-idiomatic": "^2.1.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-config-xo-react": "^0.13.0",
     "eslint-loader": "^1.5.0",
-    "eslint-plugin-react": "^6.1.1",
+    "eslint-plugin-react": "^7.1.0",
     "jest": "^20.0.4",
+    "lint-staged": "^4.0.0",
+    "prettier": "^1.5.2",
     "webpack": "2.2.0-rc.1",
-    "webpack-node-externals": "^1.3.3"
+    "webpack-node-externals": "^1.3.3",
+    "xo": "^0.18.2"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack --watch",
     "tdd": "jest --watch",
     "test": "jest",
-    "prepublish": "npm run build"
+    "lint": "xo",
+    "precommit": "lint-staged"
+  },
+  "xo": {
+    "ignores": [
+      "examples/**/*",
+      "node_modules/**/*"
+    ],
+    "extends": "prettier",
+    "rules": {
+        "import/no-extraneous-dependencies": 0,
+        "import/no-unresolved": 0,
+        "no-unused-vars": 0,
+        "import/order": 1,
+        "no-warning-comments": 0,
+        "prefer-promise-reject-errors": 0,
+        "import/named": 1
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "prettier --single-quote --no-semi --write"
+    ]
   }
 }

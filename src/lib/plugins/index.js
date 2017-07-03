@@ -6,7 +6,17 @@ import Cpu from './cpu'
 import Network from './network'
 import Battery from './battery'
 import Time from './time'
-import Docker from './docker'
+// Import Docker from './docker'
 import Spotify from './spotify'
 
-export default [ Hostname, Ip, Memory, Uptime, Battery, Cpu, Network, Time, Docker, Spotify ]
+export default [
+  Hostname,
+  Ip,
+  Memory,
+  Uptime,
+  Battery,
+  Cpu,
+  Network,
+  Time,
+  Spotify
+]

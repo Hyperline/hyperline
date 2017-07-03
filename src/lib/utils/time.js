@@ -1,7 +1,7 @@
 import moment from 'moment'
 
-export function formatUptime(uptime) {
-  const uptimeInHours = Number((uptime/3600).toFixed(0));
+export default function formatUptime(uptime) {
+  const uptimeInHours = Number((uptime / 3600).toFixed(0))
 
   if (uptimeInHours === 0) {
     return '0h'
@@ -13,5 +13,5 @@ export function formatUptime(uptime) {
   const daysFormatted = days ? days + 'd' : ''
   const hoursFormatted = hours ? hours + 'h' : ''
 
-  return [ daysFormatted, hoursFormatted ].filter(Boolean).join(' ')
+  return [daysFormatted, hoursFormatted].filter(Boolean).join(' ')
 }

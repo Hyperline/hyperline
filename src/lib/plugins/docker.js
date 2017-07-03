@@ -86,7 +86,7 @@ function exec(command, options) {
   return new Promise((resolve, reject) => {
     ex(command, options, (err, stdout, stderr) => {
       if (err) {
-        reject(`${err}'\n'${stderr}`)
+        reject(`${err}\n${stderr}`)
       } else {
         resolve(stdout)
       }

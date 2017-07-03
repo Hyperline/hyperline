@@ -1,7 +1,7 @@
 import React from 'react'
 import Component from 'hyper/component'
-import SvgIcon from '../utils/SvgIcon'
-import moment from 'moment';
+import moment from 'moment'
+import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
   styles() {
@@ -15,14 +15,17 @@ class PluginIcon extends Component {
   template(css) {
     return (
       <SvgIcon>
-      <g fill="none" fillRule="evenodd">
-        <g className={css('time-icon')} transform="translate(1.000000, 1.000000)">
-          <g>
-            <path d="M0,0 L14,0 L14,14 L0,14 L0,0 Z M1,1 L13,1 L13,13 L1,13 L1,1 Z"></path>
-            <path d="M6,2 L7,2 L7,7 L6,7 L6,2 Z M6,7 L10,7 L10,8 L6,8 L6,7 Z"></path>
+        <g fill="none" fillRule="evenodd">
+          <g
+            className={css('time-icon')}
+            transform="translate(1.000000, 1.000000)"
+          >
+            <g>
+              <path d="M0,0 L14,0 L14,14 L0,14 L0,0 Z M1,1 L13,1 L13,13 L1,13 L1,1 Z" />
+              <path d="M6,2 L7,2 L7,7 L6,7 L6,2 Z M6,7 L10,7 L10,8 L6,8 L6,7 Z" />
+            </g>
           </g>
         </g>
-      </g>
       </SvgIcon>
     )
   }
@@ -48,7 +51,7 @@ export default class Time extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.interval)
   }
 
   getCurrentTime() {

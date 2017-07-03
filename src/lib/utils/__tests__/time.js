@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { formatUptime } from '../time'
+import { formatUptime } from './time'
 
 describe('time', () => {
   describe('formatUptime', () => {

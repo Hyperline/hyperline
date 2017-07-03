@@ -1,8 +1,8 @@
 import React from 'react'
 import Component from 'hyper/component'
 import { mem as memoryData } from 'systeminformation'
-import SvgIcon from '../utils/svg-icon'
 import leftPad from 'left-pad'
+import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
   styles() {

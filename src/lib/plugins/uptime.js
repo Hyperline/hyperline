@@ -1,8 +1,8 @@
+import os from 'os'
 import React from 'react'
 import Component from 'hyper/component'
-import { formatUptime } from '../utils/time'
+import formatUptime from '../utils/time'
 import SvgIcon from '../utils/svg-icon'
-import os from 'os'
 
 class PluginIcon extends Component {
   styles() {

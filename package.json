@@ -56,7 +56,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "webpack --watch",
-    "tdd": "jest --watch",
+    "tdev": "jest --watch",
     "test": "jest",
     "lint": "xo",
     "precommit": "lint-staged"
@@ -80,7 +80,8 @@
   "lint-staged": {
     "*.js": [
       "npm run lint",
-      "prettier --single-quote --no-semi --write"
+      "prettier --single-quote --no-semi --write",
+      "jest"
     ]
   }
 }

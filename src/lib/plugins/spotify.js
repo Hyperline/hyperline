@@ -101,7 +101,10 @@ export default class Spotify extends Component {
 
   template(css) {
     return (
-      <div className={css('wrapper')} onClick={this.handleSpotifyActivation.bind(this)}>
+      <div
+        className={css('wrapper')}
+        onClick={this.handleSpotifyActivation.bind(this)}
+      >
         <PluginIcon /> {this.state.state}
       </div>
     )

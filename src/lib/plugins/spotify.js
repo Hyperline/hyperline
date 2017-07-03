@@ -47,7 +47,6 @@ export default class Spotify extends Component {
     this.setStatus = this.setStatus.bind(this)
 
     this.handleSpotifyActivation = this.handleSpotifyActivation.bind(this)
-    this.printdbg = this.printdbg.bind(this)
   }
 
   setStatus() {
@@ -68,7 +67,7 @@ export default class Spotify extends Component {
     })
   }
 
-  /**
+  /*
     TODO: Make this work on Linux and Win 32/64
    */
   handleSpotifyActivation(e) {
@@ -79,10 +78,6 @@ export default class Spotify extends Component {
         spotify.openSpotify()
       }
     })
-  }
-
-  printdbg() {
-    console.log('Spotify button CLICKED')
   }
 
   componentDidMount() {
@@ -106,7 +101,7 @@ export default class Spotify extends Component {
 
   template(css) {
     return (
-      <div className={css('wrapper')} onClick={this.printdbg.bind(this)}>
+      <div className={css('wrapper')} onClick={this.handleSpotifyActivation.bind(this)}>
         <PluginIcon /> {this.state.state}
       </div>
     )

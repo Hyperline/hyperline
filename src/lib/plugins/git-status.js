@@ -54,7 +54,13 @@ export default class Git extends Component {
     git.isGit(__dirname, ex => {
       if (!ex) return
 
-      git.check(__dirname, (err, result) => {})
+      git.check(__dirname, (err, result) => {
+        console.log(result)
+
+        if (err) {
+          console.log(`Caught exception at git-status.js:53:3, error: \n${err}`)
+        }
+      })
     })
   }
 }

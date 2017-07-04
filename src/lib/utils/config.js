@@ -1,5 +1,5 @@
+// Import plugins from '../plugins'
 // import { colorExists } from './colors'
-// import plugins from '../plugins'
 // import notify from 'hyper/notify'
 //
 // function getPluginFromListByName(pluginList, name) {

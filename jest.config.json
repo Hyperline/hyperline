@@ -1,5 +1,5 @@
 {
-  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.js$",
+  "testRegex": "(/tests/.*|\\.(test|spec))\\.js$",
   "moduleFileExtensions": [ "js" ],
   "moduleDirectories": [ "node_modules" ]
 }

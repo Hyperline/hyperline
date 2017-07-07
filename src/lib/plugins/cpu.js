@@ -1,8 +1,8 @@
 import React from 'react'
 import Component from 'hyper/component'
-import SvgIcon from '../utils/svg-icon'
 import { currentLoad as cpuLoad } from 'systeminformation'
 import leftPad from 'left-pad'
+import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
   styles() {

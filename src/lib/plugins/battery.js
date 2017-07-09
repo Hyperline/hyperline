@@ -1,6 +1,10 @@
+/* eslint no-undef: 0 */
+// Note: This is to stop XO from complaining about {navigator}
+
 import React from 'react'
 import Component from 'hyper/component'
 import leftPad from 'left-pad'
+import navigator from 'Navigator'
 import BatteryIcon from './battery/battery-icon'
 
 export default class Battery extends Component {
@@ -32,7 +36,10 @@ export default class Battery extends Component {
   }
 
 
-
+  /**
+   * TODO: Find out what the [navigator] object was for.
+   *       It's making XO go ham
+   */
   componentDidMount() {
     navigator.getBattery().then(battery => {
       this.setBatteryStatus(battery)
@@ -43,6 +50,10 @@ export default class Battery extends Component {
     })
   }
 
+  /**
+   * TODO: Find out what the [navigator] object was for.
+   *       It's making XO go ham
+   */
   componentWillUnmount() {
     navigator.getBattery().then(battery => {
       this.batteryEvents.forEach(event => {

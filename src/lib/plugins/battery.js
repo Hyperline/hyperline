@@ -4,7 +4,6 @@
 import React from 'react'
 import Component from 'hyper/component'
 import leftPad from 'left-pad'
-import navigator from 'Navigator'
 import BatteryIcon from './battery/battery-icon'
 
 export default class Battery extends Component {

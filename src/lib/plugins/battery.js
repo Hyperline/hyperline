@@ -1,3 +1,6 @@
+/* eslint no-undef: 0 */
+// Note: This is to stop XO from complaining about {navigator}
+
 import React from 'react'
 import Component from 'hyper/component'
 import leftPad from 'left-pad'
@@ -30,7 +33,6 @@ export default class Battery extends Component {
   handleEvent(event) {
     this.setBatteryStatus(event.target)
   }
-
 
 
   componentDidMount() {

@@ -55,8 +55,18 @@ export default class Spotify extends Component {
         this.setState({ state: 'Not running' })
         return
       }
+      if (err) {
+        console.log(`Caught exception at setStatus(e): ${err}`)
+      }
       spotify.getState((err, st) => {
+        if (err) {
+          console.log(`Caught exception at spotify.getState(e): ${err}`)
+        }
+
         spotify.getTrack((err, track) => {
+          if (err) {
+            console.log(`Caught exception at spotify.getTrack(e): ${err}`)
+          }
           this.setState({
             state: `${st.state === 'playing'
               ? '▶'
@@ -76,6 +86,10 @@ export default class Spotify extends Component {
     spotify.isRunning((err, isRunning) => {
       if (!isRunning) {
         spotify.openSpotify()
+      }
+
+      if (err) {
+        console.log(`Caught exception at handleSpotifyActivation(e): ${err}`)
       }
     })
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import Component from 'hyper/component'
-import SvgIcon from '../../utils/SvgIcon'
+import SvgIcon from '../../utils/svg-icon'
 
 export default class Critical extends Component {
   styles() {

@@ -1,7 +1,7 @@
 import React from 'react'
 import Component from 'hyper/component'
-import SvgIcon from '../utils/svg-icon'
 import publicIp from 'public-ip'
+import SvgIcon from '../utils/svg-icon'
 
 function getIp() {
   return new Promise(resolve => {

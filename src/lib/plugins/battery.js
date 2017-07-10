@@ -1,7 +1,10 @@
+/* eslint no-undef: 0 */
+// Note: This is to stop XO from complaining about {navigator}
+
 import React from 'react'
 import Component from 'hyper/component'
-import BatteryIcon from './battery/battery-icon'
 import leftPad from 'left-pad'
+import BatteryIcon from './battery/battery-icon'
 
 export default class Battery extends Component {
   static displayName() {
@@ -30,7 +33,6 @@ export default class Battery extends Component {
   handleEvent(event) {
     this.setBatteryStatus(event.target)
   }
-
 
 
   componentDidMount() {

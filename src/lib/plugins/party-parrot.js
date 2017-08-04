@@ -11,8 +11,20 @@ export default class PartyParrot extends Component {
     super(props)
 
     this.state = {
-      isAnimating: true
+      isAnimating: false
     }
+  }
+
+  componentDidMount() {
+    this.setState({
+      isAnimating: true
+    })
+  }
+
+  componentWillUnmount() {
+    this.setState({
+      isAnimating: false
+    })
   }
 
   styles() {

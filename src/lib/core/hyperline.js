@@ -1,11 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Component from 'hyper/component'
 import decorate from 'hyper/decorate'
 
 class HyperLine extends Component {
   static propTypes() {
     return {
-      plugins: React.PropTypes.array.isRequired
+      plugins: PropTypes.array.isRequired
     }
   }
 
@@ -16,13 +17,13 @@ class HyperLine extends Component {
         alignItems: 'center',
         position: 'absolute',
         overflow: 'hidden',
-        bottom: 0,
+        bottom: '-1px',
         width: '100%',
         height: '18px',
         font: 'bold 10px Monospace',
         pointerEvents: 'none',
         background: 'rgba(0, 0, 0, 0.08)',
-        margin: '10px'
+        margin: '10px 10px 0 10px'
       },
       wrapper: {
         display: 'flex',

@@ -46,22 +46,20 @@ export default class Itunes extends Component {
 
   setStatus() {
     itunes.isRunning((err, isRunning) => {
-      console.log('is running iTunes');
-      this.setState({ state: isRunning ? 'Running' : 'Not running' });
+      if (!isRunning) {
+        this.setState({ state: 'Not running' });
+        return;
+      }
       if (err) {
         console.log(`Caught exception at setStatus(e): ${err}`);
       }
-      // spotify.getState((err, st) => {
-      //   if (err) {
-      //     console.log(`Caught exception at spotify.getState(e): ${err}`);
-      //   }
-      //   spotify.getTrack((err, track) => {
-      //     if (err) {
-      //       console.log(`Caught exception at spotify.getTrack(e): ${err}`);
-      //     }
-      //     this.setState({ state: `${st.state === 'playing' ? '▶' : '❚❚'} ${track.artist} - ${track.name}` });
-      //   });
-      // });
+
+      itunes.track((err, track) => {
+        if (err) {
+          console.log(`Caught exception at itunes.getTrack(e): ${err}`);
+        }
+        this.setState({ state: `▶ ${track[1]} - ${track[5]}` });
+      });
     });
   }
 

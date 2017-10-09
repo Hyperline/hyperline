@@ -54,11 +54,17 @@ export default class Itunes extends Component {
         console.log(`Caught exception at setStatus(e): ${err}`);
       }
 
-      itunes.track((err, track) => {
+      itunes.getState((err, state) => {
         if (err) {
-          console.log(`Caught exception at itunes.getTrack(e): ${err}`);
+          console.log(`Caught exception at itunes.getState(e): ${err}`);
         }
-        this.setState({ state: `▶ ${track[1]} - ${track[5]}` });
+
+        itunes.track((err, track) => {
+          if (err) {
+            console.log(`Caught exception at itunes.getTrack(e): ${err}`);
+          }
+          this.setState({ state: `${state === 'playing' ? '▶' : '❚❚'} ${track[1]} - ${track[5]}` });
+        });
       });
     });
   }

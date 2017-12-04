@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import HyperLine from './lib/core/hyperline'
 import { getColorList } from './lib/utils/colors'
 import hyperlinePlugins from './lib/plugins'

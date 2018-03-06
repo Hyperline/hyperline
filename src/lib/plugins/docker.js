@@ -34,7 +34,7 @@ class PluginIcon extends Component {
 
 export default class Docker extends Component {
   static displayName() {
-    return 'Docker plugin'
+    return 'docker'
   }
 
   constructor(props) {

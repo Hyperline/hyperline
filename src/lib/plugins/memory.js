@@ -43,7 +43,7 @@ class PluginIcon extends Component {
 
 export default class Memory extends Component {
   static displayName() {
-    return 'Memory plugin'
+    return 'memory'
   }
 
   constructor(props) {

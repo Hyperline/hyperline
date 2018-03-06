@@ -8,7 +8,7 @@ import BatteryIcon from './battery/battery-icon'
 
 export default class Battery extends Component {
   static displayName() {
-    return 'Battery plugin'
+    return 'battery'
   }
 
   constructor(props) {
@@ -33,7 +33,6 @@ export default class Battery extends Component {
   handleEvent(event) {
     this.setBatteryStatus(event.target)
   }
-
 
   componentDidMount() {
     navigator.getBattery().then(battery => {

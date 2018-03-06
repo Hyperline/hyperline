@@ -35,7 +35,7 @@ class PluginIcon extends Component {
 
 export default class Network extends Component {
   static displayName() {
-    return 'Network plugin'
+    return 'network'
   }
 
   constructor(props) {

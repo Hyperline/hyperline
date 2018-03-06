@@ -34,7 +34,7 @@ class PluginIcon extends Component {
 
 export default class Uptime extends Component {
   static displayName() {
-    return 'Uptime plugin'
+    return 'uptime'
   }
 
   constructor(props) {

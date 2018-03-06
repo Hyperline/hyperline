@@ -33,7 +33,7 @@ class PluginIcon extends Component {
 
 export default class Time extends Component {
   static displayName() {
-    return 'Time plugin'
+    return 'time'
   }
 
   constructor(props) {

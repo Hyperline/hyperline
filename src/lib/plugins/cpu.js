@@ -49,7 +49,7 @@ class PluginIcon extends Component {
 
 export default class Cpu extends Component {
   static displayName() {
-    return 'CPU plugin'
+    return 'cpu'
   }
 
   constructor(props) {

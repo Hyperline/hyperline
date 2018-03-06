@@ -8,6 +8,7 @@ export function reduceUI(state, { type, config }) {
   switch (type) {
     case 'CONFIG_LOAD':
     case 'CONFIG_RELOAD': {
+      console.log(config.hyperline)
       return state.set('hyperline', config.hyperline)
     }
     default:

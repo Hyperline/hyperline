@@ -23,6 +23,22 @@ plugins: [
 We implemented the same mechanism for styling/creating css classes that Hyper uses.
 This will allow you to create custom HyperLine themes the same way you would create a Hyper css theme.
 
+## Configuring plugins
+Add the names of plugins in the order in which you would like them to be displayed to your `~/.hyper.js`:
+
+```
+config: {                                                                      
+  hyperline: {                                                                 
+    plugins: [                                                                 
+      "ip",                                                                    
+      "cpu",                                                                   
+      "spotify"                                                                
+    ]                                                                          
+  },
+}
+```
+You can see a list of all available plugins in [`src/lib/plugins/index.js`](https://github.com/Hyperline/hyperline/blob/master/src/lib/plugins/index.js)
+
 ## Contributing
 
 Feel free to contribute to HyperLine by [requesting a feature](https://github.com/hyperline/hyperline/issues/new), [submitting a bug](https://github.com/hyperline/hyperline/issues/new) or contributing code.

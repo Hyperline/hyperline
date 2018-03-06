@@ -39,7 +39,7 @@ class PluginIcon extends Component {
 
 export default class Ip extends Component {
   static displayName() {
-    return 'IP Address plugin'
+    return 'ip'
   }
 
   constructor(props) {

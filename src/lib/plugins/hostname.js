@@ -30,7 +30,7 @@ class PluginIcon extends Component {
 
 export default class HostName extends Component {
   static displayName() {
-    return 'Hostname plugin'
+    return 'hostname'
   }
 
   styles() {

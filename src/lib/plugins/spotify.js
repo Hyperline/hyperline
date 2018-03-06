@@ -37,7 +37,7 @@ class PluginIcon extends Component {
 
 export default class Spotify extends Component {
   static displayName() {
-    return 'Spotify plugin'
+    return 'spotify'
   }
 
   constructor(props) {

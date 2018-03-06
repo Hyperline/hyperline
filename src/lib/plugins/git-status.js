@@ -31,7 +31,7 @@ let pullArrow
 
 export default class GitStatus extends Component {
   static displayName() {
-    return "Git status plugin"
+    return "git-status"
   }
 
   constructor(props) {

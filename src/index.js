@@ -8,7 +8,6 @@ export function reduceUI(state, { type, config }) {
   switch (type) {
     case 'CONFIG_LOAD':
     case 'CONFIG_RELOAD': {
-      console.log(config.hyperline)
       return state.set('hyperline', config.hyperline)
     }
     default:
@@ -33,6 +32,36 @@ export function mapHyperState({ ui: { colors, fontFamily, hyperline } }, map) {
   })
 }
 
+function pluginsByName(plugins) {
+  const dict = {}
+  plugins.forEach((plugin) => {
+    dict[plugin.displayName()] = plugin
+  })
+
+  return dict
+}
+
+function filterPluginsByConfig(plugins) {
+  const config = window.config.getConfig().hyperline
+  if (!config) return plugins
+
+  const userPluginNames = config.plugins
+  if (!userPluginNames) {
+    return plugins
+  }
+
+  plugins = pluginsByName(plugins)
+  const filtered = []
+
+  userPluginNames.forEach((name) => {
+    if (plugins.hasOwnProperty(name)) {
+      filtered.push(plugins[name])
+    }
+  })
+
+  return filtered
+}
+
 export function decorateHyperLine(HyperLine) {
   return class extends Component {
     static displayName() {
@@ -54,7 +83,7 @@ export function decorateHyperLine(HyperLine) {
     render() {
       const plugins = [...this.props.plugins, ...hyperlinePlugins]
 
-      return <HyperLine {...this.props} plugins={plugins} />
+      return <HyperLine {...this.props} plugins={filterPluginsByConfig(plugins)} />
     }
   }
 }

@@ -19,9 +19,17 @@ export function reduceUI(state, { type, config }) {
 }
 
 export function mapHyperState({ ui: { colors, fontFamily, hyperline } }, map) {
+  let userPlugins = []
+  if (hyperline !== undefined) {
+    if (hyperline.plugins !== undefined) {
+      userPlugins = hyperline.plugins
+    }
+  }
+
   return Object.assign({}, map, {
     colors: getColorList(colors),
-    fontFamily
+    fontFamily,
+    userPlugins
   })
 }
 

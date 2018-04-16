@@ -10,20 +10,12 @@ function getIp() {
 }
 
 class PluginIcon extends Component {
-  styles() {
-    return {
-      'ip-icon': {
-        fill: '#fff'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
           <g
-            className={css('ip-icon')}
+            className="ip-icon"
             transform="translate(1.000000, 1.000000)"
           >
             <path
@@ -32,6 +24,11 @@ class PluginIcon extends Component {
             />
           </g>
         </g>
+        <style jsx>{`
+          .ip-icon {
+            fill: #fff;
+          }
+        `}</style>
       </SvgIcon>
     )
   }
@@ -66,19 +63,17 @@ export default class Ip extends Component {
     clearInterval(this.interval)
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
-      <div className={css('wrapper')}>
+      <div className='wrapper'>
         <PluginIcon /> {this.state.ip}
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+          }
+        `}</style>
       </div>
     )
   }

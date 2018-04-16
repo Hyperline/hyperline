@@ -4,21 +4,13 @@ import { networkStats } from 'systeminformation'
 import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
-  styles() {
-    return {
-      'network-icon': {
-        fill: '#fff'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
           <g fill="none" fillRule="evenodd">
             <g
-              className={css('network-icon')}
+              className='network-icon'
               transform="translate(1.000000, 1.000000)"
             >
               <g>
@@ -28,6 +20,12 @@ class PluginIcon extends Component {
             </g>
           </g>
         </g>
+
+        <style jsx>{`
+          .network-icon {
+            fill: #fff;
+          }
+        `}</style>
       </SvgIcon>
     )
   }
@@ -69,20 +67,18 @@ export default class Network extends Component {
     )
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     const { download, upload } = this.state
     return (
-      <div className={css('wrapper')}>
+      <div className='wrapper'>
         <PluginIcon /> {download}kB/s {upload}kB/s
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+          }
+        `}</style>
       </div>
     )
   }

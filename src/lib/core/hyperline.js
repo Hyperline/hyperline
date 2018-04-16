@@ -10,41 +10,40 @@ class HyperLine extends Component {
     }
   }
 
-  styles() {
-    return {
-      line: {
-        display: 'flex',
-        alignItems: 'center',
-        position: 'absolute',
-        overflow: 'hidden',
-        bottom: '-1px',
-        width: '100%',
-        height: '18px',
-        font: 'bold 10px Monospace',
-        pointerEvents: 'none',
-        background: 'rgba(0, 0, 0, 0.08)',
-        margin: '10px 0',
-        padding: '0 10px',
-      },
-      wrapper: {
-        display: 'flex',
-        flexShrink: '0',
-        alignItems: 'center',
-        paddingLeft: '10px',
-        paddingRight: '10px'
-      }
-    }
-  }
-  template(css) {
-    const { plugins } = this.props
+  render() {
+    const { plugins, ...props } = this.props
 
     return (
-      <div className={css('line')} {...this.props}>
+      <div className="line" {...props}>
         {plugins.map((Component, index) => (
-          <div key={index} className={css('wrapper')}>
+          <div key={index} className="wrapper">
             <Component />
           </div>
         ))}
+
+        <style jsx>{`
+          .line {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            overflow: hidden;
+            bottom: -1px;
+            width: 100%;
+            height: 18px;
+            font: bold 10px Monospace;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.08);
+            margin: 10px 0;
+            padding: 0 10px;
+          },
+          .wrapper {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+        `}</style>
       </div>
     )
   }

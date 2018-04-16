@@ -5,20 +5,12 @@ import leftPad from 'left-pad'
 import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
-  styles() {
-    return {
-      'cpu-icon': {
-        fill: '#fff'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
           <g
-            className={css('cpu-icon')}
+            className='cpu-icon'
             transform="translate(1.000000, 1.000000)"
           >
             <g>
@@ -42,6 +34,12 @@ class PluginIcon extends Component {
             </g>
           </g>
         </g>
+
+        <style jsx>{`
+          .cpu-icon {
+            fill: #fff;
+          }
+        `}</style>
       </SvgIcon>
     )
   }
@@ -77,19 +75,17 @@ export default class Cpu extends Component {
     clearInterval(this.interval)
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
-      <div className={css('wrapper')}>
+      <div className='wrapper'>
         <PluginIcon /> {this.state.cpuLoad}
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+          }
+        `}</style>
       </div>
     )
   }

@@ -9,20 +9,18 @@ export default class SvgIcon extends Component {
     }
   }
 
-  styles() {
-    return {
-      icon: {
-        marginRight: '7px',
-        width: '16px',
-        height: '16px'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
-      <svg className={css('icon')} xmlns="http://www.w3.org/2000/svg">
+      <svg className="icon" xmlns="http://www.w3.org/2000/svg">
         {this.props.children}
+
+        <style jsx>{`
+          .icon {
+            margin-right: 7px;
+            width: 16px;
+            height: 16px;
+          }
+        `}</style>
       </svg>
     )
   }

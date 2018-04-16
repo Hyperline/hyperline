@@ -5,19 +5,11 @@ import leftPad from 'left-pad'
 import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
-  styles() {
-    return {
-      'memory-icon': {
-        fill: '#fff'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
-          <g className={css('memory-icon')}>
+          <g className='memory-icon'>
             <g id="memory" transform="translate(1.000000, 1.000000)">
               <path d="M3,0 L11,0 L11,14 L3,14 L3,0 Z M4,1 L10,1 L10,13 L4,13 L4,1 Z" />
               <rect x="5" y="2" width="4" height="10" />
@@ -36,6 +28,13 @@ class PluginIcon extends Component {
             </g>
           </g>
         </g>
+
+        <style jsx>{`
+          .memory-icon {
+            fill: #fff;
+          }
+        `}</style>
+
       </SvgIcon>
     )
   }
@@ -89,19 +88,17 @@ export default class Memory extends Component {
     return (bytes / 1048576).toFixed(0)
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
-      <div className={css('wrapper')}>
+      <div className='wrapper'>
         <PluginIcon /> {this.state.activeMemory}MB / {this.state.totalMemory}MB
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+          }
+        `}</style>
       </div>
     )
   }

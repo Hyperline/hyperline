@@ -4,20 +4,12 @@ import moment from 'moment'
 import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
-  styles() {
-    return {
-      'time-icon': {
-        fill: '#fff'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
           <g
-            className={css('time-icon')}
+            className='time-icon'
             transform="translate(1.000000, 1.000000)"
           >
             <g>
@@ -26,6 +18,12 @@ class PluginIcon extends Component {
             </g>
           </g>
         </g>
+
+        <style jsx>{`
+          .time-icon {
+            fill: #fff;
+          }
+        `}</style>
       </SvgIcon>
     )
   }
@@ -59,19 +57,17 @@ export default class Time extends Component {
     return moment().format('LTS')
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
-      <div className={css('wrapper')}>
+      <div className='wrapper'>
         <PluginIcon /> {this.state.time}
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+          }
+        `}</style>
       </div>
     )
   }

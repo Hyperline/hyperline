@@ -33,7 +33,7 @@ class HyperLine extends Component {
             font: bold 10px Monospace;
             pointer-events: none;
             background: rgba(0, 0, 0, 0.08);
-            margin: 10px 0;
+            margin: 2px 0;
             padding: 0 10px;
           },
           .wrapper {

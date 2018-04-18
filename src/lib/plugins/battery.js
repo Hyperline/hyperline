@@ -57,7 +57,7 @@ export default class Battery extends Component {
 
     return (
       <div className='wrapper'>
-        <BatteryIcon charging={charging} percentage={percentage} /> {leftPad(percentage, 2, 0)}%
+        <BatteryIcon charging={charging} percentage={Number(percentage)} /> {leftPad(percentage, 2, 0)}%
 
         <style jsx>{`
           .wrapper {

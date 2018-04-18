@@ -27,7 +27,7 @@ class HyperLine extends Component {
             align-items: center;
             position: absolute;
             overflow: hidden;
-            bottom: -1px;
+            bottom: 0;
             width: 100%;
             height: 18px;
             font: bold 10px Monospace;

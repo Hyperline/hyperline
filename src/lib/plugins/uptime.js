@@ -5,20 +5,12 @@ import formatUptime from '../utils/time'
 import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
-  styles() {
-    return {
-      'uptime-icon': {
-        fill: '#fff'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
           <g
-            className={css('uptime-icon')}
+            className='uptime-icon'
             transform="translate(1.000000, 1.000000)"
           >
             <g>
@@ -27,6 +19,12 @@ class PluginIcon extends Component {
             </g>
           </g>
         </g>
+
+        <style jsx>{`
+          .uptime-icon {
+            fill: #fff;
+          }
+        `}</style>
       </SvgIcon>
     )
   }
@@ -55,19 +53,17 @@ export default class Uptime extends Component {
     return formatUptime(os.uptime())
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center'
-      }
-    }
-  }
-
   template(css) {
     return (
-      <div className={css('wrapper')}>
+      <div className='wrapper'>
         <PluginIcon /> {this.state.uptime}
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+          }
+        `}</style>
       </div>
     )
   }

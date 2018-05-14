@@ -4,21 +4,13 @@ import Component from 'hyper/component'
 import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
-  styles() {
-    return {
-      'network-icon': {
-        fill: '#73abff'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
           <g fill="none" fillRule="evenodd">
             <g
-              className={css('network-icon')}
+              className='network-icon'
               transform="translate(1.000000, 1.000000)"
             >
               <g>
@@ -27,6 +19,12 @@ class PluginIcon extends Component {
             </g>
           </g>
         </g>
+
+        <style jsx>{`
+          .network-icon {
+            fill: #73abff;
+          }
+        `}</style>
       </SvgIcon>
     )
   }
@@ -63,20 +61,18 @@ export default class Docker extends Component {
     clearInterval(this.interval)
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center',
-        color: '#73abff'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
-      <div className={css('wrapper')}>
+      <div className='wrapper'>
         <PluginIcon /> {this.state.version}
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+            color: #73abff;
+          }
+        `}</style>
       </div>
     )
   }

@@ -4,21 +4,13 @@ import spotify from 'spotify-node-applescript'
 import SvgIcon from '../utils/svg-icon'
 
 class PluginIcon extends Component {
-  styles() {
-    return {
-      'spotify-icon': {
-        fill: '#1ED760'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
           <g fill="none" fillRule="evenodd">
             <g
-              className={css('spotify-icon')}
+              className='spotify-icon'
               transform="translate(1.000000, 1.000000)"
             >
               <g>
@@ -30,6 +22,12 @@ class PluginIcon extends Component {
             </g>
           </g>
         </g>
+
+        <style jsx>{`
+          .spotify-icon {
+            fill: #1ED760;
+          }
+        `}</style>
       </SvgIcon>
     )
   }
@@ -103,23 +101,21 @@ export default class Spotify extends Component {
     clearInterval(this.interval)
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center',
-        color: '#1ED760'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     return (
       <div
-        className={css('wrapper')}
+        className='wrapper'
         onClick={this.handleSpotifyActivation.bind(this)}
       >
         <PluginIcon /> {this.state.state}
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+            color: #1ED760;
+          }
+        `}</style>
       </div>
     )
   }

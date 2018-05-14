@@ -52,21 +52,19 @@ export default class Battery extends Component {
     })
   }
 
-  styles() {
-    return {
-      wrapper: {
-        display: 'flex',
-        alignItems: 'center'
-      }
-    }
-  }
-
-  template(css) {
+  render() {
     const { charging, percentage } = this.state
 
     return (
-      <div className={css('wrapper')}>
-        <BatteryIcon charging={charging} percentage={percentage} /> {leftPad(percentage, 2, 0)}%
+      <div className='wrapper'>
+        <BatteryIcon charging={charging} percentage={Number(percentage)} /> {leftPad(percentage, 2, 0)}%
+
+        <style jsx>{`
+          .wrapper {
+            display: flex;
+            align-items: center;
+          }
+        `}</style>
       </div>
     )
   }

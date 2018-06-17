@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Component from 'hyper/component'
 import SvgIcon from '../../utils/svg-icon'
 
 export default class Draining extends Component {

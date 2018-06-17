@@ -1,5 +1,4 @@
-import React from 'react'
-import Component from 'hyper/component'
+import React, { Component } from 'react'
 import { currentLoad as cpuLoad } from 'systeminformation'
 import leftPad from 'left-pad'
 import SvgIcon from '../utils/svg-icon'

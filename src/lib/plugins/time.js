@@ -1,5 +1,4 @@
-import React from 'react'
-import Component from 'hyper/component'
+import React, { Component } from 'react'
 import moment from 'moment'
 import SvgIcon from '../utils/svg-icon'
 

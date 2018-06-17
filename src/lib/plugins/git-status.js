@@ -1,7 +1,6 @@
 import exec from 'child_process'
 import shell from 'electron'
-import React from 'react'
-import Component from 'hyper/component'
+import React, { Component } from 'react'
 
 
 /*

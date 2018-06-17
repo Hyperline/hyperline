@@ -1,8 +1,7 @@
 /* eslint no-undef: 0 */
 // Note: This is to stop XO from complaining about {navigator}
 
-import React from 'react'
-import Component from 'hyper/component'
+import React, { Component } from 'react'
 import leftPad from 'left-pad'
 import BatteryIcon from './battery/battery-icon'
 

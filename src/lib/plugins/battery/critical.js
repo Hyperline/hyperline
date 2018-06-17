@@ -1,5 +1,4 @@
-import React from 'react'
-import Component from 'hyper/component'
+import React, { Component } from 'react'
 import SvgIcon from '../../utils/svg-icon'
 
 export default class Critical extends Component {

@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Component from 'hyper/component'
 
 export default class SvgIcon extends Component {
   static propTypes() {

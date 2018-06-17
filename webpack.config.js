@@ -10,7 +10,7 @@ module.exports = {
     libraryTarget: 'commonjs'
   },
   plugins: [ new webpack.DefinePlugin({ 'global.GENTLY': false }) ],
-  externals: [ nodeExternals(), 'hyper/component', 'hyper/notify', 'hyper/decorate', 'react' ],
+  externals: [ nodeExternals(), 'hyper/notify', 'hyper/decorate', 'react' ],
   module: {
     rules: [
       {

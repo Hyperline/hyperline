@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Component from 'hyper/component'
 import decorate from 'hyper/decorate'
 
 class HyperLine extends Component {

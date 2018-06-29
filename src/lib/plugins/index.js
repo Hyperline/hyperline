@@ -7,6 +7,7 @@ import network from './network'
 import battery from './battery'
 // Import Time from './time'
 // Import Docker from './docker'
+import kubernetes from "./kubernetes"
 import spotify from './spotify'
 
-export default [hostname, ip, memory, battery, cpu, network, spotify]
+export default [hostname, ip, memory, battery, cpu, network, kubernetes, spotify]

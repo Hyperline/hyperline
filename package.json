@@ -33,7 +33,7 @@
     "moment": "^2.18.1",
     "opencollective": "^1.0.3",
     "prop-types": "^15.5.10",
-    "public-ip": "^2.0.1",
+    "public-ip": "^2.4.0",
     "spotify-node-applescript": "^1.1.0",
     "styled-jsx": "2.2.6",
     "systeminformation": "^3.4.1"

@@ -1,12 +1,14 @@
 import hostname from './hostname'
 import ip from './ip'
 import memory from './memory'
-// Import Uptime from './uptime'
+import uptime from './uptime'
 import cpu from './cpu'
 import network from './network'
 import battery from './battery'
-// Import Time from './time'
-// Import Docker from './docker'
+import time from './time'
+import docker from './docker'
 import spotify from './spotify'
+// import gitStatus from './git-status'
 
-export default [hostname, ip, memory, battery, cpu, network, spotify]
+export const defaultPlugins = [hostname, ip, memory, battery, cpu, network, spotify]
+export const allPlugins = [hostname, ip, memory, battery, cpu, network, spotify, time, uptime, docker]

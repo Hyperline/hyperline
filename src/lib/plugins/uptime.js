@@ -53,7 +53,7 @@ export default class Uptime extends Component {
     return formatUptime(os.uptime())
   }
 
-  template(css) {
+  render() {
     return (
       <div className='wrapper'>
         <PluginIcon /> {this.state.uptime}

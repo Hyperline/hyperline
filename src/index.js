@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import HyperLine from './lib/core/hyperline'
 import { getColorList } from './lib/utils/colors'
-import hyperlinePlugins from './lib/plugins'
+import { allPlugins, defaultPlugins } from './lib/plugins'
 
 export function reduceUI(state, { type, config }) {
   switch (type) {
@@ -50,7 +50,7 @@ function filterPluginsByConfig(plugins) {
     return plugins
   }
 
-  plugins = pluginsByName(plugins)
+  plugins = pluginsByName(allPlugins)
   const filtered = []
 
   userPluginNames.forEach((name) => {
@@ -81,7 +81,7 @@ export function decorateHyperLine(HyperLine) {
     }
 
     render() {
-      const plugins = [...this.props.plugins, ...hyperlinePlugins]
+      const plugins = [...this.props.plugins, ...defaultPlugins]
 
       return <HyperLine {...this.props} plugins={filterPluginsByConfig(plugins)} />
     }

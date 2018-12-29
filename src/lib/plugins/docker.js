@@ -1,9 +1,8 @@
 import { exec as ex } from 'child_process'
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import SvgIcon from '../utils/svg-icon'
 
-class PluginIcon extends Component {
+class PluginIcon extends PureComponent {
   render() {
     return (
       <SvgIcon>
@@ -30,7 +29,7 @@ class PluginIcon extends Component {
   }
 }
 
-export default class Docker extends Component {
+export default class Docker extends PureComponent {
   static displayName() {
     return 'docker'
   }

@@ -1,9 +1,8 @@
-import React from 'react'
+import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Component from 'hyper/component'
 import decorate from 'hyper/decorate'
 
-class HyperLine extends Component {
+class HyperLine extends PureComponent {
   static propTypes() {
     return {
       plugins: PropTypes.array.isRequired

@@ -1,9 +1,8 @@
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import spotify from 'spotify-node-applescript'
 import SvgIcon from '../utils/svg-icon'
 
-class PluginIcon extends Component {
+class PluginIcon extends PureComponent {
   render() {
     return (
       <SvgIcon>
@@ -33,7 +32,7 @@ class PluginIcon extends Component {
   }
 }
 
-export default class Spotify extends Component {
+export default class Spotify extends PureComponent {
   static displayName() {
     return 'spotify'
   }

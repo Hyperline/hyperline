@@ -1,10 +1,9 @@
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import { mem as memoryData } from 'systeminformation'
 import leftPad from 'left-pad'
 import SvgIcon from '../utils/svg-icon'
 
-class PluginIcon extends Component {
+class PluginIcon extends PureComponent {
   render() {
     return (
       <SvgIcon>
@@ -40,7 +39,7 @@ class PluginIcon extends Component {
   }
 }
 
-export default class Memory extends Component {
+export default class Memory extends PureComponent {
   static displayName() {
     return 'memory'
   }

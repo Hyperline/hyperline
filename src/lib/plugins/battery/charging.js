@@ -1,8 +1,7 @@
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import SvgIcon from '../../utils/svg-icon'
 
-export default class Charging extends Component {
+export default class Charging extends PureComponent {
   render() {
     return (
       <SvgIcon>

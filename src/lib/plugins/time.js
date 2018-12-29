@@ -1,9 +1,8 @@
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import moment from 'moment'
 import SvgIcon from '../utils/svg-icon'
 
-class PluginIcon extends Component {
+class PluginIcon extends PureComponent {
   render() {
     return (
       <SvgIcon>
@@ -29,7 +28,7 @@ class PluginIcon extends Component {
   }
 }
 
-export default class Time extends Component {
+export default class Time extends PureComponent {
   static displayName() {
     return 'time'
   }

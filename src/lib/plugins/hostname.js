@@ -1,11 +1,10 @@
 import os from 'os'
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import SvgIcon from '../utils/svg-icon'
 
-class PluginIcon extends Component {
+class PluginIcon extends PureComponent {
   render() {
-    
+
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
@@ -27,7 +26,7 @@ class PluginIcon extends Component {
   }
 }
 
-export default class HostName extends Component {
+export default class HostName extends PureComponent {
   static displayName() {
     return 'hostname'
   }

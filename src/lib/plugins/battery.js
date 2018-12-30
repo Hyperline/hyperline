@@ -1,12 +1,11 @@
 /* eslint no-undef: 0 */
 // Note: This is to stop XO from complaining about {navigator}
 
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import leftPad from 'left-pad'
 import BatteryIcon from './battery/battery-icon'
 
-export default class Battery extends Component {
+export default class Battery extends PureComponent {
   static displayName() {
     return 'battery'
   }

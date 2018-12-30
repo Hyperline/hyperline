@@ -1,9 +1,8 @@
-import React from 'react'
+import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import Component from 'hyper/component'
 import SvgIcon from '../../utils/svg-icon'
 
-export default class Draining extends Component {
+export default class Draining extends PureComponent {
   static propTypes() {
     return {
       percentage: PropTypes.number

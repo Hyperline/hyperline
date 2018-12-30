@@ -1,5 +1,4 @@
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import publicIp from 'public-ip'
 import SvgIcon from '../utils/svg-icon'
 
@@ -9,7 +8,7 @@ function getIp() {
   })
 }
 
-class PluginIcon extends Component {
+class PluginIcon extends PureComponent {
   render() {
     return (
       <SvgIcon>
@@ -34,7 +33,7 @@ class PluginIcon extends Component {
   }
 }
 
-export default class Ip extends Component {
+export default class Ip extends PureComponent {
   static displayName() {
     return 'ip'
   }

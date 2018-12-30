@@ -1,10 +1,9 @@
 import os from 'os'
-import React from 'react'
-import Component from 'hyper/component'
+import { PureComponent } from 'react'
 import formatUptime from '../utils/time'
 import SvgIcon from '../utils/svg-icon'
 
-class PluginIcon extends Component {
+class PluginIcon extends PureComponent {
   render() {
     return (
       <SvgIcon>
@@ -30,7 +29,7 @@ class PluginIcon extends Component {
   }
 }
 
-export default class Uptime extends Component {
+export default class Uptime extends PureComponent {
   static displayName() {
     return 'uptime'
   }

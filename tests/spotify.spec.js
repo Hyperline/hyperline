@@ -2,7 +2,7 @@
 import spotify from 'spotify-node-applescript'
 
 describe('spotify', () => {
-  it('should open spotify', () => {
-    expect(spotify.openSpotify()).toBeUndefined()
+  it('spotify should play music', () => {
+    expect(spotify.play()).toBeUndefined()
   })
 })

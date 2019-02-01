@@ -34,7 +34,7 @@ export default class HostName extends Component {
 
   render() {
     const hostname = os.hostname()
-    const username = process.env.USER
+    const username = os.userInfo().username
 
     return (
       <div className="wrapper">

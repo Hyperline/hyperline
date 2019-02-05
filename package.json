@@ -27,6 +27,7 @@
   ],
   "dependencies": {
     "color": "^0.11.3",
+    "execa": "1.0.0",
     "git-state": "^4.0.0",
     "json-loader": "^0.5.4",
     "left-pad": "^1.1.3",

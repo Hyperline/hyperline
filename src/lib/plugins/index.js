@@ -8,5 +8,6 @@ import battery from './battery'
 // Import Time from './time'
 // Import Docker from './docker'
 import spotify from './spotify'
+import now from './now'
 
-export default [hostname, ip, memory, battery, cpu, network, spotify]
+export default [hostname, ip, memory, battery, cpu, network, spotify, now]

@@ -44,16 +44,20 @@ export default class Uptime extends Component {
   }
 
   componentDidMount() {
-    const uptime = this.getUptime()
-    // Recheck every 5 minutes
-    setInterval(() => this.setState({ uptime }), 60000 * 5)
+    this.interval = setInterval(() => {
+      this.setState({ uptime: this.getUptime() })
+    }, 60000 * 5)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
 
   getUptime() {
     return formatUptime(os.uptime())
   }
 
-  template(css) {
+  render() {
     return (
       <div className='wrapper'>
         <PluginIcon /> {this.state.uptime}

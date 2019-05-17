@@ -59,5 +59,5 @@ To set up the project for development:
 
 ## Contributors
 
-This project exists thanks to all the people who contribute.
-<a href="graphs/contributors"><img src="https://opencollective.com/hyperline/contributors.svg?width=890" /></a>
+Thanks to all the <a href="https://github.com/Hyperline/hyperline/graphs/contributors">people who contribute</a>, this project exists because of you. 
+<a href="https://opencollective.com/hyperline"><img src="https://opencollective.com/hyperline/contributors.svg?width=890" /></a>

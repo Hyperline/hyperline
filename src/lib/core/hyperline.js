@@ -35,6 +35,7 @@ class HyperLine extends Component {
             user-select: none;
             background: rgba(0, 0, 0, 0.08);
             margin: 2px 0;
+            margin-left: -12px;
             padding: 0 10px;
           },
           .wrapper {

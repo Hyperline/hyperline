@@ -2,10 +2,19 @@ import os from 'os'
 import React from 'react'
 import Component from 'hyper/component'
 import SvgIcon from '../utils/svg-icon'
+import { writeSync as writeClipboard } from 'clipboardy'
+
+function getUsername() {
+    return process.env.USER;
+}
+
+function getHostname() {
+    return os.hostname();
+}
 
 class PluginIcon extends Component {
   render() {
-    
+
     return (
       <SvgIcon>
         <g fill="none" fillRule="evenodd">
@@ -32,12 +41,23 @@ export default class HostName extends Component {
     return 'hostname'
   }
 
+  constructor(props) {
+      super(props);
+      this.copyHostname = this.copyHostname.bind(this);
+  }
+
+  copyHostname() {
+      const hostname = getHostname()
+      writeClipboard(hostname);
+      this.props.notify('Hyperline', 'Copied "' + hostname + '" to your clipboard.')
+  }
+
   render() {
-    const hostname = os.hostname()
-    const username = process.env.USER
+    const hostname = getHostname()
+    const username = getUsername()
 
     return (
-      <div className="wrapper">
+      <div className="wrapper" onClick={this.copyHostname}>
         <PluginIcon /> <span>{username}@</span>
         {hostname}
 

@@ -2,6 +2,7 @@ import React from 'react'
 import Component from 'hyper/component'
 import publicIp from 'public-ip'
 import SvgIcon from '../utils/svg-icon'
+import { writeSync as writeClipboard } from 'clipboardy'
 
 function getIp() {
   return new Promise(resolve => {
@@ -47,10 +48,16 @@ export default class Ip extends Component {
     }
 
     this.setIp = this.setIp.bind(this)
+    this.copyIp = this.copyIp.bind(this)
   }
 
   setIp() {
     getIp().then(ip => this.setState({ ip }))
+  }
+
+  copyIp() {
+    writeClipboard(this.state.ip)
+    this.props.notify('Hyperline', 'Copied "' + this.state.ip + '" to your clipboard.')
   }
 
   componentDidMount() {
@@ -65,7 +72,7 @@ export default class Ip extends Component {
 
   render() {
     return (
-      <div className='wrapper'>
+      <div className='wrapper' onClick={this.copyIp}>
         <PluginIcon /> {this.state.ip}
 
         <style jsx>{`

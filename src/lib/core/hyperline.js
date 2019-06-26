@@ -32,7 +32,7 @@ class HyperLine extends Component {
             width: 100%;
             height: 18px;
             font: bold 10px Monospace;
-            pointer-events: none;
+            user-select: none;
             background: rgba(0, 0, 0, 0.08);
             margin: 2px 0;
             padding: 0 10px;

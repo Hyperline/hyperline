@@ -6,18 +6,19 @@ import decorate from 'hyper/decorate'
 class HyperLine extends Component {
   static propTypes() {
     return {
-      plugins: PropTypes.array.isRequired
+      plugins: PropTypes.array.isRequired,
+      notify: PropTypes.func
     }
   }
 
   render() {
-    const { plugins, ...props } = this.props
+    const { plugins, notify, ...props } = this.props
 
     return (
       <div className="line" {...props}>
         {plugins.map((Component, index) => (
           <div key={index} className="wrapper">
-            <Component />
+            <Component notify={notify} />
           </div>
         ))}
 

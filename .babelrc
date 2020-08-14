@@ -1,17 +1,14 @@
 {
-  "presets": ["react"],
+  "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+  ],
   "plugins": [
-    [
-      "styled-jsx/babel",
-      {
-        "vendorPrefixes": false
-      }
-    ],
-    "transform-object-rest-spread"
+      "@babel/plugin-proposal-object-rest-spread"
   ],
   "env": {
     "test": {
-      "presets": ["es2015"]
+      "presets": ["env"]
     }
   }
 }
